@@ -7,21 +7,11 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
+use Spatie\Permission\Traits\HasRoles;
 
 class User extends Authenticatable implements MustVerifyEmail
 {
-    use HasApiTokens, HasFactory, Notifiable;
-
-    /**
-     * The attributes that are mass assignable.
-     *
-     * @var array<int, string>
-     */
-    protected $fillable = [
-        'name',
-        'email',
-        'password',
-    ];
+    use HasApiTokens, HasFactory, Notifiable, HasRoles;
 
     /**
      * The attributes that should be hidden for serialization.
@@ -42,4 +32,12 @@ class User extends Authenticatable implements MustVerifyEmail
         'email_verified_at' => 'datetime',
         'password' => 'hashed',
     ];
+
+    public function getFullNameAttribute() {
+        return "{$this->personal_informations->first_name} {$this->personal_informations->last_name}";
+    }
+
+    public function personal_informations() {
+        return $this->hasOne(PtPersonalInformation::class);
+    }
 }
