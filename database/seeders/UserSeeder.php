@@ -19,7 +19,7 @@ class UserSeeder extends Seeder
              'password' => bcrypt('password')
          ]);
          $user->assignRole('admin');
-         $user->personal_informations()->create([
+         $user->informations()->create([
              'first_name' => 'Admin',
          ]);
     }

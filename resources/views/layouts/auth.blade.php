@@ -16,8 +16,11 @@
         @livewireStyles
     </head>
     <body class="font-sans text-gray-900 antialiased">
-        <div class="min-h-screen flex flex-col sm:justify-center items-center bg-gradient-to-b from-pink-500 to-purple-500">
-            <div class="w-full sm:max-w-md bg-white shadow-md overflow-hidden sm:rounded-md">
+        <div class="relative min-h-screen flex flex-col sm:justify-center items-center">
+            <div class="absolute inset-0 z-10 bg-gradient-to-b from-[#F72585] to-[#3A0CA3] opacity-60"></div>
+            <img class="hidden lg:block aspect-[3/2] w-full bg-gray-50 object-cover lg:absolute lg:inset-0 lg:aspect-auto lg:h-full"
+                 src="https://images.unsplash.com/photo-1594381898411-846e7d193883?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=987&q=80" alt="">
+            <div class="z-10 w-full sm:max-w-md bg-white shadow-md overflow-hidden sm:rounded-md">
                 {{ $slot }}
             </div>
         </div>

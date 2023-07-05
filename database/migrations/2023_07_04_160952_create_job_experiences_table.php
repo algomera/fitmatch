@@ -11,14 +11,15 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('pt_personal_information', function (Blueprint $table) {
+        Schema::create('job_experiences', function (Blueprint $table) {
             $table->id();
             $table->foreignIdFor(\App\Models\User::class, 'user_id');
-            $table->string('first_name');
-            $table->string('last_name')->nullable();
-            $table->date('dob')->nullable();
-            $table->string('phone')->nullable();
+            $table->string('title')->nullable();
+            $table->string('company')->nullable();
             $table->string('city')->nullable();
+            $table->date('start_date')->nullable();
+            $table->date('end_date')->nullable();
+            $table->text('description')->nullable();
         });
     }
 
@@ -27,6 +28,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('pt_personal_information');
+        Schema::dropIfExists('job_experiences');
     }
 };
