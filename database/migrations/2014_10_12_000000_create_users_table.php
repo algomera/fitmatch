@@ -27,8 +27,8 @@
                 $table->boolean('onboarding_step_9')->default(false);
                 $table->boolean('onboarding_step_10')->default(false);
                 $table->boolean('onboarding_step_11')->default(false);
-                $table->boolean('onboarding_step_12')->default(false);
-                $table->boolean('accepted')->default(false);
+//                $table->boolean('onboarding_step_12')->default(false);
+                $table->boolean('accepted')->nullable();
                 $table->timestamps();
             });
         }

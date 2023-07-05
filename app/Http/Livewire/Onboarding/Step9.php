@@ -17,10 +17,9 @@ class Step9 extends Component
 
     public function mount()
     {
-        // TODO: Creare Step 10 e decommentare
-//            if(auth()->user()->onboarding_step_9) {
-//                return redirect()->route('onboarding.step-10');
-//            }
+        if (auth()->user()->onboarding_step_9) {
+            return redirect()->route('onboarding.step-10');
+        }
         $this->user_informations = auth()->user()->informations;
     }
 

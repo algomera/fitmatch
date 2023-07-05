@@ -50,7 +50,7 @@ class OnboardingIsCompleted
         if(!$user->onboarding_step_11) {
             return redirect()->route('onboarding.step-11');
         }
-        if(!$user->onboarding_step_12) {
+        if(!$user->accepted) {
             return redirect()->route('onboarding.step-12');
         }
 

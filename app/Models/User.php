@@ -48,4 +48,12 @@ class User extends Authenticatable implements MustVerifyEmail
     public function specializations() {
         return $this->hasMany(Specializations::class);
     }
+
+    public function medias() {
+        return $this->hasMany(Medias::class);
+    }
+
+    public function categories() {
+        return $this->belongsToMany(Categories::class, 'categories_users', 'user_id', 'category_id');
+    }
 }

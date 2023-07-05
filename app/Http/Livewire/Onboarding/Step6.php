@@ -34,7 +34,7 @@
             $this->validate();
             $filename = $this->profile_image->getClientOriginalName();
             $ext = substr(strrchr($filename, '.'), 1);
-            $path = Storage::disk('public')->putFileAs('profile_images', $this->profile_image, Str::uuid() . '.' . $ext);
+            $path = Storage::disk('public')->putFileAs('user/' . auth()->id() . '/profile_image', $this->profile_image, Str::uuid() . '.' . $ext);
             auth()->user()->informations()->update([
                 'profile_image' => $path,
                 'bio' => $this->user_informations->bio,
