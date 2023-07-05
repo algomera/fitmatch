@@ -18,8 +18,8 @@
             'job.title' => 'nullable',
             'job.company' => 'nullable',
             'job.city' => 'nullable',
-            'job.start_date' => 'nullable',
-            'job.end_date' => 'nullable',
+            'job.start_date' => 'nullable|before:today',
+            'job.end_date' => 'nullable|after:start_date',
             'job.description' => 'nullable',
         ];
 

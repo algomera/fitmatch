@@ -1,12 +1,12 @@
 <?php
 
-    namespace App\Http\Livewire\Onboarding\Step8\Modals;
+    namespace App\Http\Livewire\Onboarding\Step9\Modals;
 
     use LivewireUI\Modal\ModalComponent;
 
-    class CreateJob extends ModalComponent
+    class CreateSpecialization extends ModalComponent
     {
-        public $title, $company, $city, $start_date, $end_date, $description;
+        public $title, $school, $city, $start_date, $end_date, $description;
 
         public static function modalMaxWidth(): string
         {
@@ -15,7 +15,7 @@
 
         protected $rules = [
             'title' => 'nullable',
-            'company' => 'nullable',
+            'school' => 'nullable',
             'city' => 'nullable',
             'start_date' => 'nullable|before:today',
             'end_date' => 'nullable|after:start_date',
@@ -26,21 +26,21 @@
         {
             $this->validate();
 
-            auth()->user()->job_experiences()->create([
+            auth()->user()->specializations()->create([
                 'title' => $this->title,
-                'company' => $this->company,
+                'school' => $this->school,
                 'city' => $this->city,
                 'start_date' => $this->start_date,
                 'end_date' => $this->end_date,
                 'description' => $this->description
             ]);
 
-            $this->emit('job-experience-created');
+            $this->emit('specialization-created');
             $this->closeModal();
         }
 
         public function render()
         {
-            return view('livewire.onboarding.step8.modals.create-job');
+            return view('livewire.onboarding.step9.modals.create-specialization');
         }
     }

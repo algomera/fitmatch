@@ -30,7 +30,7 @@
             Route::get('/step-6', [\App\Http\Livewire\Onboarding\Step6::class, '__invoke'])->name('step-6');
             Route::get('/step-7', [\App\Http\Livewire\Onboarding\Step7::class, '__invoke'])->name('step-7');
             Route::get('/step-8', [\App\Http\Livewire\Onboarding\Step8::class, '__invoke'])->name('step-8');
-//            Route::get('/step-9', [\App\Http\Livewire\Onboarding\Step9::class, '__invoke'])->name('step-9');
+            Route::get('/step-9', [\App\Http\Livewire\Onboarding\Step9::class, '__invoke'])->name('step-9');
 //            Route::get('/step-10', [\App\Http\Livewire\Onboarding\Step10::class, '__invoke'])->name('step-10');
 //            Route::get('/step-11', [\App\Http\Livewire\Onboarding\Step11::class, '__invoke'])->name('step-11');
 //            Route::get('/step-12', [\App\Http\Livewire\Onboarding\Step12::class, '__invoke'])->name('step-12');
