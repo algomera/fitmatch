@@ -35,14 +35,7 @@
             Route::get('/step-11', [\App\Http\Livewire\Onboarding\Step11::class, '__invoke'])->name('step-11');
             Route::get('/step-12', [\App\Http\Livewire\Onboarding\Step12::class, '__invoke'])->name('step-12');
         });
-        Route::middleware(['verified', 'onboarding', 'role:personal-trainer'])->group(function () {
-            Route::prefix('personal-trainer')->name('personal-trainer.')->group(function() {
-                Route::get('/dashboard', function () {
-                    return "PT dashboard";
-                })->name('dashboard');
-            });
-        });
-        Route::middleware(['verified', 'role:admin'])->group(function () {
+        Route::middleware(['verified', 'onboarding'])->group(function () {
             Route::get('/dashboard', function () {
                 return view('dashboard');
             })->name('dashboard');

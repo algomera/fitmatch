@@ -17,8 +17,10 @@ class OnboardingIsCompleted
     {
         $user = $request->user();
 
-        if ($user->accepted === null) {
-            return redirect()->route("onboarding.step-{$user->onboarding_current_step}");
+        if($user->role === 'personal-trainer') {
+            if ($user->accepted === null) {
+                return redirect()->route("onboarding.step-{$user->onboarding_current_step}");
+            }
         }
 
         return $next($request);
