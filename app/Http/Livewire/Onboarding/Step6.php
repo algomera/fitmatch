@@ -23,8 +23,8 @@
 
         public function mount()
         {
-            if(auth()->user()->onboarding_step_6) {
-                return redirect()->route('onboarding.step-7');
+            if(auth()->user()->onboarding_current_step !== 6) {
+                return redirect()->route("onboarding.step-" . auth()->user()->onboarding_current_step);
             }
             $this->user_informations = auth()->user()->informations;
         }
@@ -39,9 +39,7 @@
                 'profile_image' => $path,
                 'bio' => $this->user_informations->bio,
             ]);
-            auth()->user()->update([
-                'onboarding_step_6' => true
-            ]);
+            auth()->user()->increment('onboarding_current_step');
             return redirect()->route('onboarding.step-7');
         }
 

@@ -15,8 +15,8 @@
         ];
 
         public function mount() {
-            if(auth()->user()->onboarding_step_3) {
-                return redirect()->route('onboarding.step-4');
+            if(auth()->user()->onboarding_current_step !== 3) {
+                return redirect()->route("onboarding.step-" . auth()->user()->onboarding_current_step);
             }
             $this->user_informations = auth()->user()->informations;
             $this->updatedUserInformations();
@@ -33,9 +33,7 @@
                 'remote' => $this->user_informations->remote,
                 'in_person' => $this->user_informations->in_person
             ]);
-            auth()->user()->update([
-                'onboarding_step_3' => true
-            ]);
+            auth()->user()->increment('onboarding_current_step');
             return redirect()->route('onboarding.step-4');
         }
 

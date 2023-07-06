@@ -19,8 +19,8 @@
 
         public function mount()
         {
-            if(auth()->user()->onboarding_step_4) {
-                return redirect()->route('onboarding.step-5');
+            if(auth()->user()->onboarding_current_step !== 4) {
+                return redirect()->route("onboarding.step-" . auth()->user()->onboarding_current_step);
             }
             $this->user_informations = auth()->user()->informations;
         }
@@ -35,9 +35,7 @@
                 'phone' => $this->user_informations->phone,
                 'city' => $this->user_informations->city,
             ]);
-            auth()->user()->update([
-                'onboarding_step_4' => true
-            ]);
+            auth()->user()->increment('onboarding_current_step');
             return redirect()->route('onboarding.step-5');
         }
 

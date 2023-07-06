@@ -17,25 +17,21 @@ class Step9 extends Component
 
     public function mount()
     {
-        if (auth()->user()->onboarding_step_9) {
-            return redirect()->route('onboarding.step-10');
+        if(auth()->user()->onboarding_current_step !== 9) {
+            return redirect()->route("onboarding.step-" . auth()->user()->onboarding_current_step);
         }
         $this->user_informations = auth()->user()->informations;
     }
 
     public function skip()
     {
-        auth()->user()->update([
-            'onboarding_step_9' => true
-        ]);
+        auth()->user()->increment('onboarding_current_step');
         return redirect()->route('onboarding.step-10');
     }
 
     public function next()
     {
-        auth()->user()->update([
-            'onboarding_step_9' => true
-        ]);
+        auth()->user()->increment('onboarding_current_step');
         return redirect()->route('onboarding.step-10');
     }
 

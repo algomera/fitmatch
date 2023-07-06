@@ -16,25 +16,21 @@ class Step8 extends Component
     ];
     public function mount()
     {
-        if (auth()->user()->onboarding_step_8) {
-            return redirect()->route('onboarding.step-9');
+        if(auth()->user()->onboarding_current_step !== 8) {
+            return redirect()->route("onboarding.step-" . auth()->user()->onboarding_current_step);
         }
         $this->user_informations = auth()->user()->informations;
     }
 
     public function skip()
     {
-        auth()->user()->update([
-            'onboarding_step_8' => true
-        ]);
+        auth()->user()->increment('onboarding_current_step');
         return redirect()->route('onboarding.step-9');
     }
 
     public function next()
     {
-        auth()->user()->update([
-            'onboarding_step_8' => true
-        ]);
+        auth()->user()->increment('onboarding_current_step');
         return redirect()->route('onboarding.step-9');
     }
 

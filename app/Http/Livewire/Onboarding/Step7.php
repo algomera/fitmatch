@@ -17,8 +17,8 @@
 
         public function mount()
         {
-            if(auth()->user()->onboarding_step_7) {
-                return redirect()->route('onboarding.step-8');
+            if(auth()->user()->onboarding_current_step !== 7) {
+                return redirect()->route("onboarding.step-" . auth()->user()->onboarding_current_step);
             }
             $this->user_informations = auth()->user()->informations;
         }
@@ -31,9 +31,7 @@
                 'facebook' => $this->user_informations->facebook,
                 'website' => $this->user_informations->website,
             ]);
-            auth()->user()->update([
-                'onboarding_step_7' => true
-            ]);
+            auth()->user()->increment('onboarding_current_step');
             return redirect()->route('onboarding.step-8');
         }
 

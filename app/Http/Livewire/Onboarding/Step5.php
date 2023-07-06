@@ -21,8 +21,8 @@
 
         public function mount()
         {
-            if (auth()->user()->onboarding_step_5) {
-                return redirect()->route('onboarding.step-6');
+            if(auth()->user()->onboarding_current_step !== 5) {
+                return redirect()->route("onboarding.step-" . auth()->user()->onboarding_current_step);
             }
             $this->user_informations = auth()->user()->informations;
         }
@@ -39,9 +39,7 @@
                 'company_vat_number' => $this->user_informations->company_vat_number,
                 'company_fiscal_code' => $this->user_informations->company_fiscal_code,
             ]);
-            auth()->user()->update([
-                'onboarding_step_5' => true
-            ]);
+            auth()->user()->increment('onboarding_current_step');
             return redirect()->route('onboarding.step-6');
         }
 

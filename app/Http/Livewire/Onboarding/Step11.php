@@ -24,8 +24,8 @@ class Step11 extends Component
         foreach (auth()->user()->categories as $category) {
             $this->selectedCategories[] = $category->id;
         }
-        if (auth()->user()->onboarding_step_11) {
-            return redirect()->route('onboarding.step-12');
+        if(auth()->user()->onboarding_current_step !== 11) {
+            return redirect()->route("onboarding.step-" . auth()->user()->onboarding_current_step);
         }
     }
 
@@ -44,9 +44,7 @@ class Step11 extends Component
 
         auth()->user()->categories()->sync($this->selectedCategories);
 
-        auth()->user()->update([
-            'onboarding_step_11' => true
-        ]);
+        auth()->user()->increment('onboarding_current_step');
         return redirect()->route('onboarding.step-12');
     }
 
