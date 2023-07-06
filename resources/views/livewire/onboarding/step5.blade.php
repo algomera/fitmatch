@@ -1,51 +1,37 @@
 <div>
-    <div class="prose mx-auto">
+    <div class="prose prose-sm mx-auto">
         <div>
-            <h1 class="pt-14 mb-2 text-3xl font-bold text-fit-black">Informazioni aziendali</h1>
+            <h1 class="pt-14 mb-2">Informazioni aziendali</h1>
             <span>I dati della tua società</span>
         </div>
-        <div class="mt-6 leading-8 text-fit-black">
+        <div class="mt-6">
             <div class="mt-10 grid grid-cols-1 gap-5 sm:grid-cols-6">
                 <div class="sm:col-span-6">
-                    <x-input-label for="company_name" value="Nome azienda" required />
-                    <x-text-input wire:model="user_informations.company_name" id="company_name" class="block mt-1 w-full" type="text" name="company_name" required autofocus />
-                    <x-input-error :messages="$errors->get('user_informations.company_name')" class="mt-2" />
+                    <x-input wire:model="user_informations.company_name" id="company_name" type="text" name="user_informations.company_name" label="Nome azienda" required autofocus />
                 </div>
 
                 <div class="sm:col-span-4">
-                    <x-input-label for="company_address" value="Indirizzo" required />
-                    <x-text-input wire:model="user_informations.company_address" id="company_address" class="block mt-1 w-full" type="text" name="company_address" required autofocus />
-                    <x-input-error :messages="$errors->get('user_informations.company_address')" class="mt-2" />
+                    <x-input wire:model="user_informations.company_address" id="company_address" type="text" name="user_informations.company_address" label="Indirizzo" required autofocus />
                 </div>
 
                 <div class="sm:col-span-2">
-                    <x-input-label for="company_civic" value="Numero Civico" required />
-                    <x-text-input wire:model="user_informations.company_civic" id="company_civic" class="block mt-1 w-full" type="text" name="company_civic" required autofocus />
-                    <x-input-error :messages="$errors->get('user_informations.company_civic')" class="mt-2" />
+                    <x-input wire:model="user_informations.company_civic" id="company_civic" type="text" name="user_informations.company_civic" label="Numero Civico" required autofocus />
                 </div>
 
                 <div class="sm:col-span-4">
-                    <x-input-label for="company_city" value="Città" required />
-                    <x-text-input wire:model="user_informations.company_city" id="company_city" class="block mt-1 w-full" type="text" name="company_city" required autofocus />
-                    <x-input-error :messages="$errors->get('user_informations.company_city')" class="mt-2" />
+                    <x-input wire:model="user_informations.company_city" id="company_city" type="text" name="user_informations.company_city" label="Città" required autofocus />
                 </div>
 
                 <div class="sm:col-span-2">
-                    <x-input-label for="company_zip_code" value="CAP" required />
-                    <x-text-input wire:model="user_informations.company_zip_code" id="company_zip_code" class="block mt-1 w-full" type="text" name="company_zip_code" required autofocus />
-                    <x-input-error :messages="$errors->get('user_informations.company_zip_code')" class="mt-2" />
+                    <x-input wire:model="user_informations.company_zip_code" id="company_zip_code" type="text" name="user_informations.company_zip_code" label="CAP" required autofocus />
                 </div>
 
                 <div class="sm:col-span-3">
-                    <x-input-label for="company_vat_number" value="Partita Iva" required />
-                    <x-text-input wire:model="user_informations.company_vat_number" id="company_vat_number" class="block mt-1 w-full" type="text" name="company_vat_number" required autofocus />
-                    <x-input-error :messages="$errors->get('user_informations.company_vat_number')" class="mt-2" />
+                    <x-input wire:model="user_informations.company_vat_number" id="company_vat_number" type="text" name="user_informations.company_vat_number" label="Partita IVA" required autofocus />
                 </div>
 
                 <div class="sm:col-span-3">
-                    <x-input-label for="company_fiscal_code" value="Codice Fiscale" />
-                    <x-text-input wire:model="user_informations.company_fiscal_code" id="company_fiscal_code" class="block mt-1 w-full" type="text" name="company_fiscal_code" autofocus />
-                    <x-input-error :messages="$errors->get('user_informations.company_fiscal_code')" class="mt-2" />
+                    <x-input wire:model="user_informations.company_fiscal_code" id="company_fiscal_code" type="text" name="user_informations.company_fiscal_code" label="Codice Fiscale" autofocus />
                 </div>
             </div>
         </div>

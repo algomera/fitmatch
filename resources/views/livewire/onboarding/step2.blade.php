@@ -1,12 +1,12 @@
 <div>
-    <div class="prose mx-auto">
-        <h1 class="pt-14 text-3xl font-bold uppercase text-fit-black">Pubblico o privato</h1>
-        <p class="mt-6 text-fit-black">
+    <div class="prose prose-sm mx-auto">
+        <h1 class="pt-14 uppercase">Pubblico o privato</h1>
+        <p class="mt-6">
             Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ad animi at eos minima molestiae quas quidem.
             Corporis praesentium quidem quo reiciendis sit? Accusamus exercitationem harum ipsam nihil officiis quae
             quos!
         </p>
-        <div class="mt-6 leading-8 text-fit-black">
+        <div class="mt-6">
             <div class="space-y-4 sm:flex sm:items-center sm:space-x-10 sm:space-y-0">
                 <div class="flex items-center">
                     <input wire:model="user_informations.profile_type" id="public" name="profile-type" type="radio" value="public"

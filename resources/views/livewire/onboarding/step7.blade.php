@@ -1,27 +1,21 @@
 <div>
-    <div class="prose mx-auto">
+    <div class="prose prose-sm mx-auto">
         <div>
-            <h1 class="pt-14 mb-2 text-3xl font-bold text-fit-black">Profili online</h1>
+            <h1 class="pt-14 mb-2">Profili online</h1>
             <span>I tuoi contatti social</span>
         </div>
-        <div class="mt-6 leading-8 text-fit-black">
+        <div class="mt-6">
             <div class="mt-10 grid grid-cols-1 gap-5">
                 <div class="col-span-1">
-                    <x-input-label for="instagram" value="Instagram" />
-                    <x-text-input wire:model="user_informations.instagram" id="instagram" placeholder="Inserisci nome" class="block mt-1 w-full" type="text" name="instagram" autofocus />
-                    <x-input-error :messages="$errors->get('user_informations.instagram')" class="mt-2" />
+                    <x-input wire:model="user_informations.instagram" id="instagram" placeholder="Inserisci nome" type="text" name="user_informations.instagram" label="Instagram" autofocus />
                 </div>
 
                 <div class="col-span-1">
-                    <x-input-label for="last_name" value="Facebook" />
-                    <x-text-input wire:model="user_informations.facebook" id="facebook" placeholder="Inserisci nome" class="block mt-1 w-full" type="text" name="facebook" autofocus />
-                    <x-input-error :messages="$errors->get('user_informations.facebook')" class="mt-2" />
+                    <x-input wire:model="user_informations.facebook" id="facebook" placeholder="Inserisci nome" type="text" name="user_informations.facebook" label="Facebook" autofocus />
                 </div>
 
                 <div class="col-span-1">
-                    <x-input-label for="dob" value="Sito web" />
-                    <x-text-input wire:model="user_informations.website" id="website" placeholder="Inserisci indirizzo" class="block mt-1 w-full" type="text" name="website" autofocus />
-                    <x-input-error :messages="$errors->get('user_informations.website')" class="mt-2" />
+                    <x-input wire:model="user_informations.website" id="website" placeholder="Inserisci indirizzo" type="text" name="user_informations.website" label="Sito Web" autofocus />
                 </div>
             </div>
         </div>

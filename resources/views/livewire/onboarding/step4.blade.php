@@ -1,39 +1,29 @@
 <div>
-    <div class="prose mx-auto">
+    <div class="prose prose-sm mx-auto">
         <div>
-            <h1 class="pt-14 mb-2 text-3xl font-bold text-fit-black">Informazioni personali</h1>
+            <h1 class="pt-14 mb-2">Informazioni personali</h1>
             <span>I tuoi dati anagrafici</span>
         </div>
-        <div class="mt-6 leading-8 text-fit-black">
+        <div class="mt-6">
             <div class="mt-10 grid grid-cols-1 gap-5 sm:grid-cols-6">
                 <div class="sm:col-span-3">
-                    <x-input-label for="first_name" value="Nome" required />
-                    <x-text-input wire:model="user_informations.first_name" id="first_name" class="block mt-1 w-full" type="text" name="first_name" required autofocus />
-                    <x-input-error :messages="$errors->get('user_informations.first_name')" class="mt-2" />
+                    <x-input wire:model="user_informations.first_name" id="first_name" type="text" name="user_informations.first_name" label="Nome" required autofocus />
                 </div>
 
                 <div class="sm:col-span-3">
-                    <x-input-label for="last_name" value="Cognome" required />
-                    <x-text-input wire:model="user_informations.last_name" id="last_name" class="block mt-1 w-full" type="text" name="last_name" required autofocus />
-                    <x-input-error :messages="$errors->get('user_informations.last_name')" class="mt-2" />
+                    <x-input wire:model="user_informations.last_name" id="last_name" type="text" name="user_informations.last_name" label="Cognome" required autofocus />
                 </div>
 
                 <div class="sm:col-span-3">
-                    <x-input-label for="dob" value="Data di nascita" required />
-                    <x-text-input wire:model="user_informations.dob" id="dob" class="block mt-1 w-full" type="date" name="dob" required autofocus />
-                    <x-input-error :messages="$errors->get('user_informations.dob')" class="mt-2" />
+                    <x-input wire:model="user_informations.dob" id="dob" type="date" name="user_informations.dob" label="Data di nascita" required autofocus />
                 </div>
 
                 <div class="sm:col-span-3">
-                    <x-input-label for="phone" value="Numero di telefono" required />
-                    <x-text-input wire:model="user_informations.phone" id="phone" class="block mt-1 w-full" type="tel" name="phone" required autofocus />
-                    <x-input-error :messages="$errors->get('user_informations.phone')" class="mt-2" />
+                    <x-input wire:model="user_informations.phone" id="phone" type="tel" name="user_informations.phone" label="Numero di telefono" required autofocus />
                 </div>
 
                 <div class="sm:col-span-3">
-                    <x-input-label for="city" value="Città" required />
-                    <x-text-input wire:model="user_informations.city" id="city" class="block mt-1 w-full" type="text" name="city" required autofocus />
-                    <x-input-error :messages="$errors->get('user_informations.city')" class="mt-2" />
+                    <x-input wire:model="user_informations.city" id="city" type="text" name="user_informations.city" label="Città" required autofocus />
                 </div>
             </div>
         </div>

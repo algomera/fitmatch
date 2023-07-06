@@ -1,8 +1,8 @@
 <div>
-    <div class="prose mx-auto">
-        <h1 class="pt-14 text-3xl font-bold uppercase text-fit-black">Benvenuto nell'area di registrazione personal
+    <div class="prose prose-sm mx-auto">
+        <h1 class="pt-14 uppercase">Benvenuto nell'area di registrazione personal
             trainer di fitmatch</h1>
-        <p class="mt-6 text-fit-black">
+        <p class="mt-6">
             FitMatch è la piattaforma unica di gestione per i Personal Trainer e gli atleti.<br>
             Il nostro obiettivo è quello di offrire un'esperienza di qualità a tutti i nostri utenti.<br>
             Per questo motivo ogni richiesta di iscrizione viene validata dal nostro team di onboarding. I requisiti per
@@ -13,12 +13,12 @@
             <li>2</li>
             <li>3</li>
         </ul>
-        <p class="mt-6 leading-8 text-fit-black">
+        <p class="mt-6">
             Ti chiediamo di compilare al meglio tutti i campi necessari, comprese le esperienze lavorative e
             certificazioni conseguite, in modo da accelerare il processo di Onboarding e facilitare la valutazione da
             parte del nostro Team.
         </p>
-        <p class="mt-6 leading-8 text-fit-black">
+        <p class="mt-6">
             Riceverai una email con il responso della valutazione.
         </p>
         <div class="not-prose mt-10">

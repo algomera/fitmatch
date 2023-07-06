@@ -1,10 +1,10 @@
 <div>
-    <div class="prose mx-auto">
+    <div class="prose prose-sm mx-auto">
         <div>
-            <h1 class="pt-14 mb-2 text-3xl font-bold text-fit-black">Immagine del profilo</h1>
+            <h1 class="pt-14 mb-2">Immagine del profilo</h1>
             <span>La tua immagine del profilo. L'immagine sarà visibile agli atleti, scegline una che ti rappresenta al meglio!</span>
         </div>
-        <div class="mt-6 leading-8 text-fit-black">
+        <div class="mt-6">
             <div>
                 <form class="flex items-center space-x-6">
                     @if($user_informations->profile_image && !$profile_image)
@@ -21,27 +21,25 @@
                     <label class="block">
                         <span class="sr-only">Choose profile photo</span>
                         <input wire:model="profile_image" type="file" class="block w-full text-sm text-slate-500
-      file:mr-4 file:py-2 file:px-4
-      file:rounded-full file:border-0
-      file:text-sm file:font-semibold
-      file:bg-fit-purple-blue file:text-white
-      hover:file:bg-fit-magenta
-    "/>
+                          file:mr-4 file:py-2 file:px-4
+                          file:rounded-full file:border-0
+                          file:text-sm file:font-semibold
+                          file:bg-fit-purple-blue file:text-white
+                          hover:file:bg-fit-magenta
+                        "/>
                     </label>
-                    <x-input-error :messages="$errors->get('profile_image')" class="mt-2"/>
                 </form>
+                <x-input-error :messages="$errors->get('profile_image')" class="mt-2"/>
             </div>
         </div>
-        <div class="mt-6 leading-8 text-fit-black">
-            <h1 class="mb-2 text-3xl font-bold text-fit-black">Biografia</h1>
+        <div class="mt-6">
+            <h1 class="mb-2">Biografia</h1>
             <span>Raccontaci qualcosa di te e della tua esperienza.</span>
             <div class="mt-10 grid grid-cols-1 gap-5">
                 <div class="col-span-1">
-                    <textarea wire:model="user_informations.bio" id="bio"
-                              rows="6"
-                              class="w-full border-0 focus:border-fit-light-blue focus:ring-fit-light-blue rounded-xl shadow-sm"
-                              type="text" name="bio"></textarea>
-                    <x-input-error :messages="$errors->get('user_informations.bio')" class="mt-2"/>
+                    <x-textarea wire:model="user_informations.bio" id="bio"
+                                rows="6"
+                                name="user_informations.bio"/>
                 </div>
             </div>
         </div>

@@ -1,9 +1,9 @@
 <div>
-    <div class="prose mx-auto">
+    <div class="prose prose-sm mx-auto">
         <div>
-            <h1 class="pt-14 mb-2 text-3xl font-bold text-fit-black">Categorie</h1>
+            <h1 class="pt-14 mb-2">Categorie</h1>
         </div>
-        <div class="mt-6 leading-8 text-fit-black">
+        <div class="mt-6">
             <div class="grid grid-cols-2 sm:grid-cols-3 gap-5">
                 @foreach($categories as $category)
                     <div

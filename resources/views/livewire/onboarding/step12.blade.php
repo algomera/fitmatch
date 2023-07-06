@@ -1,8 +1,8 @@
 <div>
-    <div class="prose mx-auto">
+    <div class="prose prose-sm mx-auto">
         @if(auth()->user()->accepted === 0)
-            <h1 class="pt-14 text-3xl font-bold uppercase text-fit-black">La tua richiesta non è andata a buon fine</h1>
-            <p class="mt-6 text-fit-black">
+            <h1 class="pt-14 uppercase">La tua richiesta non è andata a buon fine</h1>
+            <p class="mt-6">
                 Si è verificato un errore con la tua richiesta, prova a reinserire i tuoi dati, in caso di errore
                 contattaci a <a href="mailto:subscription@fitmatch.com">subscription@fitmatch.com</a> per supporto o
                 chiarimenti riguardo l'iscrizione.
@@ -11,9 +11,9 @@
                 <x-primary-button wire:click="next" class="!px-14">Riprova</x-primary-button>
             </div>
         @elseif(auth()->user()->accepted === null)
-            <h1 class="pt-14 text-3xl font-bold uppercase text-fit-black">La tua richiesta è stata inviata con
+            <h1 class="pt-14 uppercase">La tua richiesta è stata inviata con
                 successo</h1>
-            <p class="mt-6 text-fit-black">
+            <p class="mt-6">
                 La richiesta è stata inviata ai nostri esperti, riceverai a breve una email di conferma di approvazione,
                 in caso contrario puoi contattarci a
                 <a href="mailto:subscription@fitmatch.com">subscription@fitmatch.com</a> per supporto o chiarimenti
