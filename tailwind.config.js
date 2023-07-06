@@ -20,7 +20,12 @@ export default {
     theme: {
         extend: {
             fontFamily: {
-                sans: ['Figtree', ...defaultTheme.fontFamily.sans],
+                light: ['TTNorms-Light', ...defaultTheme.fontFamily.sans],
+                sans: ['TTNorms-Regular', ...defaultTheme.fontFamily.sans],
+                medium: ['TTNorms-Medium', ...defaultTheme.fontFamily.sans],
+                bold: ['TTNorms-Bold', ...defaultTheme.fontFamily.sans],
+                extrabold: ['TTNorms-ExtraBold', ...defaultTheme.fontFamily.sans],
+                black: ['TTNorms-Black', ...defaultTheme.fontFamily.sans],
             },
             colors: {
                 'fit': {

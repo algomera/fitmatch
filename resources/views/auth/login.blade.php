@@ -5,25 +5,16 @@
     <form method="POST" action="{{ route('login') }}" class="bg-fit-lighter-gray px-6 py-8">
         @csrf
 
-        <h3 class="text-center text-2xl mb-6 font-bold">Accedi</h3>
+        <h2 class="text-center mb-6">Accedi</h2>
 
         <!-- Email Address -->
         <div>
-            <x-input-label for="email" :value="__('Email')" />
-            <x-text-input id="email" class="block mt-1 w-full" type="email" name="email" :value="old('email')" required autofocus autocomplete="username" />
-            <x-input-error :messages="$errors->get('email')" class="mt-2" />
+            <x-input id="email" type="email" name="email" :value="old('email')" label="Email" required autofocus />
         </div>
 
         <!-- Password -->
         <div class="mt-4">
-            <x-input-label for="password" :value="__('Password')" />
-
-            <x-text-input id="password" class="block mt-1 w-full"
-                            type="password"
-                            name="password"
-                            required autocomplete="current-password" />
-
-            <x-input-error :messages="$errors->get('password')" class="mt-2" />
+            <x-input id="password" type="password" name="password" label="Password" required />
         </div>
 
         <div class="mt-4 text-center">
