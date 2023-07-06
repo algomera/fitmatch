@@ -2,7 +2,7 @@
     <form wire:submit.prevent="register" class="bg-fit-lighter-gray px-6 py-8">
         @csrf
 
-        <h3 class="text-center text-2xl mb-6 font-bold">Registrati</h3>
+        <h2 class="text-center mb-6">Registrati</h2>
 
         <div>
             <div class="bg-white rounded-full">
@@ -30,33 +30,17 @@
             <div wire:key="personal-trainer-tab">
                 <!-- Email Address -->
                 <div class="mt-4">
-                    <x-input-label for="email" :value="__('Email')"/>
-                    <x-text-input wire:model="email" id="email" class="block mt-1 w-full" type="email" name="email" :value="old('email')"
-                                  required autocomplete="username"/>
-                    <x-input-error :messages="$errors->get('email')" class="mt-2"/>
+                    <x-input wire:model="email" id="email" type="email" name="email" :value="old('email')" label="Email" required autofocus />
                 </div>
 
                 <!-- Password -->
                 <div class="mt-4">
-                    <x-input-label for="password" :value="__('Password')"/>
-
-                    <x-text-input wire:model="password" id="password" class="block mt-1 w-full"
-                                  type="password"
-                                  name="password"
-                                  required autocomplete="new-password"/>
-
-                    <x-input-error :messages="$errors->get('password')" class="mt-2"/>
+                    <x-input wire:model="password" id="password" type="password" name="password" label="Password" required />
                 </div>
 
                 <!-- Confirm Password -->
                 <div class="mt-4">
-                    <x-input-label for="password_confirmation" :value="__('Confirm Password')"/>
-
-                    <x-text-input wire:model="password_confirmation" id="password_confirmation" class="block mt-1 w-full"
-                                  type="password"
-                                  name="password_confirmation" required autocomplete="new-password"/>
-
-                    <x-input-error :messages="$errors->get('password_confirmation')" class="mt-2"/>
+                    <x-input wire:model="password_confirmation" id="password_confirmation" type="password" name="password_confirmation" label="Conferma Password" required />
                 </div>
 
                 <div class="block mt-4">
@@ -64,7 +48,7 @@
                         <input wire:model="terms" type="checkbox"
                                class="border-2 border-gray-400 w-6 h-6 text-fit-magenta bg-fit-lighter-gray focus:ring-fit-light-blue"
                                name="remember">
-                        <span class="ml-2 text-sm text-gray-600">Accetto la <a href="#" class="font-bold text-fit-black">Privacy Policy</a> e <a
+                        <span class="ml-5 text-sm text-gray-600">Accetto la <a href="#" class="font-bold text-fit-black">Privacy Policy</a> e <a
                                 href="#" class="font-bold text-fit-black">Termini e Condizioni</a> di FitMatch Pro</span>
                     </label>
                 </div>

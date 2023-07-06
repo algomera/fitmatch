@@ -33,10 +33,9 @@ class Register extends Component
 
         $user->assignRole('personal-trainer');
 
+        $user->informations()->create();
+
         $user->sendEmailVerificationNotification();
-
-        event(new Registered($user));
-
 
         Auth::login($user);
 
