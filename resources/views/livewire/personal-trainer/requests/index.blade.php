@@ -58,7 +58,7 @@
                                 <span class="{{ $badgeClasses }} inline-flex items-center rounded-full px-2 py-1 text-xs text-white font-medium">{{ config('fitmatch.profile_statuses.' . $request->status) }}</span>
                             </td>
                             <td class="relative whitespace-nowrap py-4 pl-3 pr-4 text-right text-sm font-medium sm:pr-0">
-                                <a href="{{ route('personal-trainer.show', ['user' => $request->id]) }}" class="text-indigo-600 hover:text-indigo-900">Vedi profilo</a>
+                                <a href="{{ route('admin.personal-trainer.show', ['user' => $request->id]) }}" class="text-indigo-600 hover:text-indigo-900">Vedi profilo</a>
                             </td>
                         </tr>
                     @endforeach

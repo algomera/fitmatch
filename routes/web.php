@@ -36,15 +36,18 @@
             Route::get('/step-12', [\App\Http\Livewire\Onboarding\Step12::class, '__invoke'])->name('step-12');
         });
         Route::middleware(['verified', 'onboarding'])->group(function () {
-            Route::get('/dashboard', function () {
-                return view('dashboard');
-            })->name('dashboard');
             // Admin
-            Route::middleware(['role:admin'])->group(function() {
+            Route::middleware(['role:admin'])->prefix('admin')->name('admin.')->group(function() {
+                Route::get('/dashboard', function () {
+                    return view('dashboard');
+                })->name('dashboard');
                 Route::get('/requests', [\App\Http\Livewire\PersonalTrainer\Requests\Index::class, '__invoke'])->name('requests');
                 Route::get('/personal-trainer/{user}', [\App\Http\Livewire\PersonalTrainer\Show::class, '__invoke'])->name('personal-trainer.show');
             });
             // Personal Trainer
+            Route::middleware(['role:personal-trainer'])->prefix('personal-trainer')->name('personal-trainer.')->group(function() {
+                Route::get('/dashboard', [\App\Http\Livewire\PersonalTrainer\Dashboard::class, '__invoke'])->name('dashboard');
+            });
         });
     });
 

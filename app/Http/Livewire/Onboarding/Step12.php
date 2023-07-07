@@ -10,7 +10,7 @@
 
         public function mount() {
             if(auth()->user()->accepted === 1) {
-                return redirect()->route('dashboard');
+                return redirect()->route('personal-trainer.dashboard');
             } elseif(auth()->user()->onboarding_current_step !== 12) {
                 return redirect()->route("onboarding.step-" . auth()->user()->onboarding_current_step);
             }
@@ -19,7 +19,7 @@
         public function next()
         {
             if(auth()->user()->accepted) {
-                return redirect()->route('dashboard');
+                return redirect()->route('personal-trainer.dashboard');
             }
             return redirect()->route('home');
         }

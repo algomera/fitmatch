@@ -13,7 +13,7 @@ class Show extends Component
         'curriculum' => 'Curriculum e specializzazioni',
         'medias' => 'Immagini e video'
     ];
-    public $currentTab = 'medias';
+    public $currentTab = 'informations';
 
     public function changeStatus($status) {
         $this->user->update([
