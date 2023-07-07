@@ -13,6 +13,7 @@ class Step10 extends Component
 
     public $image = 'https://images.unsplash.com/photo-1594381898411-846e7d193883?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=987&q=80';
     public $images = [];
+    public $videos = [];
 
     protected $listeners = [
         'media-created' => '$refresh',
@@ -20,11 +21,15 @@ class Step10 extends Component
     ];
 
     protected $rules = [
-        'images.*' => 'image|max:2048'
+        'images.*' => 'image|max:2048',
+        'videos.*' => 'mimes:mp4,mov|max:5120'
     ];
 
-    public function delete($k) {
+    public function deleteImage($k) {
         unset($this->images[$k]);
+    }
+    public function deleteVideo($k) {
+        unset($this->videos[$k]);
     }
 
     public function mount()
@@ -44,6 +49,15 @@ class Step10 extends Component
             $path = Storage::disk('public')->putFileAs('user/' . auth()->id() .'/images', $image, Str::uuid() . '.' . $ext);
             auth()->user()->medias()->create([
                 'type' => 'image',
+                'path' => $path,
+            ]);
+        }
+        foreach ($this->videos as $video) {
+            $filename = $video->getClientOriginalName();
+            $ext = substr(strrchr($filename, '.'), 1);
+            $path = Storage::disk('public')->putFileAs('user/' . auth()->id() .'/videos', $video, Str::uuid() . '.' . $ext);
+            auth()->user()->medias()->create([
+                'type' => 'video',
                 'path' => $path,
             ]);
         }
