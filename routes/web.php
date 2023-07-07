@@ -39,6 +39,12 @@
             Route::get('/dashboard', function () {
                 return view('dashboard');
             })->name('dashboard');
+            // Admin
+            Route::middleware(['role:admin'])->group(function() {
+                Route::get('/requests', [\App\Http\Livewire\PersonalTrainer\Requests\Index::class, '__invoke'])->name('requests');
+                Route::get('/personal-trainer/{user}', [\App\Http\Livewire\PersonalTrainer\Show::class, '__invoke'])->name('personal-trainer.show');
+            });
+            // Personal Trainer
         });
     });
 

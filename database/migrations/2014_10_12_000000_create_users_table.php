@@ -17,7 +17,7 @@
                 $table->string('password');
                 $table->rememberToken();
                 $table->integer('onboarding_current_step')->default(1);
-                $table->boolean('accepted')->nullable();
+                $table->enum('status', array_keys(config('fitmatch.profile_statuses')))->nullable()->default('waiting');
                 $table->timestamps();
             });
         }

@@ -33,31 +33,38 @@ class User extends Authenticatable implements MustVerifyEmail
         'password' => 'hashed',
     ];
 
-    public function getRoleAttribute() {
-        return $this->getRoleNames()[0];
+    public function getRoleAttribute()
+    {
+        return $this->roles[0];
     }
 
-    public function getFullNameAttribute() {
+    public function getFullNameAttribute()
+    {
         return "{$this->informations->first_name} {$this->informations->last_name}";
     }
 
-    public function informations() {
-        return $this->hasOne(PtInformations::class);
+    public function informations()
+    {
+        return $this->hasOne(UserInformations::class);
     }
 
-    public function job_experiences() {
+    public function job_experiences()
+    {
         return $this->hasMany(JobExperience::class);
     }
 
-    public function specializations() {
+    public function specializations()
+    {
         return $this->hasMany(Specializations::class);
     }
 
-    public function medias() {
+    public function medias()
+    {
         return $this->hasMany(Medias::class);
     }
 
-    public function categories() {
+    public function categories()
+    {
         return $this->belongsToMany(Categories::class, 'categories_users', 'user_id', 'category_id');
     }
 }

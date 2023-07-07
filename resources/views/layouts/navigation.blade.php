@@ -28,7 +28,7 @@
                 <div class="lg:ml-6 lg:flex lg:space-x-8">
                     {{-- Admin --}}
                     @role('admin')
-                    <x-nav-link href="#" :active="request()->routeIs('requests*')">
+                    <x-nav-link :href="route('requests')" :active="request()->routeIs('requests*')">
                         {{ __('Richieste') }}
                     </x-nav-link>
                     <x-nav-link href="#" :active="request()->routeIs('subscribers*')">

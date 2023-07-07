@@ -14,8 +14,17 @@
         public function run(): void
         {
             // Ruoli
-            $admin = Role::create(['name' => 'admin']);
-            $personal_trainer = Role::create(['name' => 'personal-trainer']);
-            $atlete = Role::create(['name' => 'atlete']);
+            $admin = Role::create([
+                'name'  => 'admin',
+                'label' => 'Amministratore'
+            ]);
+            $personal_trainer = Role::create([
+                'name'  => 'personal-trainer',
+                'label' => 'Personal Trainer'
+            ]);
+            $atlete = Role::create([
+                'name'  => 'atlete',
+                'label' => 'Atleta'
+            ]);
         }
     }
