@@ -2,15 +2,25 @@
 
     namespace App\Http\Livewire\Onboarding\Step9\Modals;
 
+    use App\Models\User;
     use LivewireUI\Modal\ModalComponent;
 
     class CreateSpecialization extends ModalComponent
     {
+        public $user;
         public $title, $school, $city, $start_date, $end_date, $description;
 
         public static function modalMaxWidth(): string
         {
             return '4xl';
+        }
+
+        public function mount(User $user = null) {
+            if($user) {
+                $this->user = $user;
+            } else {
+                $this->user = auth()->user();
+            }
         }
 
         protected $rules = [
@@ -26,7 +36,7 @@
         {
             $this->validate();
 
-            auth()->user()->specializations()->create([
+            $this->user->specializations()->create([
                 'title' => $this->title,
                 'school' => $this->school,
                 'city' => $this->city,

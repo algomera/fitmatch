@@ -40,15 +40,6 @@
                 'description' => $this->job->description
             ]);
 
-//            auth()->user()->job_experiences()->create([
-//                'title' => $this->title,
-//                'company' => $this->company,
-//                'city' => $this->city,
-//                'start_date' => $this->start_date,
-//                'end_date' => $this->end_date,
-//                'description' => $this->description
-//            ]);
-
             $this->emit('job-experience-updated');
             $this->closeModal();
         }

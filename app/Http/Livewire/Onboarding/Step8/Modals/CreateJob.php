@@ -2,15 +2,25 @@
 
     namespace App\Http\Livewire\Onboarding\Step8\Modals;
 
+    use App\Models\User;
     use LivewireUI\Modal\ModalComponent;
 
     class CreateJob extends ModalComponent
     {
+        public $user;
         public $title, $company, $city, $start_date, $end_date, $description;
 
         public static function modalMaxWidth(): string
         {
             return '4xl';
+        }
+
+        public function mount(User $user = null) {
+            if($user) {
+                $this->user = $user;
+            } else {
+                $this->user = auth()->user();
+            }
         }
 
         protected $rules = [
@@ -26,7 +36,7 @@
         {
             $this->validate();
 
-            auth()->user()->job_experiences()->create([
+            $this->user->job_experiences()->create([
                 'title' => $this->title,
                 'company' => $this->company,
                 'city' => $this->city,
