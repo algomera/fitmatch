@@ -49,7 +49,7 @@
                 <livewire:personal-trainer.partials.curriculum wire:key="user-curriculum" :user="$user">
             @endif
             @if($currentTab === 'medias')
-                Immagini e video
+                <livewire:personal-trainer.partials.medias wire:key="user-medias" :user="$user">
             @endif
         </div>
     </div>
