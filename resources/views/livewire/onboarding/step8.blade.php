@@ -5,9 +5,9 @@
         </div>
         @if($job_experiences->count() <= 0)
             <div class="mt-6 leading-8 text-fit-black">
-                <div class="flex items-center space-x-10 mt-10">
-                    <x-fit-tertiary-button wire:click="skip" class="!px-14">Salta</x-fit-tertiary-button>
-                    <x-primary-button wire:click="$emit('openModal', 'onboarding.step8.modals.create-job')" class="!px-14">Aggiungi
+                <div class="flex items-center space-x-5 mt-10">
+                    <x-primary-button color="ghost" wire:click="skip">Salta</x-primary-button>
+                    <x-primary-button wire:click="$emit('openModal', 'onboarding.step8.modals.create-job')">Aggiungi
                     </x-primary-button>
                 </div>
             </div>
@@ -37,9 +37,9 @@
                         </div>
                     @endforeach
                 </div>
-                <div class="flex items-center space-x-10 mt-10">
-                    <x-fit-secondary-button wire:click="$emit('openModal', 'onboarding.step8.modals.create-job')" class="!px-14">Aggiungi</x-fit-secondary-button>
-                    <x-primary-button wire:click="next" class="!px-14">Avanti</x-primary-button>
+                <div class="flex items-center space-x-5 mt-10">
+                    <x-primary-button color="magenta" wire:click="$emit('openModal', 'onboarding.step8.modals.create-job')">Aggiungi</x-primary-button>
+                    <x-primary-button wire:click="next">Avanti</x-primary-button>
                 </div>
             </div>
         @endif

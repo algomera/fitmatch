@@ -30,9 +30,9 @@
                 />
             </div>
         </div>
-        <div class="flex items-center space-x-10">
-            <x-fit-tertiary-button>Annulla</x-fit-tertiary-button>
-            <x-fit-secondary-button>Salva</x-fit-secondary-button>
+        <div class="flex items-center space-x-5">
+            <x-primary-button type="button" color="ghost" wire:click="$emit('closeModal')">Annulla</x-primary-button>
+            <x-primary-button color="magenta">Salva</x-primary-button>
         </div>
     </div>
 </form>

@@ -8,7 +8,7 @@
                 chiarimenti riguardo l'iscrizione.
             </p>
             <div class="not-prose mt-10">
-                <x-primary-button wire:click="next" class="!px-14">Riprova</x-primary-button>
+                <x-primary-button wire:click="next">Riprova</x-primary-button>
             </div>
         @elseif(auth()->user()->accepted === null)
             <h1 class="pt-14 uppercase">La tua richiesta è stata inviata con
@@ -20,7 +20,7 @@
                 riguardo l'iscrizione.
             </p>
             <div class="not-prose mt-10">
-                <x-primary-button wire:click="next" class="!px-14">Torna alla Home</x-primary-button>
+                <x-primary-button wire:click="next">Torna alla Home</x-primary-button>
             </div>
         @endif
     </div>

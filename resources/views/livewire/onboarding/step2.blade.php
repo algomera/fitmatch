@@ -22,7 +22,7 @@
             <x-input-error :messages="$errors->get('user_informations.profile_type')" class="not-prose mt-2" />
         </div>
         <div class="not-prose mt-10">
-            <x-primary-button wire:click="next" class="!px-14" :disabled="!$user_informations->profile_type">Avanti</x-primary-button>
+            <x-primary-button wire:click="next" :disabled="!$user_informations->profile_type">Avanti</x-primary-button>
         </div>
     </div>
 </div>

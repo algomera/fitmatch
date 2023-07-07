@@ -20,7 +20,7 @@
             </div>
         </div>
             <div class="not-prose mt-10">
-                <x-primary-button wire:click="next" class="!px-14">Avanti</x-primary-button>
+                <x-primary-button wire:click="next">Avanti</x-primary-button>
             </div>
     </div>
 </div>

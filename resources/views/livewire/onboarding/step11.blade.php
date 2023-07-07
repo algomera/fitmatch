@@ -14,7 +14,7 @@
                 @endforeach
             </div>
             <div class="flex items-center space-x-10 mt-10">
-                <x-primary-button wire:click="next" class="!px-14" :disabled="count($selectedCategories) <= 0">
+                <x-primary-button wire:click="next" :disabled="count($selectedCategories) <= 0">
                     Avanti
                 </x-primary-button>
             </div>

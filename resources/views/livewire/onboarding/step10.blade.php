@@ -14,14 +14,14 @@
                     </div>
                 @endforeach
             </div>
-            <div class="flex items-center space-x-10 mt-10">
+            <div class="flex items-center space-x-5 mt-10">
                 <label for="images"
-                       class="px-14 inline-flex items-center px-4 py-2 bg-fit-purple-blue border border-transparent rounded-md font-semibold text-white tracking-widest cursor-pointer hover:bg-fit-magenta focus:bg-gray-700 active:bg-gray-900 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 transition ease-in-out duration-150">
+                       class="text-sm inline-flex items-center px-5 py-1.5 bg-fit-purple-blue border border-transparent rounded-md font-semibold text-white tracking-widest cursor-pointer hover:bg-fit-magenta focus:bg-gray-700 active:bg-gray-900 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 transition ease-in-out duration-150">
                     Aggiungi
                 </label>
                 <input type="file" class="hidden" id="images" name="images" wire:model="images">
                 @if(count($images) > 0)
-                    <x-primary-button wire:click="next" class="!px-14">Avanti</x-primary-button>
+                    <x-primary-button wire:click="next">Avanti</x-primary-button>
                 @endif
             </div>
         </div>

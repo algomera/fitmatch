@@ -23,7 +23,7 @@
             <x-input-error :messages="$errors->get('user_informations.in_person')" class="not-prose mt-2" />
         </div>
             <div class="not-prose mt-10">
-                <x-primary-button wire:click="next" class="!px-14" :disabled="!$disabled">Avanti</x-primary-button>
+                <x-primary-button wire:click="next" :disabled="!$disabled">Avanti</x-primary-button>
             </div>
     </div>
 </div>
