@@ -1,4 +1,4 @@
-@props(['color' => 'blue', 'rounded' => false])
+@props(['color' => 'blue', 'rounded' => false, 'href' => null])
 
 @switch($color)
     @case('blue')
@@ -26,6 +26,12 @@
     @php($classes .= 'rounded-md ')
 @endif
 
-<button {{ $attributes->merge(['type' => 'submit', 'class' => $classes . 'text-sm inline-flex items-center px-5 py-1.5 font-semibold tracking-widest focus:outline-none focus:ring-2 focus:ring-offset-2 transition ease-in-out duration-150 disabled:opacity-50 disabled:bg-fit-dark-gray disabled:cursor-not-allowed']) }}>
-    {{ $slot }}
-</button>
+@if($href)
+    <a href="{{ $href }}" {{ $attributes->merge(['class' => $classes . 'text-sm inline-flex items-center px-5 py-1.5 font-semibold tracking-widest focus:outline-none focus:ring-2 focus:ring-offset-2 transition ease-in-out duration-150 disabled:opacity-50 disabled:bg-fit-dark-gray disabled:cursor-not-allowed']) }}>
+        {{ $slot }}
+    </a>
+@else
+    <button {{ $attributes->merge(['type' => 'submit', 'class' => $classes . 'text-sm inline-flex items-center px-5 py-1.5 font-semibold tracking-widest focus:outline-none focus:ring-2 focus:ring-offset-2 transition ease-in-out duration-150 disabled:opacity-50 disabled:bg-fit-dark-gray disabled:cursor-not-allowed']) }}>
+        {{ $slot }}
+    </button>
+@endif
