@@ -8,6 +8,8 @@ class Dashboard extends Component
 {
     public function render()
     {
-        return view('livewire.personal-trainer.dashboard');
+        return view('livewire.personal-trainer.dashboard', [
+            'atletes' => auth()->user()->atletes
+        ]);
     }
 }

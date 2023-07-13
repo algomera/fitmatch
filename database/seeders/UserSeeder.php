@@ -27,7 +27,7 @@ class UserSeeder extends Seeder
         $pt = User::factory()->create([
             'email' => 'pt@example.test',
             'onboarding_current_step' => 12,
-            'status' => 'waiting',
+            'status' => 'accepted',
         ]);
         $pt->assignRole('personal-trainer');
         $pt->informations()->create([
@@ -46,6 +46,17 @@ class UserSeeder extends Seeder
             'company_zip_code' => fake()->numerify('#####'),
             'company_vat_number' => fake()->numerify('IT###########'),
             'bio' => fake()->paragraph,
+        ]);
+
+        // Atlete
+        $atl = User::factory()->create([
+            'email' => 'atlete@example.test',
+            'user_id' => $pt->id,
+        ]);
+        $atl->assignRole('atlete');
+        $atl->informations()->create([
+            'first_name' => fake()->firstName,
+            'last_name' => fake()->lastName,
         ]);
     }
 }

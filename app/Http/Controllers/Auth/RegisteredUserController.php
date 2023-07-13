@@ -49,6 +49,6 @@
 
             Auth::login($user);
 
-            return redirect(RouteServiceProvider::HOME);
+            return redirect(route(auth()->user()->role->name.'.dashboard'));
         }
     }
