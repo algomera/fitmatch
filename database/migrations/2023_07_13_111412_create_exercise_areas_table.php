@@ -11,10 +11,9 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('categories_users', function (Blueprint $table) {
+        Schema::create('exercise_areas', function (Blueprint $table) {
             $table->id();
-            $table->foreignIdFor(\App\Models\Category::class, 'category_id');
-            $table->foreignIdFor(\App\Models\User::class, 'user_id');
+            $table->string('name');
         });
     }
 
@@ -23,6 +22,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('categories_users');
+        Schema::dropIfExists('exercise_areas');
     }
 };

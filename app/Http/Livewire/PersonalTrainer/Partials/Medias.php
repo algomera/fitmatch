@@ -7,7 +7,6 @@ use Livewire\Component;
 
 class Medias extends Component
 {
-
     public $user;
 
     public function mount(User $user)

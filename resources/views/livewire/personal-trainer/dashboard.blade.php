@@ -11,7 +11,7 @@
                     <dt class="text-base font-normal text-gray-900">Atleti</dt>
                     <dd class="mt-1 flex items-center justify-between md:block lg:flex">
                         <div class="flex items-baseline text-2xl font-semibold text-fit-purple-blue">
-                            {{ $atletes->count() }}
+                            {{ $athletes->count() }}
                         </div>
                         <x-primary-button>Vedi</x-primary-button>
                     </dd>
@@ -29,7 +29,7 @@
                     <dt class="text-base font-normal text-gray-900">Esercizi</dt>
                     <dd class="mt-1 flex items-center justify-between md:block lg:flex">
                         <div class="flex items-baseline text-2xl font-semibold text-fit-purple-blue">
-                            382
+                            {{ $exercises->count() }}
                         </div>
                         <x-primary-button>Vedi</x-primary-button>
                     </dd>

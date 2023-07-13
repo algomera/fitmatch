@@ -2,7 +2,7 @@
 
     namespace App\Http\Livewire\Onboarding\Step9\Modals;
 
-    use App\Models\Specializations;
+    use App\Models\Specialization;
     use LivewireUI\Modal\ModalComponent;
 
     class DeleteSpecialization extends ModalComponent
@@ -13,7 +13,7 @@
             return '2xl';
         }
 
-        public function mount(Specializations $specialization) {
+        public function mount(Specialization $specialization) {
             $this->specialization = $specialization;
         }
 

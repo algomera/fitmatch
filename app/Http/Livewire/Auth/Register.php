@@ -14,10 +14,10 @@ class Register extends Component
 {
     public $name, $email, $password, $password_confirmation, $terms;
     public $tabs = [
-        'atlete' => 'Atleta',
+        'athlete' => 'Atleta',
         'personal-trainer' => 'Personal Trainer',
     ];
-    public $currentTab = 'atlete';
+    public $currentTab = 'athlete';
 
     public function register() {
         $this->validate([

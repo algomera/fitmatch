@@ -22,8 +22,8 @@
                 'name'  => 'personal-trainer',
                 'label' => 'Personal Trainer'
             ]);
-            $atlete = Role::create([
-                'name'  => 'atlete',
+            $athlete = Role::create([
+                'name'  => 'athlete',
                 'label' => 'Atleta'
             ]);
         }

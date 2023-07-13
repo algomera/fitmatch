@@ -17,8 +17,8 @@
             </div>
         </div>
 
-        @if($currentTab == 'atlete')
-            <div wire:key="tab-atlete">
+        @if($currentTab == 'athlete')
+            <div wire:key="tab-athlete">
                 <div class="mt-4 mx-auto max-w-xs text-center">
                     <p class="leading-relaxed">Scansiona il QR code per scaricare l'app di FitMatch</p>
                 </div>

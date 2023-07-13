@@ -39,7 +39,7 @@
                     </x-nav-link>
                     @endrole
                     @role('personal-trainer')
-                    <x-nav-link href="#" :active="request()->routeIs('personal-trainer.atletes*')">
+                    <x-nav-link href="#" :active="request()->routeIs('personal-trainer.athletes*')">
                         {{ __('Atleti') }}
                     </x-nav-link>
                     <x-nav-link href="#" :active="request()->routeIs('personal-trainer.workouts*')">
@@ -123,7 +123,7 @@
             </x-responsive-nav-link>
             @endrole
             @role('personal-trainer')
-            <x-responsive-nav-link href="#" :active="request()->routeIs('personal-trainer.atletes*')">
+            <x-responsive-nav-link href="#" :active="request()->routeIs('personal-trainer.athletes*')">
                 {{ __('Atleti') }}
             </x-responsive-nav-link>
             <x-responsive-nav-link href="#" :active="request()->routeIs('personal-trainer.workouts*')">

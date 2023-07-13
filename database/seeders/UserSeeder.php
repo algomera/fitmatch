@@ -48,15 +48,15 @@ class UserSeeder extends Seeder
             'bio' => fake()->paragraph,
         ]);
 
-        // Atlete
+        // athlete
         $atl = User::factory()->create([
-            'email' => 'atlete@example.test',
-            'user_id' => $pt->id,
+            'email' => 'athlete@example.test',
         ]);
-        $atl->assignRole('atlete');
+        $atl->assignRole('athlete');
         $atl->informations()->create([
             'first_name' => fake()->firstName,
             'last_name' => fake()->lastName,
         ]);
+        $pt->athletes()->attach($atl);
     }
 }

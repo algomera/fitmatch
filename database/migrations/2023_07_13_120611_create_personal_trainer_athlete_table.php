@@ -11,10 +11,11 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('categories_users', function (Blueprint $table) {
+        Schema::create('personal_trainer_athlete', function (Blueprint $table) {
             $table->id();
-            $table->foreignIdFor(\App\Models\Category::class, 'category_id');
-            $table->foreignIdFor(\App\Models\User::class, 'user_id');
+            $table->foreignIdFor(\App\Models\User::class, 'personal_trainer_id');
+            $table->foreignIdFor(\App\Models\User::class, 'athlete_id');
+            $table->timestamps();
         });
     }
 
@@ -23,6 +24,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('categories_users');
+        Schema::dropIfExists('personal_trainer_athlete');
     }
 };

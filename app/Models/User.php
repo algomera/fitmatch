@@ -43,13 +43,19 @@ class User extends Authenticatable implements MustVerifyEmail
         return "{$this->informations->first_name} {$this->informations->last_name}";
     }
 
-    public function atletes() {
-        return $this->hasMany(User::class);
-    }
-
     public function informations()
     {
         return $this->hasOne(UserInformations::class);
+    }
+
+    public function personal_trainers()
+    {
+        return $this->belongsToMany(User::class, 'personal_trainer_athlete', 'athlete_id', 'personal_trainer_id');
+    }
+
+    public function athletes()
+    {
+        return $this->belongsToMany(User::class, 'personal_trainer_athlete', 'personal_trainer_id', 'athlete_id');
     }
 
     public function job_experiences()
@@ -59,16 +65,16 @@ class User extends Authenticatable implements MustVerifyEmail
 
     public function specializations()
     {
-        return $this->hasMany(Specializations::class);
+        return $this->hasMany(Specialization::class);
     }
 
     public function medias()
     {
-        return $this->hasMany(Medias::class);
+        return $this->hasMany(Media::class);
     }
 
     public function categories()
     {
-        return $this->belongsToMany(Categories::class, 'categories_users', 'user_id', 'category_id');
+        return $this->belongsToMany(Category::class, 'categories_users', 'user_id', 'category_id');
     }
 }

@@ -2,7 +2,7 @@
 
 namespace App\Http\Livewire\Onboarding;
 
-use App\Models\Categories;
+use App\Models\Category;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 use Livewire\Component;
@@ -52,7 +52,7 @@ class Step11 extends Component
     {
         return view('livewire.onboarding.step11',
             [
-                'categories' => Categories::all()
+                'categories' => Category::all()
             ])->layout('layouts.onboarding');
     }
 }
