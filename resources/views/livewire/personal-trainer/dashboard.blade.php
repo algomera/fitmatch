@@ -20,7 +20,7 @@
                     <dt class="text-base font-normal text-gray-900">Schede</dt>
                     <dd class="mt-1 flex items-center justify-between md:block lg:flex">
                         <div class="flex items-baseline text-2xl font-semibold text-fit-purple-blue">
-                            277
+                            da fare
                         </div>
                         <x-primary-button>Vedi</x-primary-button>
                     </dd>
@@ -38,9 +38,11 @@
         </div>
         <div>
             <h3 class="text-fit-magenta">Ultime schede create</h3>
+            <p>da fare</p>
         </div>
         <div>
             <h3 class="text-fit-magenta">Schede non assegnate</h3>
+            <p>da fare</p>
         </div>
     </div>
 </div>
