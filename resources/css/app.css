@@ -49,6 +49,6 @@
         @apply font-extrabold text-2xl
     }
     h3 {
-        @apply font-bold text-xl
+        @apply font-bold text-xl text-fit-black
     }
 }

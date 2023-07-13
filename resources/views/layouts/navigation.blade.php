@@ -1,4 +1,4 @@
-<nav x-data="{ open: false }" class="bg-white shadow-md">
+<nav x-data="{ open: false }" class="relative bg-white shadow-md z-10">
     <div class="mx-auto max-w-7xl px-2 sm:px-4 lg:px-8">
         <div class="flex h-16 justify-between">
             <div class="flex flex-1">
@@ -39,7 +39,7 @@
                     </x-nav-link>
                     @endrole
                     @role('personal-trainer')
-                    <x-nav-link href="#" :active="request()->routeIs('personal-trainer.athletes*')">
+                    <x-nav-link href="{{ route('personal-trainer.athletes') }}" :active="request()->routeIs('personal-trainer.athletes*')">
                         {{ __('Atleti') }}
                     </x-nav-link>
                     <x-nav-link href="#" :active="request()->routeIs('personal-trainer.workouts*')">
@@ -123,7 +123,7 @@
             </x-responsive-nav-link>
             @endrole
             @role('personal-trainer')
-            <x-responsive-nav-link href="#" :active="request()->routeIs('personal-trainer.athletes*')">
+            <x-responsive-nav-link href="{{ route('personal-trainer.athletes') }}" :active="request()->routeIs('personal-trainer.athletes*')">
                 {{ __('Atleti') }}
             </x-responsive-nav-link>
             <x-responsive-nav-link href="#" :active="request()->routeIs('personal-trainer.workouts*')">

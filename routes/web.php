@@ -47,6 +47,7 @@
             // Personal Trainer
             Route::middleware(['role:personal-trainer'])->prefix('personal-trainer')->name('personal-trainer.')->group(function() {
                 Route::get('/dashboard', [\App\Http\Livewire\PersonalTrainer\Dashboard::class, '__invoke'])->name('dashboard');
+                Route::get('/athletes', [\App\Http\Livewire\PersonalTrainer\Athletes\Index::class, '__invoke'])->name('athletes');
             });
         });
     });

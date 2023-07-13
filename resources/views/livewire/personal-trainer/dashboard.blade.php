@@ -13,7 +13,7 @@
                         <div class="flex items-baseline text-2xl font-semibold text-fit-purple-blue">
                             {{ $athletes->count() }}
                         </div>
-                        <x-primary-button>Vedi</x-primary-button>
+                        <x-primary-button href="{{ route('personal-trainer.athletes') }}">Vedi</x-primary-button>
                     </dd>
                 </div>
                 <div class="px-4 py-5 sm:p-6">
