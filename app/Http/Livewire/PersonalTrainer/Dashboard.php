@@ -11,6 +11,7 @@ class Dashboard extends Component
     {
         return view('livewire.personal-trainer.dashboard', [
             'athletes' => auth()->user()->athletes,
+            'workouts' => auth()->user()->personal_trainer_workouts,
             'exercises' => Exercise::all()
         ]);
     }

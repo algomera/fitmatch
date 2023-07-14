@@ -9,10 +9,6 @@ class Index extends Component
 {
     public User $selectedAthlete;
 
-    public function mount() {
-        $this->setAthlete(3);
-    }
-
     public function setAthlete($id) {
         $this->selectedAthlete = User::find($id);
     }

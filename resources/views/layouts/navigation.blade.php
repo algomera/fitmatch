@@ -42,7 +42,7 @@
                     <x-nav-link href="{{ route('personal-trainer.athletes') }}" :active="request()->routeIs('personal-trainer.athletes*')">
                         {{ __('Atleti') }}
                     </x-nav-link>
-                    <x-nav-link href="#" :active="request()->routeIs('personal-trainer.workouts*')">
+                    <x-nav-link href="{{ route('personal-trainer.workouts') }}" :active="request()->routeIs('personal-trainer.workouts*')">
                         {{ __('Schede') }}
                     </x-nav-link>
                     <x-nav-link href="#" :active="request()->routeIs('personal-trainer.exercises*')">
@@ -126,7 +126,7 @@
             <x-responsive-nav-link href="{{ route('personal-trainer.athletes') }}" :active="request()->routeIs('personal-trainer.athletes*')">
                 {{ __('Atleti') }}
             </x-responsive-nav-link>
-            <x-responsive-nav-link href="#" :active="request()->routeIs('personal-trainer.workouts*')">
+            <x-responsive-nav-link href="{{ route('personal-trainer.workouts') }}" :active="request()->routeIs('personal-trainer.workouts*')">
                 {{ __('Schede') }}
             </x-responsive-nav-link>
             <x-responsive-nav-link href="#" :active="request()->routeIs('personal-trainer.exercises*')">

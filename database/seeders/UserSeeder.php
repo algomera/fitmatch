@@ -51,6 +51,7 @@ class UserSeeder extends Seeder
         // athlete
         $atl = User::factory()->create([
             'email' => 'athlete@example.test',
+            'status' => null
         ]);
         $atl->assignRole('athlete');
         $atl->informations()->create([

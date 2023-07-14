@@ -48,6 +48,8 @@
             Route::middleware(['role:personal-trainer'])->prefix('personal-trainer')->name('personal-trainer.')->group(function() {
                 Route::get('/dashboard', [\App\Http\Livewire\PersonalTrainer\Dashboard::class, '__invoke'])->name('dashboard');
                 Route::get('/athletes', [\App\Http\Livewire\PersonalTrainer\Athletes\Index::class, '__invoke'])->name('athletes');
+                Route::get('/workouts', [\App\Http\Livewire\PersonalTrainer\Workouts\Index::class, '__invoke'])->name('workouts');
+                Route::get('/workouts/{workout}', [\App\Http\Livewire\PersonalTrainer\Workouts\Show::class, '__invoke'])->name('workout');
             });
         });
     });
