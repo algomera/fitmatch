@@ -29,7 +29,7 @@ class Register extends Component
         $user = User::create([
             'email' => $this->email,
             'password' => Hash::make($this->password),
-            'status' => 'waiting'
+            'status' => 'pending'
         ]);
 
         $user->assignRole('personal-trainer');

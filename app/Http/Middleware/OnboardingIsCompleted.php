@@ -17,8 +17,8 @@ class OnboardingIsCompleted
     {
         $user = $request->user();
 
-        if($user->role->name === 'personal-trainer') {
-            if ($user->status === 'waiting') {
+        if ($user->role->name === 'personal-trainer') {
+            if (in_array($user->status, ['pending', 'rejected', 'blocked'])) {
                 return redirect()->route("onboarding.step-{$user->onboarding_current_step}");
             }
         }

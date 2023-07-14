@@ -3,6 +3,7 @@
 namespace App\Http;
 
 use App\Http\Middleware\OnboardingIsCompleted;
+use App\Http\Middleware\PersonalTrainerIsApproved;
 use Illuminate\Foundation\Http\Kernel as HttpKernel;
 
 class Kernel extends HttpKernel

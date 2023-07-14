@@ -4,13 +4,13 @@
             <h2>{{ $user->fullName }}</h2>
             @php
                 switch ($user->status) {
-                    case 'waiting':
+                    case 'pending':
                     $badgeClasses = 'bg-fit-magenta';
                     break;
-                    case 'accepted':
+                    case 'approved':
                     $badgeClasses = 'bg-fit-light-blue';
                     break;
-                    case 'declined':
+                    case 'rejected':
                     $badgeClasses = 'bg-gray-500';
                     break;
                     case 'blocked':
@@ -22,13 +22,13 @@
         </div>
         <div class="mt-3 flex sm:ml-4 sm:mt-0 space-x-4">
             <x-primary-button color="ghost">Contatta</x-primary-button>
-            @if($user->status !== 'accepted')
-                <x-primary-button wire:click="changeStatus('accepted')">Approva</x-primary-button>
+            @if($user->status !== 'approved')
+                <x-primary-button wire:click="changeStatus('approved')">Approva</x-primary-button>
             @endif
-            @if($user->status !== 'declined')
-                <x-primary-button color="magenta" wire:click="changeStatus('declined')">Nega</x-primary-button>
+            @if($user->status !== 'rejected')
+                <x-primary-button color="magenta" wire:click="changeStatus('rejected')">Nega</x-primary-button>
             @endif
-            @if(in_array($user->status, ['accepted', 'declined']))
+            @if(in_array($user->status, ['approved', 'rejected']))
                 <x-primary-button color="red" wire:click="changeStatus('blocked')">Blocca</x-primary-button>
             @endif
         </div>

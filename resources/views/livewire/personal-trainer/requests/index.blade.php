@@ -41,13 +41,13 @@
                             <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500">
                                 @php
                                     switch ($request->status) {
-                                        case 'waiting':
+                                        case 'pending':
                                         $badgeClasses = 'bg-fit-magenta';
                                         break;
-                                        case 'accepted':
+                                        case 'approved':
                                         $badgeClasses = 'bg-fit-light-blue';
                                         break;
-                                        case 'declined':
+                                        case 'rejected':
                                         $badgeClasses = 'bg-gray-500';
                                         break;
                                         case 'blocked':

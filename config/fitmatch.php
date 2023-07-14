@@ -1,9 +1,9 @@
 <?php
 return [
     'profile_statuses' => [
-        'waiting' => 'In attesa di approvazione',
-        'accepted' => 'Approvato',
-        'declined' => 'Rifiutato',
+        'pending' => 'In attesa di approvazione',
+        'approved' => 'Approvato',
+        'rejected' => 'Rifiutato',
         'blocked' => 'Bloccato',
     ]
 ];

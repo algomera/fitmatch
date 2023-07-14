@@ -27,7 +27,7 @@ class UserSeeder extends Seeder
         $pt = User::factory()->create([
             'email' => 'pt@example.test',
             'onboarding_current_step' => 12,
-            'status' => 'accepted',
+            'status' => 'approved',
         ]);
         $pt->assignRole('personal-trainer');
         $pt->informations()->create([
