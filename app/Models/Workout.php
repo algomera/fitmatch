@@ -30,6 +30,16 @@ class Workout extends Model
         return Carbon::parse($this->start_date)->addWeeks($this->duration);
     }
 
+    public function workout_weeks()
+    {
+        return $this->hasMany(WorkoutWeek::class);
+    }
+
+    public function workout_days()
+    {
+        return $this->hasManyThrough(WorkoutDay::class, WorkoutWeek::class)->where('workout_days.workout_id', $this->id);
+    }
+
     public function personal_trainer()
     {
         return $this->belongsTo(User::class, 'user_id', 'id');
