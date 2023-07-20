@@ -7,9 +7,11 @@
             <nav class="text-base lg:text-sm py-4">
                 <ul class="space-y-5">
                     @forelse($athletes as $athlete)
-                        <li wire:click="setAthlete({{$athlete->id}})" class="{{ $athlete->is($selectedAthlete) ? '' : 'group cursor-pointer' }} flex items-center space-x-5">
+                        <li wire:click="setAthlete({{$athlete->id}})"
+                            class="{{ $athlete->is($selectedAthlete) ? '' : 'group cursor-pointer' }} flex items-center space-x-5">
                             @if($athlete->informations->profile_image)
-                                <img src="{{ asset($athlete->informations->profile_image) }}" class="w-9 h-9 bg-gray-200 ring-2 ring-white rounded-full" />
+                                <img src="{{ asset($athlete->informations->profile_image) }}"
+                                     class="w-9 h-9 bg-gray-200 ring-2 ring-white rounded-full"/>
                             @else
                                 <div class="w-9 h-9 bg-gray-200 ring-2 ring-white rounded-full"></div>
                             @endif
@@ -23,117 +25,104 @@
         </div>
     </div>
     @if($selectedAthlete)
-    <div class="min-w-0 max-w-none flex-auto px-4 py-6 lg:max-w-none lg:pl-6 lg:pr-0">
-        <div class="grid grid-cols-1 sm:grid-cols-3 gap-5">
-            <div class="col-span-2 space-y-5">
-                <div class="flex items-center space-x-5">
-                    @if($selectedAthlete->informations->profile_image)
-                        <img src="{{ asset($selectedAthlete->informations->profile_image) }}" class="w-11 h-11 bg-gray-200 ring-2 ring-white rounded-full" />
-                    @else
-                        <div class="w-11 h-11 bg-gray-200 ring-2 ring-white rounded-full"></div>
-                    @endif
-                    <h3>{{ $athlete->fullName }}</h3>
-                </div>
-                <div class="grid grid-cols-2 gap-5 sm:grid-cols-3">
-                    <div class="bg-white col-span-1">
-                        <div class="p-2 border-b">
-                            <p class="text-lg font-bold text-fit-dark-gray">Anni</p>
-                        </div>
-                        <div class="p-2">
-                            <p class="text-lg font-semibold">32</p>
-                        </div>
+        <div class="min-w-0 max-w-none flex-auto px-4 py-6 lg:max-w-none lg:pl-6 lg:pr-0">
+            <div class="grid grid-cols-1 sm:grid-cols-3 gap-5">
+                <div class="col-span-2 space-y-5">
+                    <div class="flex items-center space-x-5">
+                        @if($selectedAthlete->informations->profile_image)
+                            <img src="{{ asset($selectedAthlete->informations->profile_image) }}"
+                                 class="w-11 h-11 bg-gray-200 ring-2 ring-white rounded-full"/>
+                        @else
+                            <div class="w-11 h-11 bg-gray-200 ring-2 ring-white rounded-full"></div>
+                        @endif
+                        <h3>{{ $athlete->fullName }}</h3>
                     </div>
-                    <div class="bg-white col-span-1">
-                        <div class="p-2 border-b">
-                            <p class="text-lg font-bold text-fit-dark-gray">Ultima sessione</p>
-                        </div>
-                        <div class="p-2">
-                            <p class="text-lg font-semibold">2 giorni fa</p>
-                        </div>
-                    </div>
-                    <div class="bg-white col-span-1">
-                        <div class="p-2 border-b">
-                            <p class="text-lg font-bold text-fit-dark-gray">Sessioni rimaste</p>
-                        </div>
-                        <div class="p-2">
-                            <p class="text-lg font-semibold">8/12</p>
-                        </div>
-                    </div>
-                    <div class="bg-white col-span-1">
-                        <div class="p-2 border-b">
-                            <p class="text-lg font-bold text-fit-dark-gray">Sesso</p>
-                        </div>
-                        <div class="p-2">
-                            <p class="text-lg font-semibold">Maschio</p>
-                        </div>
-                    </div>
-                    <div class="bg-white col-span-1">
-                        <div class="p-2 border-b">
-                            <p class="text-lg font-bold text-fit-dark-gray">Livello</p>
-                        </div>
-                        <div class="p-2">
-                            <p class="text-lg font-semibold">Avanzato</p>
-                        </div>
-                    </div>
-                    <div class="bg-white col-span-1">
-                        <div class="p-2 border-b">
-                            <p class="text-lg font-bold text-fit-dark-gray">Data di inizio</p>
-                        </div>
-                        <div class="p-2">
-                            <p class="text-lg font-semibold">gg/mm/aaaa</p>
-                        </div>
-                    </div>
-                    <div class="bg-white col-span-1">
-                        <div class="p-2 border-b">
-                            <p class="text-lg font-bold text-fit-dark-gray">Peso</p>
-                        </div>
-                        <div class="p-2">
-                            <p class="text-lg font-semibold">82Kg</p>
-                        </div>
-                    </div>
-                    <div class="bg-white col-span-2">
-                        <div class="p-2 border-b">
-                            <p class="text-lg font-bold text-fit-dark-gray">Obbiettivo</p>
-                        </div>
-                        <div class="p-2">
-                            <p class="text-lg font-semibold">Ricomposizione corporea</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="flex items-center space-x-5">
-                    <x-primary-button>Richiesi anamnesi</x-primary-button>
-                    <x-primary-button color="ghost">Storico prestazioni</x-primary-button>
-                </div>
-            </div>
-            <div>
-                <div class="border-b pb-5">
-                    <h4 class="font-bold text-fit-purple-blue">Schede</h4>
-                </div>
-                <div class="pt-5 -mt-px space-y-5">
-                    @foreach($selectedAthlete->athlete_workouts as $workout)
-                        <div class="bg-white shadow border rounded-md col-span-2">
-                            <div class="p-4 border-b">
-                                <span class="text-xs text-gray-400">{{ $workout->start_date->format('d/m/Y') }} - {{ $workout->end_date->format('d/m/Y') }}</span>
-                                <p class="text-lg font-bold text-fit-black mt-1">{{ $workout->name }}</p>
+                    <div class="grid grid-cols-2 gap-5 sm:grid-cols-3">
+                        <div class="bg-white col-span-1">
+                            <div class="p-2 border-b">
+                                <p class="text-lg font-bold text-fit-dark-gray">Anni</p>
                             </div>
-                            <div class="p-4 border-b bg-gray-100">
-                                <span class="font-semibold text-fit-dark-blue">12 training sessions</span>
-                            </div>
-                            <div class="p-4 flex items-center justify-between">
-                                <x-heroicon-o-arrow-up-on-square class="w-5 h-5 hover:cursor-pointer hover:text-fit-magenta"></x-heroicon-o-arrow-up-on-square>
-                                <div class="flex space-x-4">
-                                    <x-heroicon-o-trash class="w-5 h-5 hover:cursor-pointer hover:text-fit-magenta"></x-heroicon-o-trash>
-                                    <x-heroicon-o-square-2-stack class="w-5 h-5 hover:cursor-pointer hover:text-fit-magenta"></x-heroicon-o-square-2-stack>
-                                </div>
+                            <div class="p-2">
+                                <p class="text-lg font-semibold">32</p>
                             </div>
                         </div>
-                    @endforeach
+                        <div class="bg-white col-span-1">
+                            <div class="p-2 border-b">
+                                <p class="text-lg font-bold text-fit-dark-gray">Ultima sessione</p>
+                            </div>
+                            <div class="p-2">
+                                <p class="text-lg font-semibold">2 giorni fa</p>
+                            </div>
+                        </div>
+                        <div class="bg-white col-span-1">
+                            <div class="p-2 border-b">
+                                <p class="text-lg font-bold text-fit-dark-gray">Sessioni rimaste</p>
+                            </div>
+                            <div class="p-2">
+                                <p class="text-lg font-semibold">8/12</p>
+                            </div>
+                        </div>
+                        <div class="bg-white col-span-1">
+                            <div class="p-2 border-b">
+                                <p class="text-lg font-bold text-fit-dark-gray">Sesso</p>
+                            </div>
+                            <div class="p-2">
+                                <p class="text-lg font-semibold">Maschio</p>
+                            </div>
+                        </div>
+                        <div class="bg-white col-span-1">
+                            <div class="p-2 border-b">
+                                <p class="text-lg font-bold text-fit-dark-gray">Livello</p>
+                            </div>
+                            <div class="p-2">
+                                <p class="text-lg font-semibold">Avanzato</p>
+                            </div>
+                        </div>
+                        <div class="bg-white col-span-1">
+                            <div class="p-2 border-b">
+                                <p class="text-lg font-bold text-fit-dark-gray">Data di inizio</p>
+                            </div>
+                            <div class="p-2">
+                                <p class="text-lg font-semibold">gg/mm/aaaa</p>
+                            </div>
+                        </div>
+                        <div class="bg-white col-span-1">
+                            <div class="p-2 border-b">
+                                <p class="text-lg font-bold text-fit-dark-gray">Peso</p>
+                            </div>
+                            <div class="p-2">
+                                <p class="text-lg font-semibold">82Kg</p>
+                            </div>
+                        </div>
+                        <div class="bg-white col-span-2">
+                            <div class="p-2 border-b">
+                                <p class="text-lg font-bold text-fit-dark-gray">Obbiettivo</p>
+                            </div>
+                            <div class="p-2">
+                                <p class="text-lg font-semibold">Ricomposizione corporea</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="flex items-center space-x-5">
+                        <x-primary-button>Richiesi anamnesi</x-primary-button>
+                        <x-primary-button color="ghost">Storico prestazioni</x-primary-button>
+                    </div>
+                </div>
+                <div>
+                    <div class="border-b pb-5">
+                        <h4 class="font-bold text-fit-purple-blue">Schede</h4>
+                    </div>
+                    <div class="pt-5 -mt-px space-y-5">
+                        @foreach($selectedAthlete->athlete_workouts as $workout)
+                            <livewire:components.workout :workout="$workout"/>
+                        @endforeach
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
     @else
-        <div class="flex items-center justify-center min-w-0 max-w-none flex-auto px-4 py-6 lg:max-w-none lg:pl-6 lg:pr-0">
+        <div
+            class="flex items-center justify-center min-w-0 max-w-none flex-auto px-4 py-6 lg:max-w-none lg:pl-6 lg:pr-0">
             <div class="text-center">
                 <x-heroicon-o-users class="mx-auto h-12 w-12 text-gray-400"></x-heroicon-o-users>
                 <h3 class="mt-2 text-sm font-semibold text-gray-900">Seleziona un atleta</h3>

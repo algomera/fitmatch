@@ -3,19 +3,20 @@
 namespace App\Http\Livewire\PersonalTrainer\Workouts;
 
 use App\Models\User;
-use App\Models\Workout;
 use Livewire\Component;
 
 class Index extends Component
 {
-    public $filter =3;
+    public $filter = 3;
     public $athlete;
+
+    protected $queryString = ['filter'];
 
     public function render()
     {
         $workouts = auth()->user()->personal_trainer_workouts();
 
-        if($this->filter === 'unassigned') {
+        if ($this->filter === 'unassigned') {
             $workouts->where('athlete_id', null);
         } else {
             $this->athlete = User::find($this->filter);

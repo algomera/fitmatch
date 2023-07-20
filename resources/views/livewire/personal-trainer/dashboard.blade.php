@@ -20,7 +20,7 @@
                     <dt class="text-base font-normal text-gray-900">Schede</dt>
                     <dd class="mt-1 flex items-center justify-between md:block lg:flex">
                         <div class="flex items-baseline text-2xl font-semibold text-fit-purple-blue">
-                            {{ $workouts->count() }}
+                            {{ $assigned_workouts->count() }}
                         </div>
                         <x-primary-button href="{{ route('personal-trainer.workouts') }}">Vedi</x-primary-button>
                     </dd>
@@ -37,12 +37,29 @@
             </dl>
         </div>
         <div>
-            <h3 class="text-fit-magenta">Ultime schede create</h3>
-            <p>da fare</p>
+            <div class="flex items-center justify-between">
+                <h3 class="text-fit-magenta">Ultime schede create</h3>
+                <x-primary-button href="{{ route('personal-trainer.workouts') }}" color="link">Vedi tutte
+                </x-primary-button>
+            </div>
+            <div class="mt-2 grid grid-cols-4 gap-4">
+                @foreach($assigned_workouts as $workout)
+                    <livewire:components.workout :workout="$workout"/>
+                @endforeach
+            </div>
         </div>
         <div>
-            <h3 class="text-fit-magenta">Schede non assegnate</h3>
-            <p>da fare</p>
+            <div class="flex items-center justify-between">
+                <h3 class="text-fit-magenta">Schede non assegnate</h3>
+                <x-primary-button href="{{ route('personal-trainer.workouts', ['filter' => 'unassigned']) }}"
+                                  color="link">Vedi tutte
+                </x-primary-button>
+            </div>
+            <div class="mt-2 grid grid-cols-4 gap-4">
+                @foreach($not_assigned_workouts as $workout)
+                    <livewire:components.workout :workout="$workout"/>
+                @endforeach
+            </div>
         </div>
     </div>
 </div>

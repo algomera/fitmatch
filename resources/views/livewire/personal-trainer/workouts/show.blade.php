@@ -1,5 +1,6 @@
 <div class="bg-white">
     <div class="max-w-7xl mx-auto py-6 px-4 space-y-2 sm:px-6 lg:px-8">
+        @if($athlete)
         <div class="flex items-center space-x-5 border-b pb-5">
             @if($athlete->informations->profile_image)
                 <img src="{{ asset($athlete->informations->profile_image) }}"
@@ -9,6 +10,7 @@
             @endif
             <h3>{{ $athlete->fullName }}</h3>
         </div>
+        @endif
         <div class="flex items-center justify-between">
             <p class="text-sm">Dal <span class="font-semibold">{{ $workout->start_date->format('d/m/Y') }}</span> al <span class="font-semibold">{{ $workout->end_date->format('d/m/Y') }}</span></p>
             <div>
