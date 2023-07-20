@@ -12,6 +12,10 @@ class Index extends Component
 
     protected $queryString = ['filter'];
 
+    protected $listeners = [
+        'workout-deleted' => '$refresh',
+    ];
+
     public function render()
     {
         $workouts = auth()->user()->personal_trainer_workouts();
