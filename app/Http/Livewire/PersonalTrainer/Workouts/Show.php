@@ -4,6 +4,7 @@ namespace App\Http\Livewire\PersonalTrainer\Workouts;
 
 use App\Models\Workout;
 use App\Models\WorkoutDay;
+use App\Models\WorkoutSet;
 use Livewire\Component;
 
 class Show extends Component
@@ -23,7 +24,7 @@ class Show extends Component
         $this->workout = $workout;
         $this->athlete = $workout->athlete;
         $this->weeks = $workout->workout_weeks;
-        $this->selectedDay = $workout->workout_days->first()->day ?? null;
+        $this->selectedDay = $workout->workout_days()->orderBy('day')->first()->id ?? null;
     }
 
     public function addDay($id)
@@ -34,19 +35,37 @@ class Show extends Component
             'day' => $id
         ]);
 
-        $this->selectedDay = intval($day->day);
+        WorkoutSet::create([
+            'workout_day_id' => $day->id
+        ]);
+
+        $this->selectedDay = $day->id;
     }
 
     public function deleteDay(WorkoutDay $day)
     {
+        $day->workout_sets()->delete();
         $day->delete();
         $this->selectedDay = null;
+    }
+
+    public function addSet($day)
+    {
+        WorkoutSet::create([
+            'workout_day_id' => $day
+        ]);
+    }
+
+    public function deleteSet(WorkoutSet $set)
+    {
+        $set->delete();
     }
 
     public function render()
     {
         return view('livewire.personal-trainer.workouts.show', [
-            'days' => $this->workout->workout_days()->orderBy('day')->get()
+            'days' => $this->workout->workout_days()->orderBy('day')->get(),
+            'sets' => WorkoutSet::where('workout_day_id', $this->selectedDay)->get()
         ]);
     }
 }

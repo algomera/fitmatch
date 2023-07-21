@@ -24,7 +24,7 @@ class WorkoutsSeeder extends Seeder
         ]);
 
         foreach (range(1, $duration) as $week) {
-            $assigned->weeks()->create([
+            $assigned->workout_weeks()->create([
                 'week' => $week
             ]);
         }
