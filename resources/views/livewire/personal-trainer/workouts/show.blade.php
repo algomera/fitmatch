@@ -14,7 +14,21 @@
         <div class="flex items-center justify-between">
             <p class="text-sm">Dal <span class="font-semibold">{{ $workout->start_date->format('d/m/Y') }}</span> al
                 <span class="font-semibold">{{ $workout->end_date->format('d/m/Y') }}</span></p>
-            <div>
+            <div class="flex items-center space-x-3">
+                <x-dropdown class="cursor-pointer">
+                    <x-slot:trigger>
+                        <div class="flex items-center space-x-2">
+                            <span>Settimana {{ $selectedWeek }}</span>
+                            <x-heroicon-o-chevron-down class="h-3 w-3"></x-heroicon-o-chevron-down>
+                        </div>
+                    </x-slot:trigger>
+                    <x-slot:content>
+                        @foreach($workout->workout_weeks as $week)
+                            <x-dropdown-link wire:click="$set('selectedWeek', {{ $week->id }})">
+                                Settimana {{ $week->week }}</x-dropdown-link>
+                        @endforeach
+                    </x-slot:content>
+                </x-dropdown>
                 <x-primary-button color="ghost">Copia settimana</x-primary-button>
             </div>
         </div>

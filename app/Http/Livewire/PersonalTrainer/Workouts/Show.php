@@ -46,7 +46,7 @@ class Show extends Component
     {
         $day->workout_sets()->delete();
         $day->delete();
-        $this->selectedDay = null;
+        $this->selectedDay = $this->workout->workout_days()->where('workout_week_id', $this->selectedWeek)->first()->id ?? null;
     }
 
     public function addSet($day)
@@ -61,10 +61,15 @@ class Show extends Component
         $set->delete();
     }
 
+    public function updatedSelectedWeek()
+    {
+        $this->selectedDay = $this->workout->workout_days()->where('workout_week_id', $this->selectedWeek)->first()->id ?? null;
+    }
+
     public function render()
     {
         return view('livewire.personal-trainer.workouts.show', [
-            'days' => $this->workout->workout_days()->orderBy('day')->get(),
+            'days' => $this->workout->workout_days()->where('workout_week_id', $this->selectedWeek)->orderBy('day')->get(),
             'sets' => WorkoutSet::where('workout_day_id', $this->selectedDay)->get()
         ]);
     }
