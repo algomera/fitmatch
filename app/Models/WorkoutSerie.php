@@ -5,19 +5,19 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class WorkoutSet extends Model
+class WorkoutSerie extends Model
 {
     use HasFactory;
 
     public $timestamps = false;
 
-    public function day()
+    public function set()
     {
-        return $this->belongsTo(WorkoutDay::class);
+        return $this->belongsTo(WorkoutSet::class);
     }
 
-    public function workout_series()
+    public function exercises()
     {
-        return $this->hasMany(WorkoutSerie::class);
+        return $this->belongsToMany(Exercise::class);
     }
 }

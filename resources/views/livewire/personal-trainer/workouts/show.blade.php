@@ -74,17 +74,19 @@
         </div>
         @if($selectedDay)
             @foreach($sets as $set)
-                <div wire:key="set-{{$set->id}}" class="flex">
-                    <div class="flex mt-4 h-40 w-40">
+                <div wire:key="set-{{$set->id}}" class="flex bg-fit-lighter-gray">
+                    <div class="flex py-4 min-h-[10rem] w-40 bg-white">
                         <div class="relative flex flex-col items-end px-2 w-8">
                             <span
                                 class="text-xl font-bold text-fit-magenta">{{ str_pad($loop->iteration, 2, "0", STR_PAD_LEFT) }}</span>
                             <span class="absolute inset-y-0 right-0 flex-1 w-[3px] bg-fit-magenta"></span>
-                            <div
-                                wire:click="deleteSet({{$set->id}})"
-                                class="absolute {{ $loop->first ? 'bottom-0' : 'bottom-10' }} flex items-center justify-center w-6 h-6 bg-fit-magenta rounded-full hover:cursor-pointer hover:bg-fit-magenta/70">
-                                <x-heroicon-o-minus class="w-3.5 h-3.5 text-white"></x-heroicon-o-minus>
-                            </div>
+                            @if(!$loop->first)
+                                <div
+                                    wire:click="deleteSet({{$set->id}})"
+                                    class="absolute {{ $loop->last ? 'bottom-10' : 'bottom-0' }} flex items-center justify-center w-6 h-6 bg-fit-magenta rounded-full hover:cursor-pointer hover:bg-fit-magenta/70">
+                                    <x-heroicon-o-minus class="w-3.5 h-3.5 text-white"></x-heroicon-o-minus>
+                                </div>
+                            @endif
                             @if($loop->last)
                                 <div
                                     wire:click="addSet({{$selectedDay}})"
@@ -94,60 +96,86 @@
                             @endif
                         </div>
                     </div>
-                    <div class="flex flex-1 bg-fit-lighter-gray space-x-4 p-4">
-                        <div class="flex">
-                            <div class="flex items-center justify-center w-40 h-40 bg-white">
-                                <x-dropdown align="left">
-                                    <x-slot:trigger>
-                                        <div
-                                            class="flex items-center justify-center w-10 h-10 bg-fit-magenta hover:cursor-pointer hover:bg-fit-magenta/70 rounded-lg">
-                                            <x-heroicon-o-plus class="w-6 h-6 text-white"></x-heroicon-o-plus>
+                    <div class="flex flex-col">
+                        @forelse($set->workout_series as $serie)
+                            <div wire:key="{{ $set->id }}-{{ $serie->id }}"
+                                 class="relative flex flex-1 bg-fit-lighter-gray p-4">
+                                {{--                                <div class="absolute -left-3 top-1/2 -mt-3">--}}
+                                {{--                                    <div--}}
+                                {{--                                        wire:click="deleteSerie({{$serie->id}})"--}}
+                                {{--                                        class="flex items-center justify-center w-6 h-6 bg-fit-magenta hover:cursor-pointer hover:bg-fit-magenta/70 rounded-md">--}}
+                                {{--                                        <x-heroicon-o-minus class="w-4 h-4 text-white"></x-heroicon-o-minus>--}}
+                                {{--                                    </div>--}}
+                                {{--                                </div>--}}
+                                <div class="flex space-x-4">
+                                    @foreach($serie->exercises as $exercise)
+                                        <div class="flex items-center justify-center w-40 h-40 bg-white">
+                                            {{ $exercise->id }}
                                         </div>
-                                    </x-slot:trigger>
-                                    <x-slot:content>
-                                        <div class="px-1 space-y-1">
-                                            <div
-                                                class="px-1 py-1 flex items-center space-x-2 text-fit-dark-blue text-sm rounded hover:cursor-pointer hover:text-white hover:bg-fit-dark-blue">
-                                                <x-heroicon-o-plus-circle class="w-4 h-4"></x-heroicon-o-plus-circle>
-                                                <span>Esercizio</span>
-                                            </div>
-                                            <div
-                                                class="px-1 py-1 flex items-center space-x-2 text-fit-dark-blue text-sm rounded hover:cursor-pointer hover:text-white hover:bg-fit-dark-blue">
-                                                <x-heroicon-o-plus-circle class="w-4 h-4"></x-heroicon-o-plus-circle>
-                                                <span>Ripetizioni</span>
-                                            </div>
-                                            <div
-                                                class="px-1 py-1 flex items-center space-x-2 text-fit-dark-blue text-sm rounded hover:cursor-pointer hover:text-white hover:bg-fit-dark-blue">
-                                                <x-heroicon-o-plus-circle class="w-4 h-4"></x-heroicon-o-plus-circle>
-                                                <span>Recupero</span>
-                                            </div>
-                                            <div
-                                                class="px-1 py-1 flex items-center space-x-2 text-sm text-fit-purple-blue rounded hover:cursor-pointer hover:text-white hover:bg-fit-purple-blue">
-                                                <x-heroicon-o-plus-circle class="w-4 h-4"></x-heroicon-o-plus-circle>
-                                                <span>Nuova serie</span>
-                                            </div>
-                                            <div
-                                                class="px-1 py-1 flex items-center space-x-2 text-sm text-fit-purple-blue rounded hover:cursor-pointer hover:text-white hover:bg-fit-purple-blue">
-                                                <x-heroicon-o-square-2-stack
-                                                    class="w-4 h-4"></x-heroicon-o-square-2-stack>
-                                                <span>Duplica serie orizzontale</span>
-                                            </div>
-                                            <div
-                                                class="px-1 py-1 flex items-center space-x-2 text-sm text-fit-purple-blue rounded hover:cursor-pointer hover:text-white hover:bg-fit-purple-blue">
-                                                <x-heroicon-o-square-2-stack
-                                                    class="w-4 h-4"></x-heroicon-o-square-2-stack>
-                                                <span>Duplica serie verticale</span>
-                                            </div>
-                                            <div
-                                                class="px-1 py-1 flex items-center space-x-2 text-sm text-fit-magenta rounded hover:cursor-pointer hover:text-white hover:bg-fit-magenta">
-                                                <x-heroicon-o-stop-circle class="w-4 h-4"></x-heroicon-o-stop-circle>
-                                                <span>Fine esercizio</span>
-                                            </div>
-                                        </div>
-                                    </x-slot:content>
-                                </x-dropdown>
+                                    @endforeach
+                                    <div class="flex items-center justify-center w-40 h-40 bg-white">
+                                        <x-dropdown align="left">
+                                            <x-slot:trigger>
+                                                <div
+                                                    class="flex items-center justify-center w-10 h-10 bg-fit-magenta hover:cursor-pointer hover:bg-fit-magenta/70 rounded-lg">
+                                                    <x-heroicon-o-plus class="w-6 h-6 text-white"></x-heroicon-o-plus>
+                                                </div>
+                                            </x-slot:trigger>
+                                            <x-slot:content>
+                                                <div class="px-1 space-y-1">
+                                                    <div
+                                                        wire:click="addExercise({{ $serie->id }})"
+                                                        class="px-1 py-1 flex items-center space-x-2 text-fit-dark-blue text-sm rounded hover:cursor-pointer hover:text-white hover:bg-fit-dark-blue">
+                                                        <x-heroicon-o-plus-circle
+                                                            class="w-4 h-4"></x-heroicon-o-plus-circle>
+                                                        <span>Esercizio</span>
+                                                    </div>
+                                                    <div
+                                                        class="px-1 py-1 flex items-center space-x-2 text-fit-dark-blue text-sm rounded hover:cursor-pointer hover:text-white hover:bg-fit-dark-blue">
+                                                        <x-heroicon-o-plus-circle
+                                                            class="w-4 h-4"></x-heroicon-o-plus-circle>
+                                                        <span>Ripetizioni</span>
+                                                    </div>
+                                                    <div
+                                                        class="px-1 py-1 flex items-center space-x-2 text-fit-dark-blue text-sm rounded hover:cursor-pointer hover:text-white hover:bg-fit-dark-blue">
+                                                        <x-heroicon-o-plus-circle
+                                                            class="w-4 h-4"></x-heroicon-o-plus-circle>
+                                                        <span>Recupero</span>
+                                                    </div>
+                                                    <div
+                                                        wire:click="addSerie({{ $set->id }})"
+                                                        class="px-1 py-1 flex items-center space-x-2 text-sm text-fit-purple-blue rounded hover:cursor-pointer hover:text-white hover:bg-fit-purple-blue">
+                                                        <x-heroicon-o-plus-circle
+                                                            class="w-4 h-4"></x-heroicon-o-plus-circle>
+                                                        <span>Nuova serie</span>
+                                                    </div>
+                                                    <div
+                                                        class="px-1 py-1 flex items-center space-x-2 text-sm text-fit-purple-blue rounded hover:cursor-pointer hover:text-white hover:bg-fit-purple-blue">
+                                                        <x-heroicon-o-square-2-stack
+                                                            class="w-4 h-4"></x-heroicon-o-square-2-stack>
+                                                        <span>Duplica serie orizzontale</span>
+                                                    </div>
+                                                    <div
+                                                        class="px-1 py-1 flex items-center space-x-2 text-sm text-fit-purple-blue rounded hover:cursor-pointer hover:text-white hover:bg-fit-purple-blue">
+                                                        <x-heroicon-o-square-2-stack
+                                                            class="w-4 h-4"></x-heroicon-o-square-2-stack>
+                                                        <span>Duplica serie verticale</span>
+                                                    </div>
+                                                    <div
+                                                        class="px-1 py-1 flex items-center space-x-2 text-sm text-fit-magenta rounded hover:cursor-pointer hover:text-white hover:bg-fit-magenta">
+                                                        <x-heroicon-o-stop-circle
+                                                            class="w-4 h-4"></x-heroicon-o-stop-circle>
+                                                        <span>Fine esercizio</span>
+                                                    </div>
+                                                </div>
+                                            </x-slot:content>
+                                        </x-dropdown>
+                                    </div>
+                                </div>
                             </div>
-                        </div>
+                        @empty
+                            no
+                        @endforelse
                     </div>
                 </div>
             @endforeach
