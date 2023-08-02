@@ -109,9 +109,7 @@
                                 {{--                                </div>--}}
                                 <div class="flex space-x-4">
                                     @foreach($serie->exercises as $exercise)
-                                        <div class="flex items-center justify-center w-40 h-40 bg-white">
-                                            {{ $exercise->id }}
-                                        </div>
+                                        <x-exercise-card :exercise="$exercise"/>
                                     @endforeach
                                     <div class="flex items-center justify-center w-40 h-40 bg-white">
                                         <x-dropdown align="left">
