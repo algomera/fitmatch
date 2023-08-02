@@ -4,8 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-return new class extends Migration
-{
+return new class extends Migration {
     /**
      * Run the migrations.
      */
@@ -16,8 +15,8 @@ return new class extends Migration
             $table->foreignIdFor(\App\Models\ExerciseTypology::class, 'typology_id');
             $table->foreignIdFor(\App\Models\ExerciseZone::class, 'zone_id');
             $table->foreignIdFor(\App\Models\ExerciseArea::class, 'area_id');
-            $table->string('name');
-            $table->longText('description');
+            $table->string('name')->nullable();
+            $table->longText('description')->nullable();
             $table->text('link')->nullable();
             $table->timestamps();
         });
