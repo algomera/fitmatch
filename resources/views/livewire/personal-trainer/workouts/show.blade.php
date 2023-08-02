@@ -108,15 +108,38 @@
                                 {{--                                    </div>--}}
                                 {{--                                </div>--}}
                                 <div class="flex space-x-4">
-                                    @foreach($serie->exercises as $exercise)
-                                        <x-exercise-card :exercise="$exercise"/>
+                                    @foreach($serie->items as $item)
+                                        @switch($item->item_type)
+                                            @case('App\Models\Exercise')
+                                                @php
+                                                    $exercise = \App\Models\Exercise::find($item->item_id)
+                                                @endphp
+                                                <livewire:exercise-card :serie="$serie" :item="$exercise"
+                                                                        wire:key="{{ $serie->id }}-{{$item->id}}"/>
+                                                @break
+                                            @case('App\Models\Repetition')
+                                                @php
+                                                    $repetition = \App\Models\Repetition::find($item->item_id)
+                                                @endphp
+                                                <livewire:repetition-card :serie="$serie" :item="$repetition"
+                                                                          wire:key="{{ $serie->id }}-{{$item->id}}"/>
+                                                @break
+                                            @case('App\Models\Recovery')
+                                                @php
+                                                    $recovery = \App\Models\Recovery::find($item->item_id)
+                                                @endphp
+                                                <livewire:recovery-card :serie="$serie" :item="$recovery"
+                                                                        wire:key="{{ $serie->id }}-{{$item->id}}"/>
+                                                @break
+                                        @endswitch
                                     @endforeach
                                     <div class="flex items-center justify-center w-40 h-40 bg-white">
                                         <x-dropdown align="left">
                                             <x-slot:trigger>
                                                 <div
                                                     class="flex items-center justify-center w-10 h-10 bg-fit-magenta hover:cursor-pointer hover:bg-fit-magenta/70 rounded-lg">
-                                                    <x-heroicon-o-plus class="w-6 h-6 text-white"></x-heroicon-o-plus>
+                                                    <x-heroicon-o-plus
+                                                        class="w-6 h-6 text-white"></x-heroicon-o-plus>
                                                 </div>
                                             </x-slot:trigger>
                                             <x-slot:content>
@@ -129,16 +152,25 @@
                                                         <span>Esercizio</span>
                                                     </div>
                                                     <div
+                                                        wire:click="addRepetition({{ $serie->id }})"
                                                         class="px-1 py-1 flex items-center space-x-2 text-fit-dark-blue text-sm rounded hover:cursor-pointer hover:text-white hover:bg-fit-dark-blue">
                                                         <x-heroicon-o-plus-circle
                                                             class="w-4 h-4"></x-heroicon-o-plus-circle>
                                                         <span>Ripetizioni</span>
                                                     </div>
                                                     <div
+                                                        wire:click="addRecovery({{ $serie->id }})"
                                                         class="px-1 py-1 flex items-center space-x-2 text-fit-dark-blue text-sm rounded hover:cursor-pointer hover:text-white hover:bg-fit-dark-blue">
                                                         <x-heroicon-o-plus-circle
                                                             class="w-4 h-4"></x-heroicon-o-plus-circle>
                                                         <span>Recupero</span>
+                                                    </div>
+                                                    <div
+                                                        wire:click="addCargo({{ $serie->id }})"
+                                                        class="px-1 py-1 flex items-center space-x-2 text-fit-dark-blue text-sm rounded hover:cursor-pointer hover:text-white hover:bg-fit-dark-blue">
+                                                        <x-heroicon-o-plus-circle
+                                                            class="w-4 h-4"></x-heroicon-o-plus-circle>
+                                                        <span>Carico</span>
                                                     </div>
                                                     <div
                                                         wire:click="addSerie({{ $set->id }})"

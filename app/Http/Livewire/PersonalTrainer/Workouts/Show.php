@@ -2,6 +2,9 @@
 
 namespace App\Http\Livewire\PersonalTrainer\Workouts;
 
+use App\Models\Exercise;
+use App\Models\Recovery;
+use App\Models\Repetition;
 use App\Models\Workout;
 use App\Models\WorkoutDay;
 use App\Models\WorkoutExercise;
@@ -19,6 +22,7 @@ class Show extends Component
 
     protected $listeners = [
         'day-added' => '$refresh',
+        'item-deleted' => '$refresh',
     ];
 
     public function mount(Workout $workout)
@@ -61,7 +65,10 @@ class Show extends Component
     public function deleteSet(WorkoutSet $set)
     {
         foreach ($set->workout_series as $serie) {
-            $serie->exercises()->detach();
+            foreach ($serie->items as $item) {
+                $item->type::find($item->id)->delete();
+            }
+            $serie->items()->delete();
             $serie->delete();
         }
         $set->delete();
@@ -79,7 +86,37 @@ class Show extends Component
 
     public function addExercise(WorkoutSerie $serie)
     {
-        $serie->exercises()->attach(1);
+        $serie->items()->create([
+            'item_id' => 1, //TODO: rendere scelta dinamica
+            'item_type' => Exercise::class
+        ]);
+    }
+
+    public function addRepetition(WorkoutSerie $serie)
+    {
+        $repetition = Repetition::create();
+        $serie->items()->create([
+            'item_id' => $repetition->id,
+            'item_type' => Repetition::class
+        ]);
+    }
+
+    public function addRecovery(WorkoutSerie $serie)
+    {
+        $recovery = Recovery::create();
+        $serie->items()->create([
+            'item_id' => $recovery->id,
+            'item_type' => Recovery::class
+        ]);
+    }
+
+    public function addCargo(WorkoutSerie $serie)
+    {
+        // TODO: CARICO
+        $serie->items()->create([
+            'item_id' => 1,
+            'item_type' => Exercise::class
+        ]);
     }
 
     public function addSerie(WorkoutSet $set)

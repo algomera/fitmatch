@@ -12,7 +12,7 @@ return new class extends Migration {
     {
         Schema::create('workout_series', function (Blueprint $table) {
             $table->id();
-            $table->foreignIdFor(\App\Models\WorkoutSet::class, 'workout_set_id')->onDelete('cascade');
+            $table->foreignIdFor(\App\Models\WorkoutSet::class, 'workout_set_id')->constrained()->onDelete('cascade');
         });
     }
 

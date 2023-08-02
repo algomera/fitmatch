@@ -10,11 +10,9 @@ return new class extends Migration {
      */
     public function up(): void
     {
-        Schema::create('workout_days', function (Blueprint $table) {
+        Schema::create('recoveries', function (Blueprint $table) {
             $table->id();
-            $table->foreignIdFor(\App\Models\Workout::class, 'workout_id')->constrained()->onDelete('cascade');
-            $table->foreignIdFor(\App\Models\WorkoutWeek::class, 'workout_week_id');
-            $table->integer('day');
+            $table->time('quantity')->default(0);
         });
     }
 
@@ -23,6 +21,6 @@ return new class extends Migration {
      */
     public function down(): void
     {
-        Schema::dropIfExists('workout_days');
+        Schema::dropIfExists('recoveries');
     }
 };

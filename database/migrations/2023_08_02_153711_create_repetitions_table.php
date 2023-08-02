@@ -10,9 +10,9 @@ return new class extends Migration {
      */
     public function up(): void
     {
-        Schema::create('workout_sets', function (Blueprint $table) {
+        Schema::create('repetitions', function (Blueprint $table) {
             $table->id();
-            $table->foreignIdFor(\App\Models\WorkoutDay::class, 'workout_day_id')->onDelete('cascade');
+            $table->integer('quantity')->default(0);
         });
     }
 
@@ -21,6 +21,6 @@ return new class extends Migration {
      */
     public function down(): void
     {
-        Schema::dropIfExists('workout_sets');
+        Schema::dropIfExists('repetitions');
     }
 };

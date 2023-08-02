@@ -10,11 +10,11 @@ return new class extends Migration {
      */
     public function up(): void
     {
-        Schema::create('workout_days', function (Blueprint $table) {
+        Schema::create('workout_serie_items', function (Blueprint $table) {
             $table->id();
-            $table->foreignIdFor(\App\Models\Workout::class, 'workout_id')->constrained()->onDelete('cascade');
-            $table->foreignIdFor(\App\Models\WorkoutWeek::class, 'workout_week_id');
-            $table->integer('day');
+            $table->foreignIdFor(\App\Models\WorkoutSerie::class, 'workout_serie_id')->constrained()->onDelete('cascade');
+            $table->unsignedBigInteger('item_id');
+            $table->string('item_type');
         });
     }
 
@@ -23,6 +23,6 @@ return new class extends Migration {
      */
     public function down(): void
     {
-        Schema::dropIfExists('workout_days');
+        Schema::dropIfExists('workout_serie_items');
     }
 };
