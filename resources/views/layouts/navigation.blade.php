@@ -2,8 +2,9 @@
     <div class="mx-auto max-w-7xl px-2 sm:px-4 lg:px-8">
         <div class="flex h-16 justify-between">
             <div class="flex flex-1">
-                <a href="{{ route(auth()->user()->role->name.'.dashboard') }}" class="flex flex-shrink-0 items-center mr-2">
-                    <x-application-logo class="block h-9 w-auto fill-current text-gray-800"/>
+                <a href="{{ route(auth()->user()->role->name.'.dashboard') }}"
+                   class="flex flex-shrink-0 items-center mr-2">
+                    <x-application-logo class="block h-7 w-auto fill-current text-gray-800"/>
                 </a>
                 <div class="flex flex-1 items-center justify-center px-2 lg:ml-6 lg:justify-start">
                     <div class="w-full max-w-lg lg:max-w-xs">
@@ -39,10 +40,12 @@
                     </x-nav-link>
                     @endrole
                     @role('personal-trainer')
-                    <x-nav-link href="{{ route('personal-trainer.athletes') }}" :active="request()->routeIs('personal-trainer.athletes*')">
+                    <x-nav-link href="{{ route('personal-trainer.athletes') }}"
+                                :active="request()->routeIs('personal-trainer.athletes*')">
                         {{ __('Atleti') }}
                     </x-nav-link>
-                    <x-nav-link href="{{ route('personal-trainer.workouts') }}" :active="request()->routeIs('personal-trainer.workouts*')">
+                    <x-nav-link href="{{ route('personal-trainer.workouts') }}"
+                                :active="request()->routeIs('personal-trainer.workouts*')">
                         {{ __('Schede') }}
                     </x-nav-link>
                     <x-nav-link href="#" :active="request()->routeIs('personal-trainer.exercises*')">
@@ -123,10 +126,12 @@
             </x-responsive-nav-link>
             @endrole
             @role('personal-trainer')
-            <x-responsive-nav-link href="{{ route('personal-trainer.athletes') }}" :active="request()->routeIs('personal-trainer.athletes*')">
+            <x-responsive-nav-link href="{{ route('personal-trainer.athletes') }}"
+                                   :active="request()->routeIs('personal-trainer.athletes*')">
                 {{ __('Atleti') }}
             </x-responsive-nav-link>
-            <x-responsive-nav-link href="{{ route('personal-trainer.workouts') }}" :active="request()->routeIs('personal-trainer.workouts*')">
+            <x-responsive-nav-link href="{{ route('personal-trainer.workouts') }}"
+                                   :active="request()->routeIs('personal-trainer.workouts*')">
                 {{ __('Schede') }}
             </x-responsive-nav-link>
             <x-responsive-nav-link href="#" :active="request()->routeIs('personal-trainer.exercises*')">
