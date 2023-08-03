@@ -13,7 +13,7 @@ class WorkoutsSeeder extends Seeder
      */
     public function run(): void
     {
-        $duration = fake()->numberBetween(1, 4);
+        $duration = fake()->numberBetween(3, 7);
         $assigned = Workout::create([
             'name' => 'Workout A',
             'user_id' => User::role('personal-trainer')->first()->id,

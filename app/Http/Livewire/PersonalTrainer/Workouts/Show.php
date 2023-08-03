@@ -11,6 +11,7 @@ use App\Models\WorkoutDay;
 use App\Models\WorkoutExercise;
 use App\Models\WorkoutSerie;
 use App\Models\WorkoutSet;
+use App\Models\WorkoutWeek;
 use Livewire\Component;
 
 class Show extends Component
@@ -20,6 +21,8 @@ class Show extends Component
     public $weeks;
     public $selectedWeek = 1;
     public $selectedDay = null;
+    public $hasDataToCopy = false;
+    public $weekToCopy = null;
 
     protected $listeners = [
         'day-added' => '$refresh',
@@ -33,6 +36,31 @@ class Show extends Component
         $this->athlete = $workout->athlete;
         $this->weeks = $workout->workout_weeks;
         $this->selectedDay = $workout->workout_days()->orderBy('day')->first()->id ?? null;
+    }
+
+    public function copyWeek(WorkoutWeek $week)
+    {
+        $this->hasDataToCopy = true;
+        $this->weekToCopy = $week->id;
+    }
+
+    public function pasteWeek()
+    {
+        $original_week = WorkoutWeek::find($this->weekToCopy);
+        $cloned_week = WorkoutWeek::find($this->selectedWeek);
+
+        foreach ($original_week->workout_days as $workout_day) {
+            $newDay = $workout_day->replicate()->fill([
+                'workout_week_id' => $this->selectedWeek
+            ]);
+            $newDay->save();
+        }
+
+
+        $this->selectedDay = $cloned_week->workout_days()->orderBy('day')->first()->id ?? null;
+
+        $this->hasDataToCopy = false;
+        $this->weekToCopy = null;
     }
 
     public function addDay($id)

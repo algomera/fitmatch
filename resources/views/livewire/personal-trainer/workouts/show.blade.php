@@ -32,7 +32,13 @@
                         </x-slot:content>
                     </x-dropdown>
                 </div>
-                <x-primary-button color="ghost">Copia settimana</x-primary-button>
+                @if($weekToCopy === $selectedWeek || !$hasDataToCopy)
+                    <x-primary-button wire:click="copyWeek({{ $selectedWeek }})" color="ghost">Copia settimana
+                    </x-primary-button>
+                @endif
+                @if($weekToCopy !== $selectedWeek && $hasDataToCopy)
+                    <x-primary-button wire:click="pasteWeek" color="blue">Incolla settimana</x-primary-button>
+                @endif
             </div>
         </div>
     </div>
