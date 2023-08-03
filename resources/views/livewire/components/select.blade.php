@@ -30,12 +30,19 @@
 			query: '',
 			selectedItemIndex: '',
 			selectedItemTitle: '',
+			title: @js($title),
+			subtitle: @js($subtitle),
 			items: @js($items),
 			get filteredItems() {
 				if (this.query === '') {
 					return this.items;
 				}
-				return this.items.filter(item => item.{{$title}}.toLowerCase().includes(this.query.toLowerCase()) || item.{{$subtitle}}.toLowerCase().includes(this.query.toLowerCase()))
+				@if($title && !$subtitle)
+                    return this.items.filter(item => item.{{$title}}.toLowerCase().includes(this.query.toLowerCase()))
+				@endif
+				@if($title && $subtitle)
+                    return this.items.filter(item => item.{{$title}}.toLowerCase().includes(this.query.toLowerCase()) || item.{{$subtitle}}.toLowerCase().includes(this.query.toLowerCase()))
+				@endif
 			},
 			reset() {
                 this.query = '';
@@ -109,6 +116,8 @@
 				}
 			})
 		"
+        {{--		x-on:keydown.escape.prevent.stop="close($refs.input)"--}}
+        {{--		x-on:focusin.window="! $refs.items.contains($event.target) && close()"--}}
         x-id="['dropdown']"
     >
         @if($label || isset($action))
@@ -176,7 +185,9 @@
                             <p class="truncate"
                                :class="{ 'font-semibold': index === selectedItemIndex }"
                                x-text="item.{{$title}}"></p>
-                            <p class="text-xs text-gray-500" x-text="item.{{$subtitle}}"></p>
+                            @if($subtitle)
+                                <p class="text-xs text-gray-500" x-text="item.{{$subtitle}}"></p>
+                            @endif
                             <template x-if="index === selectedItemIndex">
                                 <div class="text-indigo-600 absolute inset-y-0 right-0 flex items-center pr-4">
                                     <svg class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">

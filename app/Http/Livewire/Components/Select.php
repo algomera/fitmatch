@@ -7,6 +7,7 @@ use Livewire\Component;
 class Select extends Component
 {
     public $items;
+    //	public $query = null;
     public $selected = null;
     public $event, $to;
     public $title;

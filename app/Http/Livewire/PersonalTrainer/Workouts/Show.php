@@ -22,6 +22,7 @@ class Show extends Component
 
     protected $listeners = [
         'day-added' => '$refresh',
+        'item-added' => '$refresh',
         'item-deleted' => '$refresh',
     ];
 
@@ -90,14 +91,14 @@ class Show extends Component
         ]);
     }
 
-    public function addExercise(WorkoutSerie $serie)
-    {
-        $serie->items()->create([
-            'workout_id' => $this->workout->id,
-            'item_id' => 1, //TODO: rendere scelta dinamica
-            'item_type' => Exercise::class
-        ]);
-    }
+    //    public function addExercise(WorkoutSerie $serie)
+    //    {
+    //        $serie->items()->create([
+    //            'workout_id' => $this->workout->id,
+    //            'item_id' => 1,
+    //            'item_type' => Exercise::class
+    //        ]);
+    //    }
 
     public function addRepetition(WorkoutSerie $serie)
     {
