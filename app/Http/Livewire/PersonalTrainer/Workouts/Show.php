@@ -2,6 +2,7 @@
 
 namespace App\Http\Livewire\PersonalTrainer\Workouts;
 
+use App\Models\Cargo;
 use App\Models\Exercise;
 use App\Models\Recovery;
 use App\Models\Repetition;
@@ -79,27 +80,6 @@ class Show extends Component
         $set->delete();
     }
 
-    public function addSet($day)
-    {
-        $set = WorkoutSet::create([
-            'workout_id' => $this->workout->id,
-            'workout_day_id' => $day
-        ]);
-        $serie = WorkoutSerie::create([
-            'workout_id' => $this->workout->id,
-            'workout_set_id' => $set->id
-        ]);
-    }
-
-    //    public function addExercise(WorkoutSerie $serie)
-    //    {
-    //        $serie->items()->create([
-    //            'workout_id' => $this->workout->id,
-    //            'item_id' => 1,
-    //            'item_type' => Exercise::class
-    //        ]);
-    //    }
-
     public function addRepetition(WorkoutSerie $serie)
     {
         $repetition = Repetition::create();
@@ -122,12 +102,17 @@ class Show extends Component
 
     public function addCargo(WorkoutSerie $serie)
     {
-        // TODO: CARICO
+        $cargo = Cargo::create();
         $serie->items()->create([
             'workout_id' => $this->workout->id,
-            'item_id' => 1,
-            'item_type' => Exercise::class
+            'item_id' => $cargo->id,
+            'item_type' => Cargo::class
         ]);
+    }
+
+    public function deleteSerie(WorkoutSerie $serie)
+    {
+        $serie->delete();
     }
 
     public function addSerie(WorkoutSet $set)
@@ -137,9 +122,16 @@ class Show extends Component
         ]);
     }
 
-    public function deleteSerie(WorkoutSerie $serie)
+    public function addSet($day)
     {
-        $serie->delete();
+        $set = WorkoutSet::create([
+            'workout_id' => $this->workout->id,
+            'workout_day_id' => $day
+        ]);
+        $serie = WorkoutSerie::create([
+            'workout_id' => $this->workout->id,
+            'workout_set_id' => $set->id
+        ]);
     }
 
     public function updatedSelectedWeek()

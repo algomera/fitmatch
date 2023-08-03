@@ -26,6 +26,9 @@ class RecoveryCard extends Component
 
     public function decrement()
     {
+        if ($this->item->quantity->format('i:s') <= '00:00') {
+            return;
+        }
         $time = Carbon::parse($this->item->quantity)->subSeconds(10);
         $this->item->update(['quantity' => $time]);
     }

@@ -131,9 +131,16 @@
                                                 <livewire:recovery-card :serie="$serie" :item="$recovery"
                                                                         wire:key="{{ $serie->id }}-{{$item->id}}"/>
                                                 @break
+                                            @case('App\Models\Cargo')
+                                                @php
+                                                    $cargo = \App\Models\Cargo::find($item->item_id)
+                                                @endphp
+                                                <livewire:cargo-card :serie="$serie" :item="$cargo"
+                                                                     wire:key="{{ $serie->id }}-{{$item->id}}"/>
+                                                @break
                                         @endswitch
                                     @endforeach
-                                    <div class="flex items-center justify-center w-40 h-40 bg-white">
+                                    <div class="flex items-center justify-center w-56 min-h-[230px] bg-white">
                                         <x-dropdown align="left">
                                             <x-slot:trigger>
                                                 <div
@@ -146,7 +153,6 @@
                                                 <div class="px-1 space-y-1">
                                                     <div
                                                         wire:click="$emit('openModal', 'personal-trainer.workouts.modals.add-exercise', {{ json_encode(['serie' => $serie->id]) }})"
-                                                        {{--                                                        wire:click="addExercise({{ $serie->id }})"--}}
                                                         class="px-1 py-1 flex items-center space-x-2 text-fit-dark-blue text-sm rounded hover:cursor-pointer hover:text-white hover:bg-fit-dark-blue">
                                                         <x-heroicon-o-plus-circle
                                                             class="w-4 h-4"></x-heroicon-o-plus-circle>

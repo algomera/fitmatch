@@ -24,6 +24,9 @@ class RepetitionCard extends Component
 
     public function decrement()
     {
+        if ($this->item->quantity <= 0) {
+            return;
+        }
         $this->item->decrement('quantity', 1);
     }
 
