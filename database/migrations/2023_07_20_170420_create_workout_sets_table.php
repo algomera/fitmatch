@@ -12,6 +12,7 @@ return new class extends Migration {
     {
         Schema::create('workout_sets', function (Blueprint $table) {
             $table->id();
+            $table->foreignIdFor(\App\Models\Workout::class, 'workout_id')->constrained()->onDelete('cascade');
             $table->foreignIdFor(\App\Models\WorkoutDay::class, 'workout_day_id')->constrained()->onDelete('cascade');
         });
     }

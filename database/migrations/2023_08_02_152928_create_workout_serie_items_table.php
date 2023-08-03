@@ -12,6 +12,7 @@ return new class extends Migration {
     {
         Schema::create('workout_serie_items', function (Blueprint $table) {
             $table->id();
+            $table->foreignIdFor(\App\Models\Workout::class, 'workout_id')->constrained()->onDelete('cascade');
             $table->foreignIdFor(\App\Models\WorkoutSerie::class, 'workout_serie_id')->constrained()->onDelete('cascade');
             $table->unsignedBigInteger('item_id');
             $table->string('item_type');

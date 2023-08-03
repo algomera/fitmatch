@@ -6,7 +6,7 @@
         <p class="text-lg font-bold text-fit-black mt-1">{{ $workout->name }}</p>
     </div>
     <div class="p-4 border-b bg-gray-100">
-        <span class="font-semibold text-fit-dark-blue">12 training sessions</span>
+        <span class="font-semibold text-fit-dark-blue">{{ $workout->workout_days->count() }} training sessions</span>
     </div>
     <div class="p-4 flex items-center justify-between">
         <x-heroicon-o-arrow-up-on-square

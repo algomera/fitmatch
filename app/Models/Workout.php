@@ -49,4 +49,14 @@ class Workout extends Model
     {
         return $this->belongsTo(User::class, 'athlete_id', 'id');
     }
+
+    public function series()
+    {
+        return $this->hasMany(WorkoutSerie::class);
+    }
+
+    public function sets()
+    {
+        return $this->hasMany(WorkoutSet::class);
+    }
 }

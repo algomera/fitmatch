@@ -42,10 +42,12 @@ class Show extends Component
         ]);
 
         $set = WorkoutSet::create([
+            'workout_id' => $this->workout->id,
             'workout_day_id' => $day->id
         ]);
 
         $serie = WorkoutSerie::create([
+            'workout_id' => $this->workout->id,
             'workout_set_id' => $set->id
         ]);
 
@@ -66,7 +68,9 @@ class Show extends Component
     {
         foreach ($set->workout_series as $serie) {
             foreach ($serie->items as $item) {
-                $item->type::find($item->id)->delete();
+                if ($item->item_type !== Exercise::class) {
+                    $item->item_type::find($item->item_id)->delete();
+                }
             }
             $serie->items()->delete();
             $serie->delete();
@@ -77,9 +81,11 @@ class Show extends Component
     public function addSet($day)
     {
         $set = WorkoutSet::create([
+            'workout_id' => $this->workout->id,
             'workout_day_id' => $day
         ]);
         $serie = WorkoutSerie::create([
+            'workout_id' => $this->workout->id,
             'workout_set_id' => $set->id
         ]);
     }
@@ -87,6 +93,7 @@ class Show extends Component
     public function addExercise(WorkoutSerie $serie)
     {
         $serie->items()->create([
+            'workout_id' => $this->workout->id,
             'item_id' => 1, //TODO: rendere scelta dinamica
             'item_type' => Exercise::class
         ]);
@@ -96,6 +103,7 @@ class Show extends Component
     {
         $repetition = Repetition::create();
         $serie->items()->create([
+            'workout_id' => $this->workout->id,
             'item_id' => $repetition->id,
             'item_type' => Repetition::class
         ]);
@@ -105,6 +113,7 @@ class Show extends Component
     {
         $recovery = Recovery::create();
         $serie->items()->create([
+            'workout_id' => $this->workout->id,
             'item_id' => $recovery->id,
             'item_type' => Recovery::class
         ]);
@@ -114,6 +123,7 @@ class Show extends Component
     {
         // TODO: CARICO
         $serie->items()->create([
+            'workout_id' => $this->workout->id,
             'item_id' => 1,
             'item_type' => Exercise::class
         ]);
@@ -121,7 +131,9 @@ class Show extends Component
 
     public function addSerie(WorkoutSet $set)
     {
-        $set->workout_series()->create();
+        $set->workout_series()->create([
+            'workout_id' => $this->workout->id,
+        ]);
     }
 
     public function deleteSerie(WorkoutSerie $serie)

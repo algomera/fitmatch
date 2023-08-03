@@ -11,6 +11,11 @@ class WorkoutSerie extends Model
 
     public $timestamps = false;
 
+    public function workout()
+    {
+        return $this->belongsTo(Workout::class);
+    }
+
     public function set()
     {
         return $this->belongsTo(WorkoutSet::class);
