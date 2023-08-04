@@ -16,6 +16,7 @@ class DatabaseSeeder extends Seeder
             RolesPermissionsSeeder::class,
             UserSeeder::class,
             CategoriesSeeder::class,
+            GoalSeeder::class,
             ExercisesSeeder::class,
             WorkoutsSeeder::class,
         ]);

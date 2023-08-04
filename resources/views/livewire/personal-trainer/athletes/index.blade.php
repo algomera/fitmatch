@@ -15,7 +15,7 @@
                             @else
                                 <div class="w-9 h-9 bg-gray-200 ring-2 ring-white rounded-full"></div>
                             @endif
-                            <p class="{{ $athlete->is($selectedAthlete) ? 'text-fit-magenta' : 'text-fit-dark-gray group-hover:text-fit-magenta hover:cursor-pointer' }} font-semibold">{{ $athlete->fullName }}</p>
+                            <p class="{{ $athlete->is($selectedAthlete) ? 'text-fit-magenta' : 'text-fit-dark-gray group-hover:text-fit-magenta hover:cursor-pointer' }} font-semibold">{{ $athlete->full_name }}</p>
                         </li>
                     @empty
                         Nessun atleta presente
@@ -35,7 +35,7 @@
                         @else
                             <div class="w-11 h-11 bg-gray-200 ring-2 ring-white rounded-full"></div>
                         @endif
-                        <h3>{{ $athlete->fullName }}</h3>
+                        <h3>{{ $athlete->full_name }}</h3>
                     </div>
                     <div class="grid grid-cols-2 gap-5 sm:grid-cols-3">
                         <div class="bg-white col-span-1">

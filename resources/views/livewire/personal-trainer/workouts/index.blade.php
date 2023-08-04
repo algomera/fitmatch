@@ -24,7 +24,7 @@
                             @else
                                 <div class="w-9 h-9 bg-gray-200 ring-2 ring-white rounded-full"></div>
                             @endif
-                            <p class="{{ $filter == $athlete->id ? 'text-fit-magenta' : 'text-fit-dark-gray group-hover:text-fit-magenta hover:cursor-pointer' }} font-semibold">{{ $athlete->fullName }}</p>
+                            <p class="{{ $filter == $athlete->id ? 'text-fit-magenta' : 'text-fit-dark-gray group-hover:text-fit-magenta hover:cursor-pointer' }} font-semibold">{{ $athlete->full_name }}</p>
                         </li>
                     @endforeach
                 </ul>
@@ -41,7 +41,7 @@
                     @else
                         <div class="w-11 h-11 bg-gray-200 ring-2 ring-white rounded-full"></div>
                     @endif
-                    <h3>{{ $athlete->fullName }}</h3>
+                    <h3>{{ $athlete->full_name }}</h3>
                 </div>
             @endif
             <div class="grid grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-5">

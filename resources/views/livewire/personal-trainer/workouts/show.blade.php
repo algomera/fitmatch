@@ -8,7 +8,7 @@
                 @else
                     <div class="w-11 h-11 bg-gray-200 ring-2 ring-white rounded-full"></div>
                 @endif
-                <h3>{{ $athlete->fullName }}</h3>
+                <h3>{{ $athlete->full_name }}</h3>
             </div>
         @endif
         <div class="flex items-center justify-between">

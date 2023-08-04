@@ -13,6 +13,8 @@ class User extends Authenticatable implements MustVerifyEmail
 {
     use HasApiTokens, HasFactory, Notifiable, HasRoles;
 
+    protected $appends = ['full_name'];
+
     /**
      * The attributes that should be hidden for serialization.
      *
@@ -78,11 +80,13 @@ class User extends Authenticatable implements MustVerifyEmail
         return $this->belongsToMany(Category::class, 'categories_users', 'user_id', 'category_id');
     }
 
-    public function personal_trainer_workouts() {
+    public function personal_trainer_workouts()
+    {
         return $this->hasMany(Workout::class, 'user_id', 'id');
     }
 
-    public function athlete_workouts() {
+    public function athlete_workouts()
+    {
         return $this->hasMany(Workout::class, 'athlete_id', 'id');
     }
 }

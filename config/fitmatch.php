@@ -14,5 +14,5 @@ return [
         'approved' => 'Approvato',
         'rejected' => 'Rifiutato',
         'blocked' => 'Bloccato',
-    ]
+    ],
 ];

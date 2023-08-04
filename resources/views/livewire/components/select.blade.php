@@ -2,7 +2,7 @@
 @php
     $n = $attributes->wire('model')->value() ?: $name;
     $slug = $attributes->wire('model')->value() ?: $n;
-    $inputClass = 'appearance-none w-full rounded sm:text-sm focus:ring focus:ring-opacity-50';
+    $inputClass = 'appearance-none w-full shadow-[0_0_8px_1px_rgb(0,0,0,0.08)] border-0 rounded-xl sm:text-sm focus:ring focus:ring-opacity-50 disabled:opacity-50';
 @endphp
 @error($slug)
 @php
@@ -204,5 +204,5 @@
         @if($hint)
             <p class="mt-1 text-xs text-gray-500">{{ $hint }}</p>
         @endif
-        <x-input-error :messages="$errors->get($slug)"></x-input-error>
+        <x-input-error :messages="$errors->get($slug)" class="mt-2"></x-input-error>
     </div>

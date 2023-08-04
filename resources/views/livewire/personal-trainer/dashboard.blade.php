@@ -1,6 +1,6 @@
 <x-slot name="header">
     <span>Bentornato</span>
-    <h2>{{ auth()->user()->fullName }}</h2>
+    <h2>{{ auth()->user()->full_name }}</h2>
 </x-slot>
 
 <div class="max-w-7xl mx-auto py-6 pt-0 px-4 sm:px-6 lg:px-8">

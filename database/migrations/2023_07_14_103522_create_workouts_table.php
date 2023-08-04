@@ -17,7 +17,7 @@ return new class extends Migration {
             $table->string('name');
             $table->integer('duration');
             $table->date('start_date');
-            $table->string('goal');
+            $table->foreignIdFor(\App\Models\Goal::class, 'goal_id');
             $table->timestamps();
         });
     }

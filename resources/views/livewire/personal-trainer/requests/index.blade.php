@@ -33,7 +33,7 @@
                                             <x-heroicon-o-user-circle class="h-8 w-8"></x-heroicon-o-user-circle>
                                         @endif
                                     </div>
-                                    <span>{{ $request->fullName }}</span>
+                                    <span>{{ $request->full_name }}</span>
                                 </div>
                             </td>
                             <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500">{{ $request->created_at->format('d/m/Y') }}</td>

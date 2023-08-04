@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Models\Goal;
 use App\Models\User;
 use App\Models\Workout;
 use Illuminate\Database\Seeder;
@@ -13,14 +14,14 @@ class WorkoutsSeeder extends Seeder
      */
     public function run(): void
     {
-        $duration = fake()->numberBetween(3, 7);
+        $duration = fake()->numberBetween(2, 5);
         $assigned = Workout::create([
             'name' => 'Workout A',
             'user_id' => User::role('personal-trainer')->first()->id,
             'athlete_id' => User::role('athlete')->first()->id,
             'duration' => $duration,
             'start_date' => now(),
-            'goal' => 'dimagrimento'
+            'goal_id' => Goal::all()->shuffle()->first()->id
         ]);
 
         foreach (range(1, $duration) as $week) {
@@ -32,9 +33,9 @@ class WorkoutsSeeder extends Seeder
         $not_assigned = Workout::create([
             'name' => 'Workout B',
             'user_id' => User::role('personal-trainer')->first()->id,
-            'duration' => fake()->numberBetween(1, 4),
+            'duration' => fake()->numberBetween(2, 5),
             'start_date' => now(),
-            'goal' => 'powerbuilding'
+            'goal_id' => Goal::all()->shuffle()->first()->id
         ]);
     }
 }

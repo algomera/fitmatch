@@ -51,6 +51,11 @@
                     <x-nav-link href="#" :active="request()->routeIs('personal-trainer.exercises*')">
                         {{ __('Esercizi') }}
                     </x-nav-link>
+                    <x-primary-button
+                        x-on:click="Livewire.emit('openModal', 'personal-trainer.workouts.modals.create-workout')"
+                        class="self-center">
+                        Crea scheda
+                    </x-primary-button>
                     @endrole
                 </div>
             </div>
@@ -137,6 +142,13 @@
             <x-responsive-nav-link href="#" :active="request()->routeIs('personal-trainer.exercises*')">
                 {{ __('Esercizi') }}
             </x-responsive-nav-link>
+            <div class="mx-4">
+                <x-primary-button
+                    x-on:click="Livewire.emit('openModal', 'personal-trainer.workouts.modals.create-workout')"
+                    class="w-full justify-center">
+                    Crea scheda
+                </x-primary-button>
+            </div>
             @endrole
         </div>
         <div class="border-t border-gray-200 pb-3 pt-4">
@@ -150,7 +162,7 @@
                     @endif
                 </div>
                 <div class="ml-3">
-                    <div class="text-base font-medium text-gray-800">{{ auth()->user()->fullName }}</div>
+                    <div class="text-base font-medium text-gray-800">{{ auth()->user()->full_name }}</div>
                     <div class="text-sm font-medium text-gray-500">{{ auth()->user()->email }}</div>
                 </div>
             </div>
