@@ -49,14 +49,39 @@ class Show extends Component
         $original_week = WorkoutWeek::find($this->weekToCopy);
         $cloned_week = WorkoutWeek::find($this->selectedWeek);
 
+        // Cancello i giorni esistenti
+        $cloned_week->workout_days->each(function ($day) {
+            $day->delete();
+        });
+
         foreach ($original_week->workout_days as $workout_day) {
             $newDay = $workout_day->replicate()->fill([
                 'workout_week_id' => $this->selectedWeek
             ]);
             $newDay->save();
+            $workout_day->workout_sets->each(function ($set) use ($newDay) {
+                $newSet = $set->replicate()->fill([
+                    'workout_id' => $this->workout->id,
+                    'workout_day_id' => $newDay->id
+                ]);
+                $newSet->save();
+                $set->workout_series->each(function ($serie) use ($newSet) {
+                    $newSerie = $serie->replicate()->fill([
+                        'workout_id' => $this->workout->id,
+                        'workout_set_id' => $newSet->id
+                    ]);
+                    $newSerie->save();
+                    $serie->items->each(function ($item) use ($newSerie) {
+                        $newItem = $item->replicate()->fill([
+                            'workout_id' => $this->workout->id,
+                            'workout_serie_id' => $newSerie->id,
+                        ]);
+                        $newItem->save();
+                    });
+                });
+            });
         }
-
-
+        
         $this->selectedDay = $cloned_week->workout_days()->orderBy('day')->first()->id ?? null;
 
         $this->hasDataToCopy = false;
