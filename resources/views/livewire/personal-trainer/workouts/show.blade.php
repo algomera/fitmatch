@@ -26,19 +26,19 @@
                         </x-slot:trigger>
                         <x-slot:content>
                             @foreach($workout->workout_weeks as $week)
-                                <x-dropdown-link wire:click="$set('selectedWeek', {{ $week->id }})">
+                                <x-dropdown-link wire:click="selectWeek({{$week->id}})">
                                     Settimana {{ $week->week }}</x-dropdown-link>
                             @endforeach
                         </x-slot:content>
                     </x-dropdown>
                 </div>
-                @if($weekToCopy === $selectedWeek || !$hasDataToCopy)
-                    <x-primary-button wire:click="copyWeek({{ $selectedWeek }})" color="ghost">Copia settimana
+                @if($weekToCopy === $selectedWeekId || !$hasDataToCopy)
+                    <x-primary-button wire:click="copyWeek({{ $selectedWeekId }})" color="ghost">Copia settimana
                     </x-primary-button>
                 @endif
-                @if($weekToCopy !== $selectedWeek && $hasDataToCopy)
+                @if($weekToCopy !== $selectedWeekId && $hasDataToCopy)
                     <x-primary-button
-                        wire:click="$emit('openModal', 'personal-trainer.workouts.modals.paste-week', {{ json_encode(['from' => $weekToCopy, 'to' => $selectedWeek]) }})"
+                        wire:click="$emit('openModal', 'personal-trainer.workouts.modals.paste-week', {{ json_encode(['from' => $weekToCopy, 'to' => $selectedWeekId]) }})"
                         color="blue">Incolla settimana
                     </x-primary-button>
                 @endif

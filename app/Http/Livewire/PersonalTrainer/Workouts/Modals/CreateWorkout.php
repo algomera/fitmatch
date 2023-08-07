@@ -37,6 +37,11 @@ class CreateWorkout extends ModalComponent
             'start_date' => $this->start_date,
             'goal_id' => $this->goal_id
         ]);
+        foreach (range(1, $workout->duration) as $week) {
+            $workout->workout_weeks()->create([
+                'week' => $week
+            ]);
+        }
 
         return redirect()->route('personal-trainer.workout', ['workout' => $workout->id]);
     }

@@ -7,6 +7,10 @@ use Livewire\Component;
 
 class Dashboard extends Component
 {
+    protected $listeners = [
+        'workout-deleted' => '$refresh'
+    ];
+    
     public function render()
     {
         return view('livewire.personal-trainer.dashboard', [

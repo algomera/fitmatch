@@ -20,6 +20,7 @@ class Show extends Component
     public $athlete;
     public $weeks;
     public $selectedWeek = 1;
+    public $selectedWeekId = null;
     public $selectedDay = null;
     public $hasDataToCopy = false;
     public $weekToCopy = null;
@@ -36,7 +37,15 @@ class Show extends Component
         $this->workout = $workout;
         $this->athlete = $workout->athlete;
         $this->weeks = $workout->workout_weeks;
+        $this->selectedWeekId = $this->weeks->first()->id;
         $this->selectedDay = $workout->workout_days()->orderBy('day')->first()->id ?? null;
+    }
+
+    public function selectWeek(WorkoutWeek $week)
+    {
+        $this->selectedWeek = $week->week;
+        $this->selectedWeekId = $week->id;
+        $this->selectedDay = $week->workout_days()->orderBy('day')->first()->id ?? null;
     }
 
     public function copyWeek(WorkoutWeek $week)
@@ -52,7 +61,7 @@ class Show extends Component
     public function pasteWeek()
     {
         $original_week = WorkoutWeek::find($this->weekToCopy);
-        $cloned_week = WorkoutWeek::find($this->selectedWeek);
+        $cloned_week = WorkoutWeek::find($this->selectedWeekId);
 
         // Cancello i giorni esistenti
         $cloned_week->workout_days->each(function ($day) {
@@ -61,7 +70,7 @@ class Show extends Component
 
         foreach ($original_week->workout_days as $workout_day) {
             $newDay = $workout_day->replicate()->fill([
-                'workout_week_id' => $this->selectedWeek
+                'workout_week_id' => $this->selectedWeekId
             ]);
             $newDay->save();
             $workout_day->workout_sets->each(function ($set) use ($newDay) {
@@ -101,7 +110,7 @@ class Show extends Component
     {
         $day = WorkoutDay::create([
             'workout_id' => $this->workout->id,
-            'workout_week_id' => $this->selectedWeek,
+            'workout_week_id' => $this->selectedWeekId,
             'day' => $id
         ]);
 
@@ -125,7 +134,7 @@ class Show extends Component
         }
         $day->workout_sets()->delete();
         $day->delete();
-        $this->selectedDay = $this->workout->workout_days()->where('workout_week_id', $this->selectedWeek)->first()->id ?? null;
+        $this->selectedDay = $this->workout->workout_days()->where('workout_week_id', $this->selectedWeekId)->orderBy('day')->first()->id ?? null;
     }
 
     public function deleteSet(WorkoutSet $set)
@@ -198,13 +207,13 @@ class Show extends Component
 
     public function updatedSelectedWeek()
     {
-        $this->selectedDay = $this->workout->workout_days()->where('workout_week_id', $this->selectedWeek)->first()->id ?? null;
+        $this->selectedDay = $this->workout->workout_days()->where('workout_week_id', $this->selectedWeekId)->first()->id ?? null;
     }
 
     public function render()
     {
         return view('livewire.personal-trainer.workouts.show', [
-            'days' => $this->workout->workout_days()->where('workout_week_id', $this->selectedWeek)->orderBy('day')->get(),
+            'days' => $this->workout->workout_days()->where('workout_week_id', $this->selectedWeekId)->orderBy('day')->get(),
             'sets' => WorkoutSet::where('workout_day_id', $this->selectedDay)->get(),
         ]);
     }
