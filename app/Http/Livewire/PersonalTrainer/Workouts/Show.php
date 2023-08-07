@@ -43,6 +43,10 @@ class Show extends Component
     {
         $this->hasDataToCopy = true;
         $this->weekToCopy = $week->id;
+        $this->dispatchBrowserEvent('open-notification', [
+            'title' => __('Settimana Copiata'),
+            'type' => 'success',
+        ]);
     }
 
     public function pasteWeek()
@@ -87,6 +91,10 @@ class Show extends Component
 
         $this->hasDataToCopy = false;
         $this->weekToCopy = null;
+        $this->dispatchBrowserEvent('open-notification', [
+            'title' => __('Settimana Incollata'),
+            'type' => 'success',
+        ]);
     }
 
     public function addDay($id)
