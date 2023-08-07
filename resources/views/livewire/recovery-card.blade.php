@@ -1,4 +1,4 @@
-<div class="select-none border border-b-4 border-b-fit-magenta rounded-md overflow-hidden w-56 min-h-[230px]">
+<div class="m-1 select-none border border-b-4 border-b-fit-magenta rounded-md overflow-hidden w-56 min-h-[230px]">
     <div class="flex flex-col w-full h-full items-start justify-center bg-white space-y-1.5">
         <div class="flex w-full items-center flex-1 p-4 border-b">
             <h4 class="text-2xl font-bold truncate">Recupero</h4>

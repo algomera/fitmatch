@@ -73,22 +73,28 @@ class Show extends Component
                 'workout_week_id' => $this->selectedWeekId
             ]);
             $newDay->save();
-            $workout_day->workout_sets->each(function ($set) use ($newDay) {
+            $workout_day->workout_sets->each(function ($set) use ($cloned_week, $newDay) {
                 $newSet = $set->replicate()->fill([
                     'workout_id' => $this->workout->id,
                     'workout_day_id' => $newDay->id
                 ]);
                 $newSet->save();
-                $set->workout_series->each(function ($serie) use ($newSet) {
+                $set->workout_series->each(function ($serie) use ($cloned_week, $newSet) {
                     $newSerie = $serie->replicate()->fill([
                         'workout_id' => $this->workout->id,
                         'workout_set_id' => $newSet->id
                     ]);
                     $newSerie->save();
-                    $serie->items->each(function ($item) use ($newSerie) {
+                    $serie->items->each(function ($item) use ($cloned_week, $newSerie) {
+                        $ni = $item->item_type::find($item->item_id)->replicate()->fill([
+                            'workout_id' => $this->workout->id,
+                            'workout_week_id' => $cloned_week->id
+                        ]);
+                        $ni->save();
                         $newItem = $item->replicate()->fill([
                             'workout_id' => $this->workout->id,
                             'workout_serie_id' => $newSerie->id,
+                            'item_id' => $ni->id
                         ]);
                         $newItem->save();
                     });
@@ -142,7 +148,7 @@ class Show extends Component
         foreach ($set->workout_series as $serie) {
             foreach ($serie->items as $item) {
                 if ($item->item_type !== Exercise::class) {
-                    $item->item_type::find($item->item_id)->delete();
+                    $item->item_type::where('id', $item->item_id)->delete();
                 }
             }
             $serie->items()->delete();
@@ -153,7 +159,10 @@ class Show extends Component
 
     public function addRepetition(WorkoutSerie $serie)
     {
-        $repetition = Repetition::create();
+        $repetition = Repetition::create([
+            'workout_id' => $this->workout->id,
+            'workout_week_id' => $this->selectedWeekId
+        ]);
         $serie->items()->create([
             'workout_id' => $this->workout->id,
             'item_id' => $repetition->id,
@@ -163,7 +172,10 @@ class Show extends Component
 
     public function addRecovery(WorkoutSerie $serie)
     {
-        $recovery = Recovery::create();
+        $recovery = Recovery::create([
+            'workout_id' => $this->workout->id,
+            'workout_week_id' => $this->selectedWeekId
+        ]);
         $serie->items()->create([
             'workout_id' => $this->workout->id,
             'item_id' => $recovery->id,
@@ -173,7 +185,10 @@ class Show extends Component
 
     public function addCargo(WorkoutSerie $serie)
     {
-        $cargo = Cargo::create();
+        $cargo = Cargo::create([
+            'workout_id' => $this->workout->id,
+            'workout_week_id' => $this->selectedWeekId
+        ]);
         $serie->items()->create([
             'workout_id' => $this->workout->id,
             'item_id' => $cargo->id,

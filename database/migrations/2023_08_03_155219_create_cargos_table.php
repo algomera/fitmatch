@@ -12,6 +12,8 @@ return new class extends Migration {
     {
         Schema::create('cargos', function (Blueprint $table) {
             $table->id();
+            $table->foreignIdFor(\App\Models\Workout::class, 'workout_id')->constrained();
+            $table->foreignIdFor(\App\Models\WorkoutWeek::class, 'workout_week_id')->constrained();
             $table->float('quantity')->default(0);
         });
     }
