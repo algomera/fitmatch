@@ -21,6 +21,10 @@ class ExerciseCard extends Component
     {
         $this->serie->items()->where('item_id', $this->item->id)->where('item_type', Exercise::class)->delete();
         $this->emitTo('personal-trainer.workouts.show', 'item-deleted');
+        $this->dispatchBrowserEvent('open-notification', [
+            'title' => __('Esercizio Eliminato'),
+            'type' => 'success',
+        ]);
     }
 
     public function render()
