@@ -37,7 +37,10 @@
                     </x-primary-button>
                 @endif
                 @if($weekToCopy !== $selectedWeek && $hasDataToCopy)
-                    <x-primary-button wire:click="pasteWeek" color="blue">Incolla settimana</x-primary-button>
+                    <x-primary-button
+                        wire:click="$emit('openModal', 'personal-trainer.workouts.modals.paste-week', {{ json_encode(['from' => $weekToCopy, 'to' => $selectedWeek]) }})"
+                        color="blue">Incolla settimana
+                    </x-primary-button>
                 @endif
             </div>
         </div>

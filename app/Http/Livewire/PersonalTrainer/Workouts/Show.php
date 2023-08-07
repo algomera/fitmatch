@@ -28,6 +28,7 @@ class Show extends Component
         'day-added' => '$refresh',
         'item-added' => '$refresh',
         'item-deleted' => '$refresh',
+        'pasteWeek'
     ];
 
     public function mount(Workout $workout)
@@ -81,7 +82,7 @@ class Show extends Component
                 });
             });
         }
-        
+
         $this->selectedDay = $cloned_week->workout_days()->orderBy('day')->first()->id ?? null;
 
         $this->hasDataToCopy = false;
