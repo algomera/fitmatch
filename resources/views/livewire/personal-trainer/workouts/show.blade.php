@@ -1,4 +1,4 @@
-<div class="bg-white">
+<div class="bg-white min-h-screen">
     <div class="max-w-7xl mx-auto py-6 px-4 space-y-2 sm:px-6 lg:px-8">
         @if($athlete)
             <div class="flex items-center space-x-5 border-b pb-5">
@@ -17,7 +17,8 @@
             <div class="flex items-center space-x-3">
                 <div
                     class="w-44 border border-fit-dark-gray/80 text-fit-dark-gray text-sm font-semibold px-2 py-1.5 rounded-md cursor-pointer">
-                    <x-dropdown class="cursor-pointer">
+                    <x-dropdown class="cursor-pointer"
+                                zIndexClass="z-[9999]">
                         <x-slot:trigger>
                             <div class="flex items-center justify-between">
                                 <span>Settimana {{ $selectedWeek }}</span>
@@ -45,9 +46,9 @@
             </div>
         </div>
     </div>
-    <div class="min-w-0 max-w-none flex-auto px-4 py-6 lg:max-w-none lg:pl-6 lg:pr-0">
+    <div class="min-w-0 max-w-none flex-auto pt-6 lg:max-w-none min-h-screen">
         <div class="flex">
-            <div class="flex w-12"></div>
+            <div class="flex w-16"></div>
             <div class="flex items-center">
                 @foreach($days as $day)
                     <div
@@ -81,150 +82,155 @@
                 </div>
             </div>
         </div>
-        @if($selectedDay)
-            @foreach($sets as $set)
-                <div wire:key="set-{{$set->id}}" class="flex bg-fit-lighter-gray">
-                    <div class="flex py-4 min-h-[10rem] pr-4 bg-white">
-                        <div class="relative flex flex-col items-end px-2 w-8">
+        <div class="relative min-h-screen bg-fit-lighter-gray overflow-x-scroll">
+            @if($selectedDay)
+                @foreach($sets as $set)
+                    <div wire:key="set-{{$set->id}}" class="flex">
+                        <div class="sticky left-0 z-10 flex py-4 min-h-[10rem] px-4 bg-fit-lighter-gray">
+                            <div class="relative flex flex-col items-end px-2 w-8">
                             <span
                                 class="text-xl font-bold text-fit-magenta">{{ str_pad($loop->iteration, 2, "0", STR_PAD_LEFT) }}</span>
-                            <span class="absolute inset-y-0 right-0 flex-1 w-[3px] bg-fit-magenta"></span>
-                            @if(!$loop->first)
-                                <div
-                                    wire:click="deleteSet({{$set->id}})"
-                                    class="absolute {{ $loop->last ? 'bottom-10' : 'bottom-0' }} flex items-center justify-center w-6 h-6 bg-fit-magenta rounded-full hover:cursor-pointer hover:bg-fit-magenta/70">
-                                    <x-heroicon-o-minus class="w-3.5 h-3.5 text-white"></x-heroicon-o-minus>
-                                </div>
-                            @endif
-                            @if($loop->last)
-                                <div
-                                    wire:click="addSet({{$selectedDay}})"
-                                    class="z-10 absolute bottom-0 flex items-center justify-center w-6 h-6 bg-fit-magenta rounded-full hover:cursor-pointer hover:bg-fit-magenta/70">
-                                    <x-heroicon-o-plus class="w-3.5 h-3.5 text-white"></x-heroicon-o-plus>
-                                </div>
-                            @endif
+                                <span class="absolute inset-y-0 right-0 flex-1 w-[3px] bg-fit-magenta"></span>
+                                @if(!$loop->first)
+                                    <div
+                                        wire:click="deleteSet({{$set->id}})"
+                                        class="absolute {{ $loop->last ? 'bottom-10' : 'bottom-0' }} flex items-center justify-center w-6 h-6 bg-fit-magenta rounded-full hover:cursor-pointer hover:bg-fit-magenta/70">
+                                        <x-heroicon-o-minus class="w-3.5 h-3.5 text-white"></x-heroicon-o-minus>
+                                    </div>
+                                @endif
+                                @if($loop->last)
+                                    <div
+                                        wire:click="addSet({{$selectedDay}})"
+                                        class="z-10 absolute bottom-0 flex items-center justify-center w-6 h-6 bg-fit-magenta rounded-full hover:cursor-pointer hover:bg-fit-magenta/70">
+                                        <x-heroicon-o-plus class="w-3.5 h-3.5 text-white"></x-heroicon-o-plus>
+                                    </div>
+                                @endif
+                            </div>
                         </div>
-                    </div>
-                    <div class="flex flex-col">
-                        @forelse($set->workout_series as $serie)
-                            <div wire:key="{{ $set->id }}-{{ $serie->id }}"
-                                 class="relative flex flex-1 bg-fit-lighter-gray p-4">
-                                {{--                                <div class="absolute -left-3 top-1/2 -mt-3">--}}
-                                {{--                                    <div--}}
-                                {{--                                        wire:click="deleteSerie({{$serie->id}})"--}}
-                                {{--                                        class="flex items-center justify-center w-6 h-6 bg-fit-magenta hover:cursor-pointer hover:bg-fit-magenta/70 rounded-md">--}}
-                                {{--                                        <x-heroicon-o-minus class="w-4 h-4 text-white"></x-heroicon-o-minus>--}}
-                                {{--                                    </div>--}}
-                                {{--                                </div>--}}
-                                <div class="flex flex-wrap">
-                                    @foreach($serie->items as $item)
-                                        @switch($item->item_type)
-                                            @case('App\Models\Exercise')
-                                                @php
-                                                    $exercise = \App\Models\Exercise::find($item->item_id)
-                                                @endphp
-                                                <livewire:exercise-card :serie="$serie" :item="$exercise"
-                                                                        wire:key="{{ $selectedWeekId}}-{{ $serie->id }}-{{$item->id}}"/>
-                                                @break
-                                            @case('App\Models\Repetition')
-                                                @php
-                                                    $repetition = \App\Models\Repetition::find($item->item_id)
-                                                @endphp
-                                                <livewire:repetition-card :serie="$serie" :item="$repetition"
-                                                                          wire:key="{{ $selectedWeekId}}-{{ $serie->id }}-{{$item->id}}"/>
-                                                @break
-                                            @case('App\Models\Recovery')
-                                                @php
-                                                    $recovery = \App\Models\Recovery::find($item->item_id)
-                                                @endphp
-                                                <livewire:recovery-card :serie="$serie" :item="$recovery"
-                                                                        wire:key="{{ $selectedWeekId}}-{{ $serie->id }}-{{$item->id}}"/>
-                                                @break
-                                            @case('App\Models\Cargo')
-                                                @php
-                                                    $cargo = \App\Models\Cargo::find($item->item_id)
-                                                @endphp
-                                                <livewire:cargo-card :serie="$serie" :item="$cargo"
-                                                                     wire:key="{{ $selectedWeekId}}-{{ $serie->id }}-{{$item->id}}"/>
-                                                @break
-                                        @endswitch
-                                    @endforeach
-                                    <div class="m-1 flex items-center justify-center w-56 min-h-[230px] bg-white">
-                                        <x-dropdown align="left">
-                                            <x-slot:trigger>
-                                                <div
-                                                    class="flex items-center justify-center w-10 h-10 bg-fit-magenta hover:cursor-pointer hover:bg-fit-magenta/70 rounded-lg">
-                                                    <x-heroicon-o-plus
-                                                        class="w-6 h-6 text-white"></x-heroicon-o-plus>
-                                                </div>
-                                            </x-slot:trigger>
-                                            <x-slot:content>
-                                                <div class="px-1 space-y-1">
-                                                    <div
-                                                        wire:click="$emit('openModal', 'personal-trainer.workouts.modals.add-exercise', {{ json_encode(['serie' => $serie->id]) }})"
-                                                        class="px-1 py-1 flex items-center space-x-2 text-fit-dark-blue text-sm rounded hover:cursor-pointer hover:text-white hover:bg-fit-dark-blue">
-                                                        <x-heroicon-o-plus-circle
-                                                            class="w-4 h-4"></x-heroicon-o-plus-circle>
-                                                        <span>Esercizio</span>
-                                                    </div>
-                                                    <div
-                                                        wire:click="addRepetition({{ $serie->id }})"
-                                                        class="px-1 py-1 flex items-center space-x-2 text-fit-dark-blue text-sm rounded hover:cursor-pointer hover:text-white hover:bg-fit-dark-blue">
-                                                        <x-heroicon-o-plus-circle
-                                                            class="w-4 h-4"></x-heroicon-o-plus-circle>
-                                                        <span>Ripetizioni</span>
-                                                    </div>
-                                                    <div
-                                                        wire:click="addRecovery({{ $serie->id }})"
-                                                        class="px-1 py-1 flex items-center space-x-2 text-fit-dark-blue text-sm rounded hover:cursor-pointer hover:text-white hover:bg-fit-dark-blue">
-                                                        <x-heroicon-o-plus-circle
-                                                            class="w-4 h-4"></x-heroicon-o-plus-circle>
-                                                        <span>Recupero</span>
-                                                    </div>
-                                                    <div
-                                                        wire:click="addCargo({{ $serie->id }})"
-                                                        class="px-1 py-1 flex items-center space-x-2 text-fit-dark-blue text-sm rounded hover:cursor-pointer hover:text-white hover:bg-fit-dark-blue">
-                                                        <x-heroicon-o-plus-circle
-                                                            class="w-4 h-4"></x-heroicon-o-plus-circle>
-                                                        <span>Carico</span>
-                                                    </div>
-                                                    <div
-                                                        wire:click="addSerie({{ $set->id }})"
-                                                        class="px-1 py-1 flex items-center space-x-2 text-sm text-fit-purple-blue rounded hover:cursor-pointer hover:text-white hover:bg-fit-purple-blue">
-                                                        <x-heroicon-o-plus-circle
-                                                            class="w-4 h-4"></x-heroicon-o-plus-circle>
-                                                        <span>Nuova serie</span>
-                                                    </div>
-                                                    <div
-                                                        class="px-1 py-1 flex items-center space-x-2 text-sm text-fit-purple-blue rounded hover:cursor-pointer hover:text-white hover:bg-fit-purple-blue">
-                                                        <x-heroicon-o-square-2-stack
-                                                            class="w-4 h-4"></x-heroicon-o-square-2-stack>
-                                                        <span>Duplica serie orizzontale</span>
-                                                    </div>
-                                                    <div
-                                                        class="px-1 py-1 flex items-center space-x-2 text-sm text-fit-purple-blue rounded hover:cursor-pointer hover:text-white hover:bg-fit-purple-blue">
-                                                        <x-heroicon-o-square-2-stack
-                                                            class="w-4 h-4"></x-heroicon-o-square-2-stack>
-                                                        <span>Duplica serie verticale</span>
-                                                    </div>
-                                                    <div
-                                                        class="px-1 py-1 flex items-center space-x-2 text-sm text-fit-magenta rounded hover:cursor-pointer hover:text-white hover:bg-fit-magenta">
-                                                        <x-heroicon-o-stop-circle
-                                                            class="w-4 h-4"></x-heroicon-o-stop-circle>
-                                                        <span>Fine esercizio</span>
-                                                    </div>
-                                                </div>
-                                            </x-slot:content>
-                                        </x-dropdown>
+                        <div class="flex flex-col w-full">
+                            @forelse($set->workout_series as $serie)
+                                <div wire:key="{{ $set->id }}-{{ $serie->id }}"
+                                     class="relative flex-1 py-4" style="z-index: {{ 1000 - ($serie->id) }}">
+                                    {{--                                <div class="absolute -left-3 top-1/2 -mt-3">--}}
+                                    {{--                                    <div--}}
+                                    {{--                                        wire:click="deleteSerie({{$serie->id}})"--}}
+                                    {{--                                        class="flex items-center justify-center w-6 h-6 bg-fit-magenta hover:cursor-pointer hover:bg-fit-magenta/70 rounded-md">--}}
+                                    {{--                                        <x-heroicon-o-minus class="w-4 h-4 text-white"></x-heroicon-o-minus>--}}
+                                    {{--                                    </div>--}}
+                                    {{--                                </div>--}}
+                                    <div class="flex">
+                                        @foreach($serie->items as $item)
+                                            @switch($item->item_type)
+                                                @case('App\Models\Exercise')
+                                                    @php
+                                                        $exercise = \App\Models\Exercise::find($item->item_id)
+                                                    @endphp
+                                                    <livewire:exercise-card :serie="$serie" :item="$exercise"
+                                                                            wire:key="{{ $selectedWeekId}}-{{ $serie->id }}-{{$item->id}}"/>
+                                                    @break
+                                                @case('App\Models\Repetition')
+                                                    @php
+                                                        $repetition = \App\Models\Repetition::find($item->item_id)
+                                                    @endphp
+                                                    <livewire:repetition-card :serie="$serie" :item="$repetition"
+                                                                              wire:key="{{ $selectedWeekId}}-{{ $serie->id }}-{{$item->id}}"/>
+                                                    @break
+                                                @case('App\Models\Recovery')
+                                                    @php
+                                                        $recovery = \App\Models\Recovery::find($item->item_id)
+                                                    @endphp
+                                                    <livewire:recovery-card :serie="$serie" :item="$recovery"
+                                                                            wire:key="{{ $selectedWeekId}}-{{ $serie->id }}-{{$item->id}}"/>
+                                                    @break
+                                                @case('App\Models\Cargo')
+                                                    @php
+                                                        $cargo = \App\Models\Cargo::find($item->item_id)
+                                                    @endphp
+                                                    <livewire:cargo-card :serie="$serie" :item="$cargo"
+                                                                         wire:key="{{ $selectedWeekId}}-{{ $serie->id }}-{{$item->id}}"/>
+                                                    @break
+                                            @endswitch
+                                        @endforeach
+                                        <div class="sticky left-16">
+                                            <div
+                                                class="m-1 mr-2 flex items-center justify-center w-56 min-h-[230px] bg-white border rounded-md shrink-0">
+                                                <x-dropdown align="{{ $serie->items->count() > 0 ? 'right' : 'left' }}">
+                                                    <x-slot:trigger>
+                                                        <div
+                                                            class="flex items-center justify-center w-10 h-10 bg-fit-magenta hover:cursor-pointer hover:bg-fit-magenta/70 rounded-lg">
+                                                            <x-heroicon-o-plus
+                                                                class="w-6 h-6 text-white"></x-heroicon-o-plus>
+                                                        </div>
+                                                    </x-slot:trigger>
+                                                    <x-slot:content>
+                                                        <div class="px-1 space-y-1">
+                                                            <div
+                                                                wire:click="$emit('openModal', 'personal-trainer.workouts.modals.add-exercise', {{ json_encode(['serie' => $serie->id]) }})"
+                                                                class="px-1 py-1 flex items-center space-x-2 text-fit-dark-blue text-sm rounded hover:cursor-pointer hover:text-white hover:bg-fit-dark-blue">
+                                                                <x-heroicon-o-plus-circle
+                                                                    class="w-4 h-4"></x-heroicon-o-plus-circle>
+                                                                <span>Esercizio</span>
+                                                            </div>
+                                                            <div
+                                                                wire:click="addRepetition({{ $serie->id }})"
+                                                                class="px-1 py-1 flex items-center space-x-2 text-fit-dark-blue text-sm rounded hover:cursor-pointer hover:text-white hover:bg-fit-dark-blue">
+                                                                <x-heroicon-o-plus-circle
+                                                                    class="w-4 h-4"></x-heroicon-o-plus-circle>
+                                                                <span>Ripetizioni</span>
+                                                            </div>
+                                                            <div
+                                                                wire:click="addRecovery({{ $serie->id }})"
+                                                                class="px-1 py-1 flex items-center space-x-2 text-fit-dark-blue text-sm rounded hover:cursor-pointer hover:text-white hover:bg-fit-dark-blue">
+                                                                <x-heroicon-o-plus-circle
+                                                                    class="w-4 h-4"></x-heroicon-o-plus-circle>
+                                                                <span>Recupero</span>
+                                                            </div>
+                                                            <div
+                                                                wire:click="addCargo({{ $serie->id }})"
+                                                                class="px-1 py-1 flex items-center space-x-2 text-fit-dark-blue text-sm rounded hover:cursor-pointer hover:text-white hover:bg-fit-dark-blue">
+                                                                <x-heroicon-o-plus-circle
+                                                                    class="w-4 h-4"></x-heroicon-o-plus-circle>
+                                                                <span>Carico</span>
+                                                            </div>
+                                                            <div
+                                                                wire:click="addSerie({{ $set->id }})"
+                                                                class="px-1 py-1 flex items-center space-x-2 text-sm text-fit-purple-blue rounded hover:cursor-pointer hover:text-white hover:bg-fit-purple-blue">
+                                                                <x-heroicon-o-plus-circle
+                                                                    class="w-4 h-4"></x-heroicon-o-plus-circle>
+                                                                <span>Nuova serie</span>
+                                                            </div>
+                                                            <div
+                                                                class="px-1 py-1 flex items-center space-x-2 text-sm text-fit-purple-blue rounded hover:cursor-pointer hover:text-white hover:bg-fit-purple-blue">
+                                                                <x-heroicon-o-square-2-stack
+                                                                    class="w-4 h-4"></x-heroicon-o-square-2-stack>
+                                                                <span>Duplica serie orizzontale</span>
+                                                            </div>
+                                                            <div
+                                                                class="px-1 py-1 flex items-center space-x-2 text-sm text-fit-purple-blue rounded hover:cursor-pointer hover:text-white hover:bg-fit-purple-blue">
+                                                                <x-heroicon-o-square-2-stack
+                                                                    class="w-4 h-4"></x-heroicon-o-square-2-stack>
+                                                                <span>Duplica serie verticale</span>
+                                                            </div>
+                                                            <div
+                                                                class="px-1 py-1 flex items-center space-x-2 text-sm text-fit-magenta rounded hover:cursor-pointer hover:text-white hover:bg-fit-magenta">
+                                                                <x-heroicon-o-stop-circle
+                                                                    class="w-4 h-4"></x-heroicon-o-stop-circle>
+                                                                <span>Fine esercizio</span>
+                                                            </div>
+                                                        </div>
+                                                    </x-slot:content>
+                                                </x-dropdown>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
-                        @empty
-                            no
-                        @endforelse
+                            @empty
+                                no
+                            @endforelse
+                        </div>
                     </div>
-                </div>
-            @endforeach
-        @endif
+                @endforeach
+            @endif
+        </div>
     </div>
 </div>
