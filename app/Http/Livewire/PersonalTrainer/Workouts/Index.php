@@ -7,7 +7,7 @@ use Livewire\Component;
 
 class Index extends Component
 {
-    public $filter = 3;
+    public $filter = null;
     public $athlete;
 
     protected $queryString = ['filter'];

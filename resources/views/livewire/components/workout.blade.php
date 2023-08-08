@@ -16,6 +16,7 @@
                 wire:click.prevent="$emit('openModal', 'workouts.modals.delete-workout', {{ json_encode(['workout' => $workout->id]) }})"
                 class="w-5 h-5 hover:cursor-pointer hover:text-fit-magenta"></x-heroicon-o-trash>
             <x-heroicon-o-square-2-stack
+                wire:click.prevent="$emit('openModal', 'workouts.modals.duplicate-workout', {{ json_encode(['workout' => $workout->id]) }})"
                 class="w-5 h-5 hover:cursor-pointer hover:text-fit-magenta"></x-heroicon-o-square-2-stack>
         </div>
     </div>

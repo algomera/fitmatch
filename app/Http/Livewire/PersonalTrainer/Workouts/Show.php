@@ -86,15 +86,19 @@ class Show extends Component
                     ]);
                     $newSerie->save();
                     $serie->items->each(function ($item) use ($cloned_week, $newSerie) {
-                        $ni = $item->item_type::find($item->item_id)->replicate()->fill([
-                            'workout_id' => $this->workout->id,
-                            'workout_week_id' => $cloned_week->id
-                        ]);
-                        $ni->save();
+                        if ($item->item_type !== Exercise::class) {
+                            $ni = $item->item_type::find($item->item_id)->replicate()->fill([
+                                'workout_id' => $this->workout->id,
+                                'workout_week_id' => $cloned_week->id
+                            ]);
+                            $ni->save();
+                        } else {
+                            $ni = $item;
+                        }
                         $newItem = $item->replicate()->fill([
                             'workout_id' => $this->workout->id,
                             'workout_serie_id' => $newSerie->id,
-                            'item_id' => $ni->id
+                            'item_id' => $ni->item_id
                         ]);
                         $newItem->save();
                     });

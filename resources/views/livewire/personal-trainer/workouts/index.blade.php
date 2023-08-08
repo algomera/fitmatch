@@ -44,11 +44,23 @@
                     <h3>{{ $athlete->full_name }}</h3>
                 </div>
             @endif
-            <div class="grid grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-5">
-                @foreach($workouts as $workout)
-                    <livewire:components.workout :workout="$workout" :key="$workout->id"/>
-                @endforeach
-            </div>
+            @if($workouts->count())
+                <div class="grid grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-5">
+                    @foreach($workouts as $workout)
+                        <livewire:components.workout :workout="$workout" :key="$workout->id"/>
+                    @endforeach
+                </div>
+            @else
+                <div
+                    class="flex h-full items-center justify-center min-w-0 max-w-none flex-auto px-4 py-6 lg:max-w-none lg:pl-6 lg:pr-0">
+                    <div class="text-center">
+                        <x-heroicon-o-rectangle-stack
+                            class="mx-auto h-12 w-12 text-gray-400"></x-heroicon-o-rectangle-stack>
+                        <h3 class="mt-2 text-sm font-semibold text-gray-900">Nessuna scheda</h3>
+                        <p class="mt-1 text-sm text-gray-500">Nessuna scheda presente</p>
+                    </div>
+                </div>
+            @endif
         </div>
     @else
         <div
