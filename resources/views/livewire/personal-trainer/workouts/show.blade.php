@@ -86,7 +86,7 @@
             @if($selectedDay)
                 @foreach($sets as $set)
                     <div wire:key="set-{{$set->id}}" class="flex">
-                        <div class="sticky left-0 z-[9999] flex py-4 min-h-[10rem] px-4 bg-fit-lighter-gray">
+                        <div class="sticky left-0 z-[990] flex py-4 min-h-[10rem] px-4 bg-fit-lighter-gray">
                             <div class="relative flex flex-col items-end px-2 w-8">
                             <span
                                 class="text-xl font-bold text-fit-magenta">{{ str_pad($loop->iteration, 2, "0", STR_PAD_LEFT) }}</span>
@@ -151,7 +151,8 @@
                                                     @break
                                             @endswitch
                                         @endforeach
-                                        <div class="sticky left-16" wire:key="{{ $serie->id }}-{{ $item->id }}">
+                                        <div class="sticky left-16"
+                                             wire:key="{{ $serie->id }}@isset($item)'-' . {{$item->id}} @endisset">
                                             <div
                                                 class="m-1 mr-2 flex items-center justify-center w-56 min-h-[230px] bg-white border rounded-md shrink-0">
                                                 <x-dropdown align="{{ $serie->items->count() > 0 ? 'right' : 'left' }}">
