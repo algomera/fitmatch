@@ -24,6 +24,7 @@ class Show extends Component
     public $selectedDay = null;
     public $hasDataToCopy = false;
     public $weekToCopy = null;
+    public $selectedSerie = null;
 
     protected $listeners = [
         'day-added' => '$refresh',

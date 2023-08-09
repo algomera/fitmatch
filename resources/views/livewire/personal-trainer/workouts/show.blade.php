@@ -110,7 +110,7 @@
                         <div class="flex flex-col w-full">
                             @forelse($set->workout_series as $serie)
                                 <div wire:key="{{ $set->id }}-{{ $serie->id }}"
-                                     class="relative flex-1 py-4" style="z-index: {{ 1000 - ($serie->id) }}">
+                                     class="relative flex-1 py-4 {{ $selectedSerie == $serie->id ? 'z-50' : 'z-0' }}">
                                     {{--                                <div class="absolute -left-3 top-1/2 -mt-3">--}}
                                     {{--                                    <div--}}
                                     {{--                                        wire:click="deleteSerie({{$serie->id}})"--}}
@@ -158,6 +158,7 @@
                                                 <x-dropdown align="{{ $serie->items->count() > 0 ? 'right' : 'left' }}">
                                                     <x-slot:trigger>
                                                         <div
+                                                            wire:click="$set('selectedSerie', '{{ $serie->id }}')"
                                                             class="flex items-center justify-center w-10 h-10 bg-fit-magenta hover:cursor-pointer hover:bg-fit-magenta/70 rounded-lg">
                                                             <x-heroicon-o-plus
                                                                 class="w-6 h-6 text-white"></x-heroicon-o-plus>
