@@ -104,19 +104,21 @@
                         </div>
                     </div>
                     <div class="flex items-center space-x-5">
-                        @if(!auth()->user()->haveAccessToAnamnesiOf($selectedAthlete->anamnesi->id))
-                            <x-primary-button wire:click="requestAnamnesiAccess">
-                                Richiedi Anamnesi
-                            </x-primary-button>
-                        @elseif(!auth()->user()->anamnesiAccepted($selectedAthlete->anamnesi->id))
-                            <x-primary-button wire:click="cancelAnamnesiAccess">
-                                Annulla richiesta Anamnesi
-                            </x-primary-button>
-                        @else
-                            <x-primary-button
-                                wire:click="$emit('openModal', 'personal-trainer.athletes.anamnesi.show', {{ json_encode(['anamnesi' => $selectedAthlete->anamnesi->id]) }})">
-                                Visualizza Anamnesi
-                            </x-primary-button>
+                        @if($selectedAthlete->anamnesi)
+                            @if(!auth()->user()->haveAccessToAnamnesiOf($selectedAthlete->anamnesi->id))
+                                <x-primary-button wire:click="requestAnamnesiAccess">
+                                    Richiedi Anamnesi
+                                </x-primary-button>
+                            @elseif(!auth()->user()->anamnesiAccepted($selectedAthlete->anamnesi->id))
+                                <x-primary-button wire:click="cancelAnamnesiAccess">
+                                    Annulla richiesta Anamnesi
+                                </x-primary-button>
+                            @else
+                                <x-primary-button
+                                    wire:click="$emit('openModal', 'personal-trainer.athletes.anamnesi.show', {{ json_encode(['anamnesi' => $selectedAthlete->anamnesi->id]) }})">
+                                    Visualizza Anamnesi
+                                </x-primary-button>
+                            @endif
                         @endif
                         <x-primary-button color="ghost">Storico prestazioni</x-primary-button>
                     </div>
