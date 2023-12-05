@@ -2,8 +2,8 @@
 
 namespace Database\Seeders;
 
+use App\Models\Anamnesi;
 use App\Models\User;
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
 class UserSeeder extends Seeder
@@ -54,10 +54,17 @@ class UserSeeder extends Seeder
             'status' => null
         ]);
         $atl->assignRole('athlete');
+        $gender = fake()->randomElement(['male', 'female']);
         $atl->informations()->create([
-            'first_name' => fake()->firstName,
+            'first_name' => fake()->firstName($gender),
             'last_name' => fake()->lastName,
+            'dob' => fake()->dateTimeBetween('-30 years', '-10 years'),
+            'gender' => $gender
+        ]);
+        $anamnesi = Anamnesi::factory()->create([
+            'athlete_id' => $atl->id,
         ]);
         $pt->athletes()->attach($atl);
+        $pt->shared_anamnesis()->attach($anamnesi);
     }
 }
