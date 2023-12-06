@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\api\ApiAuthController;
+use App\Http\Controllers\api\AppointmentController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -14,6 +16,15 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-    return $request->user();
+// Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
+//     return $request->user();
+// });
+Route::group(['middleware' => 'auth:sanctum'], function () {
+    Route::get('/getData', [ApiAuthController::class, 'getData']);
 });
+Route::apiResources([
+    '/appointments' => AppointmentController::class,
+]);
+Route::get('/get-appointments/{id}/{isAthlete}', [AppointmentController::class, 'getAppointments']);
+Route::post('/register', [ApiAuthController::class, 'register']);
+Route::post('/login', [ApiAuthController::class, 'login']);

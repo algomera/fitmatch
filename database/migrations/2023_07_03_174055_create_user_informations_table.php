@@ -18,6 +18,11 @@ return new class extends Migration
             $table->string('first_name')->nullable();
             $table->string('last_name')->nullable();
             $table->date('dob')->nullable();
+            $table->enum('gender', [
+                'male',
+                'female',
+                'other'
+            ])->nullable();
             $table->string('phone')->nullable();
             $table->string('city')->nullable();
             // Profile
