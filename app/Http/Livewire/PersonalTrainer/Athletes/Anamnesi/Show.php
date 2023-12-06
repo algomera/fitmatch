@@ -20,7 +20,7 @@ class Show extends ModalComponent
         'physiology' => [
             'label' => 'Fisiologia',
             'children' => [
-                'smoke_and_alcool' => 'Fumo e Alcool',
+                'smoke_and_alcool' => 'Fumo e Bevande',
                 'bladder_and_intestine' => 'Vescica e Intestino',
                 'drugs' => 'Farmaci',
                 'diet' => 'Dieta',

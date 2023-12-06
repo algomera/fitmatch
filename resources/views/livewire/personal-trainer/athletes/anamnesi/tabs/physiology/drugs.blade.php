@@ -6,6 +6,30 @@
     <div class="mt-6 border-t border-gray-100">
         <dl class="divide-y divide-gray-100">
             <div class="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0">
+                <dt class="text-sm font-medium leading-6 text-gray-900">Hai subito traumi o interventi chirurgici in
+                    passato?
+                </dt>
+                <dd class="mt-1 text-sm leading-6 text-gray-700 sm:col-span-2 sm:mt-0">
+                    {{ $athlete->anamnesi->traumas ? 'Si' : 'No' }}
+                </dd>
+            </div>
+            @if($athlete->anamnesi->traumas_yes_which)
+                <div class="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0">
+                    <dt class="text-sm font-medium leading-6 text-gray-900">Quali?</dt>
+                    <dd class="mt-1 text-sm leading-6 text-gray-700 sm:col-span-2 sm:mt-0">
+                        {{ $athlete->anamnesi->traumas_yes_which ?: '-' }}
+                    </dd>
+                </div>
+            @endif
+            <div class="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0">
+                <dt class="text-sm font-medium leading-6 text-gray-900">Hai un pacemaker o defibrillatore cardiaco
+                    impiantabile?
+                </dt>
+                <dd class="mt-1 text-sm leading-6 text-gray-700 sm:col-span-2 sm:mt-0">
+                    {{ $athlete->anamnesi->pacemaker ? 'Si' : 'No' }}
+                </dd>
+            </div>
+            <div class="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0">
                 <dt class="text-sm font-medium leading-6 text-gray-900">Hai terapie farmacologiche in atto?</dt>
                 <dd class="mt-1 text-sm leading-6 text-gray-700 sm:col-span-2 sm:mt-0">
                     {{ $athlete->anamnesi->drug_therapies ? 'Si' : 'No' }}

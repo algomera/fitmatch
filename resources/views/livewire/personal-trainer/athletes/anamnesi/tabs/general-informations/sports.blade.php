@@ -56,6 +56,22 @@
                     {{ $athlete->anamnesi->increase_weekly_training_frequencies ? 'Si' : 'No' }}
                 </dd>
             </div>
+            <div class="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0">
+                <dt class="text-sm font-medium leading-6 text-gray-900">Hai dolori articolari o infiammazioni?
+                </dt>
+                <dd class="mt-1 text-sm leading-6 text-gray-700 sm:col-span-2 sm:mt-0">
+                    {{ $athlete->anamnesi->articular_pain ? 'Si' : 'No' }}
+                </dd>
+            </div>
+            @if($athlete->anamnesi->articular_pain)
+                <div class="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0">
+                    <dt class="text-sm font-medium leading-6 text-gray-900">Di che tipo?
+                    </dt>
+                    <dd class="mt-1 text-sm leading-6 text-gray-700 sm:col-span-2 sm:mt-0">
+                        {{ $athlete->anamnesi->articular_pain_yes_which ?: '-' }}
+                    </dd>
+                </div>
+            @endif
         </dl>
     </div>
 </div>
