@@ -10,20 +10,22 @@ class CargoCard extends Component
 {
     public $serie;
     public $item;
+    public $row;
 
     protected $listeners = [
         'cargo-calculated' => '$refresh'
     ];
 
-    public function mount(WorkoutSerie $serie, Cargo $item)
+    public function mount(WorkoutSerie $serie, Cargo $item, $row)
     {
         $this->serie = $serie;
         $this->item = $item;
+        $this->row = $row;
     }
 
     public function delete()
     {
-        $this->serie->items()->where('item_id', $this->item->id)->where('item_type', Cargo::class)->delete();
+        $this->serie->items()->find($this->row)->delete();
         $this->item->delete();
         $this->emitTo('personal-trainer.workouts.show', 'item-deleted');
     }

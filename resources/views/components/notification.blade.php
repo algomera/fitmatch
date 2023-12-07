@@ -60,7 +60,9 @@ $this->dispatchBrowserEvent('open-notification', [
                 </div>
                 <div class="ml-3 w-0 flex-1 pt-0.5">
                     <p class="text-sm font-medium text-gray-900" x-text="data.title"></p>
-                    <p class="mt-1 text-sm text-gray-500" x-html="data.subtitle"></p>
+                    <template x-if="data.subtitle">
+                        <p class="mt-1 text-sm text-gray-500" x-html="data.subtitle"></p>
+                    </template>
                     <template x-if="data.actions">
                         <div class="mt-2">
                             <template x-if="data.actions.primary">

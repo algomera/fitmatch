@@ -63,7 +63,7 @@
                 @endforeach
                 <div class="h-11 flex items-center">
                     <div
-                        class="{{ $days->count() == 0 ? 'mb-0' : 'ml-3' }} flex items-center justify-center w-5 h-5 bg-fit-magenta rounded-full hover:cursor-pointer hover:bg-fit-magenta/70">
+                        class="{{ $days->count() == 0 ? 'mb-0' : 'ml-3' }} flex items-center justify-center w-5 h-5 bg-fit-magenta rounded-full hover:cursor-pointer hover:bg-fit-magenta/70 z-[60]">
                         <x-dropdown align="left">
                             <x-slot:trigger>
                                 <x-heroicon-o-plus class="w-3 h-3 text-white"></x-heroicon-o-plus>
@@ -86,7 +86,7 @@
             @if($selectedDay)
                 @foreach($sets as $set)
                     <div wire:key="set-{{$set->id}}" class="flex">
-                        <div class="sticky left-0 z-[990] flex py-4 min-h-[10rem] px-4 bg-fit-lighter-gray">
+                        <div class="sticky left-0 z-[49] flex py-4 min-h-[10rem] px-4 bg-fit-lighter-gray">
                             <div class="relative flex flex-col items-end px-2 w-8">
                             <span
                                 class="text-xl font-bold text-fit-magenta">{{ str_pad($loop->iteration, 2, "0", STR_PAD_LEFT) }}</span>
@@ -107,17 +107,19 @@
                                 @endif
                             </div>
                         </div>
-                        <div class="flex flex-col w-full">
+                        <div class="flex flex-col w-full z-[50]">
                             @forelse($set->workout_series as $serie)
                                 <div wire:key="{{ $set->id }}-{{ $serie->id }}"
                                      class="relative flex-1 py-4 {{ $selectedSerie == $serie->id ? 'z-50' : 'z-0' }}">
-                                    {{--                                <div class="absolute -left-3 top-1/2 -mt-3">--}}
-                                    {{--                                    <div--}}
-                                    {{--                                        wire:click="deleteSerie({{$serie->id}})"--}}
-                                    {{--                                        class="flex items-center justify-center w-6 h-6 bg-fit-magenta hover:cursor-pointer hover:bg-fit-magenta/70 rounded-md">--}}
-                                    {{--                                        <x-heroicon-o-minus class="w-4 h-4 text-white"></x-heroicon-o-minus>--}}
-                                    {{--                                    </div>--}}
-                                    {{--                                </div>--}}
+                                    @if($loop->index !== 0)
+                                        <div class="absolute top-1/2 -left-3 -mt-3 z-[60]">
+                                            <div
+                                                wire:click="deleteSerie({{$serie->id}})"
+                                                class="flex items-center justify-center w-6 h-6 bg-fit-magenta hover:cursor-pointer hover:bg-fit-magenta/80 rounded-md">
+                                                <x-heroicon-o-minus class="w-4 h-4 text-white"></x-heroicon-o-minus>
+                                            </div>
+                                        </div>
+                                    @endif
                                     <div class="flex">
                                         @foreach($serie->items as $item)
                                             @switch($item->item_type)
@@ -126,33 +128,40 @@
                                                         $exercise = \App\Models\Exercise::find($item->item_id)
                                                     @endphp
                                                     <livewire:exercise-card :serie="$serie" :item="$exercise"
-                                                                            wire:key="{{ $selectedWeekId}}-{{ $serie->id }}-{{$item->id}}"/>
+                                                                            :row="$item->id"
+                                                                            wire:key="{{ $selectedWeekId }}-{{ $serie->id }}-{{ $item->id }}"/>
                                                     @break
                                                 @case('App\Models\Repetition')
                                                     @php
                                                         $repetition = \App\Models\Repetition::find($item->item_id)
                                                     @endphp
-                                                    <livewire:repetition-card :serie="$serie" :item="$repetition"
-                                                                              wire:key="{{ $selectedWeekId}}-{{ $serie->id }}-{{$item->id}}"/>
+                                                    @if($repetition)
+                                                        <livewire:repetition-card :serie="$serie" :item="$repetition"
+                                                                                  :row="$item->id"
+                                                                                  wire:key="{{ $selectedWeekId }}-{{ $serie->id }}-{{ $item->id }}"/>
+                                                    @endif
                                                     @break
                                                 @case('App\Models\Recovery')
                                                     @php
                                                         $recovery = \App\Models\Recovery::find($item->item_id)
                                                     @endphp
-                                                    <livewire:recovery-card :serie="$serie" :item="$recovery"
-                                                                            wire:key="{{ $selectedWeekId}}-{{ $serie->id }}-{{$item->id}}"/>
+                                                    @if($recovery)
+                                                        <livewire:recovery-card :serie="$serie" :item="$recovery"
+                                                                                :row="$item->id"
+                                                                                wire:key="{{ $selectedWeekId }}-{{ $serie->id }}-{{ $item->id }}"/>
+                                                    @endif
                                                     @break
                                                 @case('App\Models\Cargo')
                                                     @php
                                                         $cargo = \App\Models\Cargo::find($item->item_id)
                                                     @endphp
-                                                    <livewire:cargo-card :serie="$serie" :item="$cargo"
-                                                                         wire:key="{{ $selectedWeekId}}-{{ $serie->id }}-{{$item->id}}"/>
+                                                    <livewire:cargo-card :serie="$serie" :item="$cargo" :row="$item->id"
+                                                                         wire:key="{{ $selectedWeekId }}-{{ $serie->id }}-{{ $item->id }}"/>
                                                     @break
                                             @endswitch
                                         @endforeach
                                         <div class="sticky left-16"
-                                             wire:key="{{ $serie->id }}@isset($item)'-' . {{$item->id}} @endisset">
+                                             wire:key="{{ $serie->id }}@isset($item)'-' . {{ $item->id }} @endisset">
                                             <div
                                                 class="m-1 mr-2 flex items-center justify-center w-56 min-h-[230px] bg-white border rounded-md shrink-0">
                                                 <x-dropdown align="{{ $serie->items->count() > 0 ? 'right' : 'left' }}">
@@ -202,12 +211,14 @@
                                                                 <span>Nuova serie</span>
                                                             </div>
                                                             <div
+                                                                wire:click="duplicateSerieHorizontal({{ $serie->id }})"
                                                                 class="px-1 py-1 flex items-center space-x-2 text-sm text-fit-purple-blue rounded hover:cursor-pointer hover:text-white hover:bg-fit-purple-blue">
                                                                 <x-heroicon-o-square-2-stack
                                                                     class="w-4 h-4"></x-heroicon-o-square-2-stack>
                                                                 <span>Duplica serie orizzontale</span>
                                                             </div>
                                                             <div
+                                                                wire:click="duplicateSerieVertical({{ $serie->id }})"
                                                                 class="px-1 py-1 flex items-center space-x-2 text-sm text-fit-purple-blue rounded hover:cursor-pointer hover:text-white hover:bg-fit-purple-blue">
                                                                 <x-heroicon-o-square-2-stack
                                                                     class="w-4 h-4"></x-heroicon-o-square-2-stack>

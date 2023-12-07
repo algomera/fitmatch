@@ -87,21 +87,52 @@ class Show extends Component
                     ]);
                     $newSerie->save();
                     $serie->items->each(function ($item) use ($cloned_week, $newSerie) {
-                        if ($item->item_type !== Exercise::class) {
-                            $ni = $item->item_type::find($item->item_id)->replicate()->fill([
-                                'workout_id' => $this->workout->id,
-                                'workout_week_id' => $cloned_week->id
-                            ]);
-                            $ni->save();
-                        } else {
-                            $ni = $item;
+                        switch ($item->item_type) {
+                            case Repetition::class:
+                                $repetition = Repetition::create([
+                                    'workout_id' => $item->repetition->workout_id,
+                                    'workout_week_id' => $item->repetition->workout_week_id,
+                                    'quantity' => $item->repetition->quantity,
+                                ]);
+                                $newSerie->items()->create([
+                                    'workout_id' => $this->workout->id,
+                                    'item_id' => $repetition->id,
+                                    'item_type' => Repetition::class
+                                ]);
+                                break;
+                            case Recovery::class:
+                                $recovery = Recovery::create([
+                                    'workout_id' => $item->recovery->workout_id,
+                                    'workout_week_id' => $item->recovery->workout_week_id,
+                                    'quantity' => $item->recovery->quantity,
+                                ]);
+                                $newSerie->items()->create([
+                                    'workout_id' => $this->workout->id,
+                                    'item_id' => $recovery->id,
+                                    'item_type' => Recovery::class
+                                ]);
+                                break;
+                            case Cargo::class:
+                                $cargo = Cargo::create([
+                                    'workout_id' => $item->cargo->workout_id,
+                                    'workout_week_id' => $item->cargo->workout_week_id,
+                                    'quantity' => $item->cargo->quantity,
+                                ]);
+                                $newSerie->items()->create([
+                                    'workout_id' => $this->workout->id,
+                                    'item_id' => $cargo->id,
+                                    'item_type' => Cargo::class
+                                ]);
+                                break;
+                            case Exercise::class:
+                                $exercise = $item->replicate();
+                                $newSerie->items()->create([
+                                    'workout_id' => $newSerie->workout->id,
+                                    'item_id' => $exercise->item_id,
+                                    'item_type' => Exercise::class
+                                ]);
+                                break;
                         }
-                        $newItem = $item->replicate()->fill([
-                            'workout_id' => $this->workout->id,
-                            'workout_serie_id' => $newSerie->id,
-                            'item_id' => $ni->item_id
-                        ]);
-                        $newItem->save();
                     });
                 });
             });
@@ -223,6 +254,131 @@ class Show extends Component
             'workout_id' => $this->workout->id,
             'workout_set_id' => $set->id
         ]);
+    }
+
+    public function duplicateSerieHorizontal(WorkoutSerie $serie)
+    {
+        $itemsReversed = $serie->items->reverse();
+
+        $foundExercise = false;
+        $itemsToDuplicate = collect();
+
+        foreach ($itemsReversed as $item) {
+            $itemsToDuplicate->prepend($item);
+
+            if ($item->item_type === 'App\Models\Exercise') {
+                $foundExercise = true;
+                break;
+            }
+        }
+
+        if ($foundExercise) {
+            $itemsToDuplicate->each(function ($item) use ($serie) {
+                switch ($item->item_type) {
+                    case Repetition::class:
+                        $repetition = Repetition::create([
+                            'workout_id' => $item->repetition->workout_id,
+                            'workout_week_id' => $item->repetition->workout_week_id,
+                            'quantity' => $item->repetition->quantity,
+                        ]);
+                        $serie->items()->create([
+                            'workout_id' => $this->workout->id,
+                            'item_id' => $repetition->id,
+                            'item_type' => Repetition::class
+                        ]);
+                        break;
+                    case Recovery::class:
+                        $recovery = Recovery::create([
+                            'workout_id' => $item->recovery->workout_id,
+                            'workout_week_id' => $item->recovery->workout_week_id,
+                            'quantity' => $item->recovery->quantity,
+                        ]);
+                        $serie->items()->create([
+                            'workout_id' => $this->workout->id,
+                            'item_id' => $recovery->id,
+                            'item_type' => Recovery::class
+                        ]);
+                        break;
+                    case Cargo::class:
+                        $cargo = Cargo::create([
+                            'workout_id' => $item->cargo->workout_id,
+                            'workout_week_id' => $item->cargo->workout_week_id,
+                            'quantity' => $item->cargo->quantity,
+                        ]);
+                        $serie->items()->create([
+                            'workout_id' => $this->workout->id,
+                            'item_id' => $cargo->id,
+                            'item_type' => Cargo::class
+                        ]);
+                        break;
+                    case Exercise::class:
+                        $exercise = $item->replicate();
+                        $serie->items()->create([
+                            'workout_id' => $serie->workout->id,
+                            'item_id' => $exercise->item_id,
+                            'item_type' => Exercise::class
+                        ]);
+                        break;
+                }
+            });
+        }
+    }
+
+    public function duplicateSerieVertical(WorkoutSerie $serie)
+    {
+        $newSerie = WorkoutSerie::create([
+            'workout_id' => $serie->workout_id,
+            'workout_set_id' => $serie->workout_set_id
+        ]);
+
+        $serie->items->each(function ($item) use ($newSerie) {
+            switch ($item->item_type) {
+                case Repetition::class:
+                    $repetition = Repetition::create([
+                        'workout_id' => $item->repetition->workout_id,
+                        'workout_week_id' => $item->repetition->workout_week_id,
+                        'quantity' => $item->repetition->quantity,
+                    ]);
+                    $newSerie->items()->create([
+                        'workout_id' => $this->workout->id,
+                        'item_id' => $repetition->id,
+                        'item_type' => Repetition::class
+                    ]);
+                    break;
+                case Recovery::class:
+                    $recovery = Recovery::create([
+                        'workout_id' => $item->recovery->workout_id,
+                        'workout_week_id' => $item->recovery->workout_week_id,
+                        'quantity' => $item->recovery->quantity,
+                    ]);
+                    $newSerie->items()->create([
+                        'workout_id' => $this->workout->id,
+                        'item_id' => $recovery->id,
+                        'item_type' => Recovery::class
+                    ]);
+                    break;
+                case Cargo::class:
+                    $cargo = Cargo::create([
+                        'workout_id' => $item->cargo->workout_id,
+                        'workout_week_id' => $item->cargo->workout_week_id,
+                        'quantity' => $item->cargo->quantity,
+                    ]);
+                    $newSerie->items()->create([
+                        'workout_id' => $this->workout->id,
+                        'item_id' => $cargo->id,
+                        'item_type' => Cargo::class
+                    ]);
+                    break;
+                case Exercise::class:
+                    $exercise = $item->replicate();
+                    $newSerie->items()->create([
+                        'workout_id' => $newSerie->workout->id,
+                        'item_id' => $exercise->item_id,
+                        'item_type' => Exercise::class
+                    ]);
+                    break;
+            }
+        });
     }
 
     public function updatedSelectedWeek()

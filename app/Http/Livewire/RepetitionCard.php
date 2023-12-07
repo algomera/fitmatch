@@ -10,11 +10,13 @@ class RepetitionCard extends Component
 {
     public $serie;
     public $item;
+    public $row;
 
-    public function mount(WorkoutSerie $serie, Repetition $item)
+    public function mount(WorkoutSerie $serie, Repetition $item, $row)
     {
         $this->serie = $serie;
         $this->item = $item;
+        $this->row = $row;
     }
 
     public function increment()
@@ -32,7 +34,7 @@ class RepetitionCard extends Component
 
     public function delete()
     {
-        $this->serie->items()->where('item_id', $this->item->id)->where('item_type', Repetition::class)->delete();
+        $this->serie->items()->find($this->row)->delete();
         $this->item->delete();
         $this->emitTo('personal-trainer.workouts.show', 'item-deleted');
     }

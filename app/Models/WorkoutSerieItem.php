@@ -20,4 +20,19 @@ class WorkoutSerieItem extends Model
     {
         return $this->belongsTo(Exercise::class, 'item_id');
     }
+
+    public function repetition()
+    {
+        return $this->belongsTo(Repetition::class, 'item_id');
+    }
+
+    public function recovery()
+    {
+        return $this->belongsTo(Recovery::class, 'item_id');
+    }
+
+    public function cargo()
+    {
+        return $this->belongsTo(Cargo::class, 'item_id');
+    }
 }

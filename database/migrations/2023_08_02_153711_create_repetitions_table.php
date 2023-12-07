@@ -15,6 +15,7 @@ return new class extends Migration {
             $table->foreignIdFor(\App\Models\Workout::class, 'workout_id')->constrained();
             $table->foreignIdFor(\App\Models\WorkoutWeek::class, 'workout_week_id')->constrained();
             $table->integer('quantity')->default(0);
+            $table->integer('executed')->default(0);
         });
     }
 
