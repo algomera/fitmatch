@@ -30,12 +30,18 @@ class WorkoutsSeeder extends Seeder
             ]);
         }
 
+        $duration = fake()->numberBetween(2, 5);
         $not_assigned = Workout::create([
             'name' => 'Workout B',
             'user_id' => User::role('personal-trainer')->first()->id,
-            'duration' => fake()->numberBetween(2, 5),
+            'duration' => $duration,
             'start_date' => now(),
             'goal_id' => Goal::all()->shuffle()->first()->id
         ]);
+        foreach (range(1, $duration) as $week) {
+            $not_assigned->workout_weeks()->create([
+                'week' => $week
+            ]);
+        }
     }
 }
