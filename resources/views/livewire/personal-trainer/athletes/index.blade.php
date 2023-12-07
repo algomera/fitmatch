@@ -116,7 +116,7 @@
                             @else
                                 <x-primary-button
                                     wire:click="$emit('openModal', 'personal-trainer.athletes.anamnesi.show', {{ json_encode(['anamnesi' => $selectedAthlete->anamnesi->id]) }})">
-                                    Visualizza Anamnesi
+                                    Anamnesi
                                 </x-primary-button>
                             @endif
                         @endif

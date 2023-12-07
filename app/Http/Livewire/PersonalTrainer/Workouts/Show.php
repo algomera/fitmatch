@@ -42,6 +42,33 @@ class Show extends Component
         $this->selectedDay = $workout->workout_days()->orderBy('day')->first()->id ?? null;
     }
 
+    public function requestAnamnesiAccess()
+    {
+        if (!auth()->user()->shared_anamnesis()->where('anamnesi_id', $this->athlete->anamnesi->id)->exists()) {
+            auth()->user()->shared_anamnesis()->attach($this->athlete->anamnesi->id, [
+                'accepted' => false,
+                'created_at' => now()
+            ]);
+        }
+
+        $this->dispatchBrowserEvent('open-notification', [
+            'title' => __('Richiesta Inviata'),
+            'subtitle' => __("La richiesta di accesso all'anamnesi di <strong>{$this->athlete->full_name}</strong> è stata inviata correttamente"),
+            'type' => 'success'
+        ]);
+    }
+
+    public function cancelAnamnesiAccess()
+    {
+        auth()->user()->shared_anamnesis()->detach($this->athlete->anamnesi->id);
+
+        $this->dispatchBrowserEvent('open-notification', [
+            'title' => __('Richiesta Annullata'),
+            'subtitle' => __("La richiesta di accesso all'anamnesi di <strong>{$this->athlete->full_name}</strong> è stata annullata"),
+            'type' => 'success'
+        ]);
+    }
+
     public function selectWeek(WorkoutWeek $week)
     {
         $this->selectedWeek = $week->week;

@@ -1,14 +1,35 @@
 <div class="bg-white min-h-screen">
     <div class="max-w-7xl mx-auto py-6 px-4 space-y-2 sm:px-6 lg:px-8">
         @if($athlete)
-            <div class="flex items-center space-x-5 border-b pb-5">
-                @if($athlete->informations->profile_image)
-                    <img src="{{ asset($athlete->informations->profile_image) }}"
-                         class="w-11 h-11 bg-gray-200 ring-2 ring-white rounded-full"/>
-                @else
-                    <div class="w-11 h-11 bg-gray-200 ring-2 ring-white rounded-full"></div>
-                @endif
-                <h3>{{ $athlete->full_name }}</h3>
+            <div class="flex items-center justify-between border-b pb-5">
+                <div class="flex items-center space-x-5">
+                    @if($athlete->informations->profile_image)
+                        <img src="{{ asset($athlete->informations->profile_image) }}"
+                             class="w-11 h-11 bg-gray-200 ring-2 ring-white rounded-full"/>
+                    @else
+                        <div class="w-11 h-11 bg-gray-200 ring-2 ring-white rounded-full"></div>
+                    @endif
+                    <h3>{{ $athlete->full_name }}</h3>
+                </div>
+                <div class="flex items-center space-x-5">
+                    @if($athlete->anamnesi)
+                        @if(!auth()->user()->haveAccessToAnamnesiOf($athlete->anamnesi->id))
+                            <x-primary-button wire:click="requestAnamnesiAccess">
+                                Richiedi Anamnesi
+                            </x-primary-button>
+                        @elseif(!auth()->user()->anamnesiAccepted($athlete->anamnesi->id))
+                            <x-primary-button wire:click="cancelAnamnesiAccess">
+                                Annulla richiesta Anamnesi
+                            </x-primary-button>
+                        @else
+                            <x-primary-button
+                                wire:click="$emit('openModal', 'personal-trainer.athletes.anamnesi.show', {{ json_encode(['anamnesi' => $athlete->anamnesi->id]) }})">
+                                Anamnesi
+                            </x-primary-button>
+                        @endif
+                    @endif
+                    <x-primary-button color="ghost">Storico prestazioni</x-primary-button>
+                </div>
             </div>
         @endif
         <div class="flex items-center justify-between">
