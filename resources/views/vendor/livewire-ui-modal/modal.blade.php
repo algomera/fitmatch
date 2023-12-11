@@ -49,7 +49,7 @@
                 @forelse($components as $id => $component)
                     <div x-show.immediate="activeComponent == '{{ $id }}'" x-ref="{{ $id }}" wire:key="{{ $id }}">
 						<span x-on:click="closeModal()"
-                              class="flex h-6 w-6 items-center justify-center rounded-md transition hover:bg-zinc-900/5 absolute text-2xl right-4 top-4 cursor-pointer">
+                              class="flex h-6 w-6 items-center justify-center rounded-md transition hover:bg-zinc-900/5 absolute text-2xl right-4 top-4 cursor-pointer z-10">
 							<x-heroicon-o-x-mark class="w-4 h-4 stroke-zinc-900"></x-heroicon-o-x-mark>
 						</span>
                         @livewire($component['name'], $component['attributes'], key($id))
