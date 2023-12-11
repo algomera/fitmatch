@@ -3,6 +3,9 @@
 namespace App\Http\Livewire\PersonalTrainer\Workouts\Modals;
 
 use App\Models\Exercise;
+use App\Models\ExerciseArea;
+use App\Models\ExerciseTypology;
+use App\Models\ExerciseZone;
 use App\Models\Repetition;
 use App\Models\Workout;
 use App\Models\WorkoutDay;
@@ -21,6 +24,11 @@ class AddExercises extends ModalComponent
     public WorkoutDay $day;
     public WorkoutSerie $serie;
 
+    public $area;
+    public $typology;
+    public $zone;
+    public $favorites = false;
+
     protected $listeners = [
         'add-exercise' => 'addExercise'
     ];
@@ -36,6 +44,21 @@ class AddExercises extends ModalComponent
         $this->week = $week;
         $this->day = $day;
         $this->serie = $serie;
+    }
+
+    public function updatingArea()
+    {
+        $this->resetPage();
+    }
+
+    public function updatingTypology()
+    {
+        $this->resetPage();
+    }
+
+    public function updatingZone()
+    {
+        $this->resetPage();
     }
 
     public function addExercise($id, $repetitions)
@@ -59,11 +82,35 @@ class AddExercises extends ModalComponent
         $this->emit('item-added', $id);
     }
 
+    public function resetFilters()
+    {
+        $this->area = null;
+        $this->typology = null;
+        $this->zone = null;
+    }
+
     public function render()
     {
-        $exercises = Exercise::paginate(10);
+        $exercises = Exercise::query();
+        $areas = ExerciseArea::all();
+        $typologies = ExerciseTypology::all();
+        $zones = ExerciseZone::all();
+
+        if ($this->area) {
+            $exercises->where('area_id', $this->area);
+        }
+        if ($this->typology) {
+            $exercises->where('typology_id', $this->typology);
+        }
+        if ($this->zone) {
+            $exercises->where('zone_id', $this->zone);
+        }
+
         return view('livewire.personal-trainer.workouts.modals.add-exercises', [
-            'exercises' => $exercises
+            'exercises' => $exercises->paginate(10),
+            'areas' => $areas,
+            'typologies' => $typologies,
+            'zones' => $zones
         ]);
     }
 }

@@ -1,6 +1,6 @@
 <div
     x-data="{ added: @entangle('added') }"
-    class="flex space-x-6 py-3">
+    class="flex space-x-6 py-3 select-none">
     <div class="w-full max-w-md shrink-0">
         <h4 class="{{ $added ? '!text-fit-magenta' : '' }} text-lg font-bold leading-tight space-x-3">
             {{ $exercise->name }}
@@ -30,7 +30,8 @@
         </div>
         <x-primary-button x-on:click="setTimeout(() => { added = false, $wire.repetitions = 0 }, 2000);"
                           wire:click="$emit('add-exercise', {{ $exercise->id }}, {{ $repetitions }})"
-                          class="{{ $added ? '!bg-fit-magenta' : '' }} select-none text-center justify-center space-x-3">
+                          :disabled="$repetitions === 0"
+                          class="{{ $added ? '!bg-fit-magenta' : '' }} select-none text-center justify-center space-x-3 disabled:bg-fit-purple-blue/80">
             <div x-show="!added" class="flex items-center space-x-3">
                 <x-heroicon-o-plus-small class="w-4 h-4"></x-heroicon-o-plus-small>
                 <span>Aggiungi</span>
