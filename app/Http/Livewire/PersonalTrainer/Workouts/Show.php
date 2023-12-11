@@ -261,6 +261,11 @@ class Show extends Component
 
     public function deleteSerie(WorkoutSerie $serie)
     {
+        foreach ($serie->items as $item) {
+            if ($item->item_type !== Exercise::class) {
+                $item->item_type::find($item->item_id)->delete();
+            }
+        }
         $serie->delete();
     }
 

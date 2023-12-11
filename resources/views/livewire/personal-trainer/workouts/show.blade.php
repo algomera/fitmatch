@@ -197,7 +197,7 @@
                                                     <x-slot:content>
                                                         <div class="px-1 space-y-1">
                                                             <div
-                                                                wire:click="$emit('openModal', 'personal-trainer.workouts.modals.add-exercise', {{ json_encode(['serie' => $serie->id]) }})"
+                                                                wire:click="$emit('openModal', 'personal-trainer.workouts.modals.add-exercises', {{ json_encode(['workout' => $workout->id, 'week' => $selectedWeekId, 'day' => $selectedDay, 'set' => $set->id, 'serie' => $serie->id]) }})"
                                                                 class="px-1 py-1 flex items-center space-x-2 text-fit-dark-blue text-sm rounded hover:cursor-pointer hover:text-white hover:bg-fit-dark-blue">
                                                                 <x-heroicon-o-plus-circle
                                                                     class="w-4 h-4"></x-heroicon-o-plus-circle>
