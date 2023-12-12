@@ -30,7 +30,8 @@ class AddExercises extends ModalComponent
     public $favorites = false;
 
     protected $listeners = [
-        'add-exercise' => 'addExercise'
+        'add-exercise' => 'addExercise',
+        'toggleFavorite' => '$refresh',
     ];
 
     public static function modalMaxWidthClass(): string
@@ -104,6 +105,11 @@ class AddExercises extends ModalComponent
         }
         if ($this->zone) {
             $exercises->where('zone_id', $this->zone);
+        }
+        if ($this->favorites) {
+            $favorites = auth()->user()->favorites->pluck('id');
+
+            $exercises->whereIn('id', $favorites);
         }
 
         return view('livewire.personal-trainer.workouts.modals.add-exercises', [

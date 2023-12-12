@@ -9,6 +9,11 @@ class Exercise extends Model
 {
     use HasFactory;
 
+    public function personalTrainers()
+    {
+        return $this->belongsToMany(User::class, 'favorite_exercises');
+    }
+
     public function typology()
     {
         return $this->belongsTo(ExerciseTypology::class);

@@ -26,7 +26,15 @@
                     </div>
                 </div>
             </div>
-            <x-heroicon-o-heart class="w-6 h-6"></x-heroicon-o-heart>
+            @if(auth()->user()->favorites->fresh()->contains($exercise->id))
+                <x-heroicon-o-heart
+                    wire:click="removeFavorite"
+                    class="w-6 h-6 cursor-pointer stroke-fit-magenta fill-fit-magenta"></x-heroicon-o-heart>
+            @else
+                <x-heroicon-o-heart
+                    wire:click="addFavorite"
+                    class="w-6 h-6 cursor-pointer hover:stroke-fit-magenta hover:fill-fit-magenta"></x-heroicon-o-heart>
+            @endif
         </div>
         <x-primary-button x-on:click="setTimeout(() => { added = false, $wire.repetitions = 0 }, 2000);"
                           wire:click="$emit('add-exercise', {{ $exercise->id }}, {{ $repetitions }})"

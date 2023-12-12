@@ -40,6 +40,18 @@ class ExerciseItem extends Component
         }
     }
 
+    public function addFavorite()
+    {
+        auth()->user()->favorites()->attach($this->exercise->id);
+
+    }
+
+    public function removeFavorite()
+    {
+        auth()->user()->favorites()->detach($this->exercise->id);
+
+    }
+
     public function render()
     {
         return view('livewire.components.exercise-item');
