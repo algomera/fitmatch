@@ -4,7 +4,11 @@
         <div class="flex space-x-2">
             <x-heroicon-o-play-circle
                 class="h-4 w-4 hover:text-fit-magenta hover:cursor-pointer"></x-heroicon-o-play-circle>
-            <x-heroicon-o-heart class="h-4 w-4 hover:text-fit-magenta hover:cursor-pointer"></x-heroicon-o-heart>
+            @if(auth()->user()->favorites->fresh()->contains($item->id))
+                <x-heroicon-o-heart class="h-4 w-4 stroke-fit-magenta fill-fit-magenta"></x-heroicon-o-heart>
+            @else
+                <x-heroicon-o-heart class="h-4 w-4"></x-heroicon-o-heart>
+            @endif
         </div>
     </div>
     <div class="w-full items-center justify-center bg-white">
@@ -14,8 +18,10 @@
             <p class="text-sm text-fit-dark-gray line-clamp-2">{{ $item->description }}</p>
         </div>
         <div class="border-t w-full flex items-center justify-between p-4">
-            <x-heroicon-o-queue-list
-                class="h-4 w-4 hover:text-fit-magenta hover:cursor-pointer"></x-heroicon-o-queue-list>
+            <div class="flex space-x-2">
+                {{--                <x-heroicon-o-queue-list--}}
+                {{--                    class="h-4 w-4 hover:text-fit-magenta hover:cursor-pointer"></x-heroicon-o-queue-list>--}}
+            </div>
             <div class="flex space-x-2">
                 <x-heroicon-o-trash
                     wire:click="delete"

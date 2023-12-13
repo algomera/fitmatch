@@ -19,8 +19,8 @@
         </div>
         <div class="border-t w-full flex items-center justify-between p-4">
             <div class="flex space-x-2">
-                <x-heroicon-o-queue-list
-                    class="h-4 w-4 hover:text-fit-magenta hover:cursor-pointer"></x-heroicon-o-queue-list>
+                {{--                <x-heroicon-o-queue-list--}}
+                {{--                    class="h-4 w-4 hover:text-fit-magenta hover:cursor-pointer"></x-heroicon-o-queue-list>--}}
             </div>
             <div class="flex space-x-2">
                 <x-heroicon-o-trash
