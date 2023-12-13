@@ -4,6 +4,9 @@
         <span
             class="text-xs text-gray-400">{{ $workout->start_date->format('d/m/Y') }} - {{ $workout->end_date->format('d/m/Y') }}</span>
         <p class="text-lg font-bold text-fit-black mt-1">{{ $workout->name }}</p>
+        @if($workout->athlete)
+            <span class="text-xs font-semibold text-gray-500">{{ $workout->athlete->full_name }}</span>
+        @endif
     </div>
     <div class="p-4 border-b bg-gray-100">
         <span class="font-semibold text-fit-dark-blue">{{ $workout->workout_days->count() }} training sessions</span>

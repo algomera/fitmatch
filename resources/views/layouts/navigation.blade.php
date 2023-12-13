@@ -48,7 +48,8 @@
                                 :active="request()->routeIs('personal-trainer.workouts*')">
                         {{ __('Schede') }}
                     </x-nav-link>
-                    <x-nav-link href="#" :active="request()->routeIs('personal-trainer.exercises*')">
+                    <x-nav-link href="{{ route('personal-trainer.exercises') }}"
+                                :active="request()->routeIs('personal-trainer.exercises*')">
                         {{ __('Esercizi') }}
                     </x-nav-link>
                     <x-primary-button

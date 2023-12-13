@@ -63,6 +63,9 @@ Route::middleware(['auth'])->group(function () {
             Route::get('/workouts/{workout}', [
                 \App\Http\Livewire\PersonalTrainer\Workouts\Show::class, '__invoke'
             ])->name('workout');
+            Route::get('/exercises', [
+                \App\Http\Livewire\PersonalTrainer\Exercises\Index::class, '__invoke'
+            ])->name('exercises');
         });
     });
 });

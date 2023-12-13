@@ -8,7 +8,7 @@
             <div class="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0">
                 <dt class="text-sm font-medium leading-6 text-gray-900">Come va la qualità del sonno?</dt>
                 <dd class="mt-1 text-sm leading-6 text-gray-700 sm:col-span-2 sm:mt-0">
-                    {{ $athlete->anamnesi->sleep_quality ?: '-' }}
+                    {{ config('fitmatch.anamnesi.sleep_quality.'.$athlete->anamnesi->sleep_quality) ?: '-' }}
                 </dd>
             </div>
             <div class="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0">

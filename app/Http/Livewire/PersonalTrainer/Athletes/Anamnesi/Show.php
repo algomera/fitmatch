@@ -25,7 +25,8 @@ class Show extends ModalComponent
                 'drugs' => 'Farmaci',
                 'diet' => 'Dieta',
                 'sleep' => 'Sonno',
-                'pathologies' => 'Patologie'
+                'pathologies' => 'Patologie',
+                'mestrual_cycle' => 'Ciclo Mestruale'
             ]
         ],
         'anthropometric_measurements' => [

@@ -8,7 +8,7 @@
             <div class="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0">
                 <dt class="text-sm font-medium leading-6 text-gray-900">Fumo</dt>
                 <dd class="mt-1 text-sm leading-6 text-gray-700 sm:col-span-2 sm:mt-0">
-                    {{ $athlete->anamnesi->smoke ?: '-' }}
+                    {{ config('fitmatch.anamnesi.smoke.'.$athlete->anamnesi->smoke) ?: '-' }}
                     @if($athlete->anamnesi->smoke === 'yes')
                         ({{ $athlete->anamnesi->smoke_yes_how_many_per_day ?: '-' }} al giorno)
                     @endif
@@ -20,7 +20,7 @@
             <div class="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0">
                 <dt class="text-sm font-medium leading-6 text-gray-900">Bevande alcoliche</dt>
                 <dd class="mt-1 text-sm leading-6 text-gray-700 sm:col-span-2 sm:mt-0">
-                    {{ $athlete->anamnesi->alcohol ?: '-' }}
+                    {{ config('fitmatch.anamnesi.alcohol.'.$athlete->anamnesi->alcohol) ?: '-' }}
                 </dd>
             </div>
             <div class="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0">
@@ -32,7 +32,7 @@
             <div class="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0">
                 <dt class="text-sm font-medium leading-6 text-gray-900">Stress</dt>
                 <dd class="mt-1 text-sm leading-6 text-gray-700 sm:col-span-2 sm:mt-0">
-                    {{ $athlete->anamnesi->stress_level ?: '-' }}
+                    {{ config('fitmatch.anamnesi.stress_level.'.$athlete->anamnesi->stress_level) ?: '-' }}
                 </dd>
             </div>
         </dl>

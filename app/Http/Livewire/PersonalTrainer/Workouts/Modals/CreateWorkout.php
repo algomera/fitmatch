@@ -2,6 +2,7 @@
 
 namespace App\Http\Livewire\PersonalTrainer\Workouts\Modals;
 
+use App\Http\Livewire\PersonalTrainer\Exercises\Modals\AddExerciseToExistingWorkout;
 use App\Models\Goal;
 use Illuminate\Database\Query\Builder;
 use Illuminate\Validation\Rule;
@@ -10,9 +11,15 @@ use LivewireUI\Modal\ModalComponent;
 class CreateWorkout extends ModalComponent
 {
     public $name, $workout_type = 'athlete', $duration = 1, $athlete_id = null, $start_date, $goal_id;
+    public $from_exercises_modal = false;
     protected $listeners = [
         'itemSelected'
     ];
+
+    public static function destroyOnClose(): bool
+    {
+        return true;
+    }
 
     public function itemSelected($val)
     {
@@ -43,7 +50,13 @@ class CreateWorkout extends ModalComponent
             ]);
         }
 
-        return redirect()->route('personal-trainer.workout', ['workout' => $workout->id]);
+        if (!$this->from_exercises_modal) {
+            return redirect()->route('personal-trainer.workout', ['workout' => $workout->id]);
+        } else {
+            $this->closeModalWithEvents([
+                AddExerciseToExistingWorkout::getName() => ['workoutCreated', [$workout->id]],
+            ]);
+        }
     }
 
     public function render()

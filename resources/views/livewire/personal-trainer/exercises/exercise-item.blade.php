@@ -1,14 +1,13 @@
 <div
-    x-data="{ added: @entangle('added') }"
     class="flex space-x-6 py-3 select-none">
-    <div class="w-full max-w-md shrink-0">
-        <h4 class="{{ $added ? '!text-fit-magenta' : '' }} text-lg font-bold leading-tight space-x-3">
+    <div class="w-full max-w-sm shrink-0">
+        <h4 class="text-lg font-bold leading-tight space-x-3">
             {{ $exercise->name }}
         </h4>
         <p class="text-sm line-clamp-3 leading-relaxed mt-3">{{ $exercise->description }}</p>
     </div>
-    <div class="bg-gray-100 w-64 aspect-video shrink-0"></div>
-    <div class="flex flex-col justify-between w-64 shrink-0">
+    <div class="bg-gray-200 w-64 aspect-video shrink-0"></div>
+    <div class="flex flex-col justify-between w-full flex-1 shrink-0">
         <div class="flex items-start justify-between">
             <div class="flex flex-col">
                 <span class="text-sm font-semibold">Ripetizioni</span>
@@ -36,16 +35,13 @@
                     class="w-6 h-6 cursor-pointer text-gray-400 hover:text-fit-magenta"></x-heroicon-o-heart>
             @endif
         </div>
-        <x-primary-button x-on:click="setTimeout(() => { added = false, $wire.repetitions = 0 }, 2000);"
-                          wire:click="$emit('add-exercise', {{ $exercise->id }}, {{ $repetitions }})"
-                          :disabled="$repetitions === 0"
-                          class="{{ $added ? '!bg-fit-magenta' : '' }} select-none text-center justify-center space-x-3 disabled:bg-fit-purple-blue/80">
-            <div x-show="!added" class="flex items-center space-x-3">
+        <x-primary-button
+            wire:click="$emit('openModal', 'personal-trainer.exercises.modals.add-exercise-to-existing-workout', {{ json_encode(['exercise' => $exercise->id, 'repetitions' => $repetitions]) }})"
+            :disabled="$repetitions === 0"
+            class="select-none text-center justify-center space-x-3 disabled:bg-fit-purple-blue/80">
+            <div class="flex items-center space-x-3">
                 <x-heroicon-o-plus-small class="w-4 h-4"></x-heroicon-o-plus-small>
                 <span>Aggiungi</span>
-            </div>
-            <div x-show="added">
-                <span>Aggiunto</span>
             </div>
         </x-primary-button>
     </div>

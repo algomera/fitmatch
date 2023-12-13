@@ -23,8 +23,15 @@
                         @isset($tab['children'])
                             <ul class="ml-3 space-y-1 text-sm">
                                 @foreach($tab['children'] as $child => $label)
-                                    <li wire:click.stop="$set('selectedTab', '{{ $child }}')"
-                                        class="{{ $selectedTab === $child ? 'text-fit-magenta' : 'text-fit-dark-gray' }} hover:cursor-pointer hover:text-fit-magenta">{{ $label }}</li>
+                                    @if($child === 'mestrual_cycle')
+                                        @if($athlete->informations->gender === 'female')
+                                            <li wire:click.stop="$set('selectedTab', '{{ $child }}')"
+                                                class="{{ $selectedTab === $child ? 'text-fit-magenta' : 'text-fit-dark-gray' }} hover:cursor-pointer hover:text-fit-magenta">{{ $label }}</li>
+                                        @endif
+                                    @else
+                                        <li wire:click.stop="$set('selectedTab', '{{ $child }}')"
+                                            class="{{ $selectedTab === $child ? 'text-fit-magenta' : 'text-fit-dark-gray' }} hover:cursor-pointer hover:text-fit-magenta">{{ $label }}</li>
+                                    @endif
                                 @endforeach
                             </ul>
                         @endisset
@@ -64,8 +71,13 @@
                     <livewire:personal-trainer.athletes.anamnesi.tabs.physiology.pathologies
                         :athlete="$athlete"/>
                     @break
+                @case('mestrual_cycle' && $athlete->informations->gender === 'female')
+                    <livewire:personal-trainer.athletes.anamnesi.tabs.physiology.mestrual-cycle
+                        :athlete="$athlete"/>
+                    @break
                 @case('anthropometric_measurements')
-                    <livewire:personal-trainer.athletes.anamnesi.tabs.anthropometric-measurements :athlete="$athlete"/>
+                    <livewire:personal-trainer.athletes.anamnesi.tabs.anthropometric-measurements
+                        :athlete="$athlete"/>
                     @break
                 @case('sports')
                     <livewire:personal-trainer.athletes.anamnesi.tabs.general-informations.sports
