@@ -185,7 +185,8 @@
                                              wire:key="{{ $serie->id }}@isset($item)'-' . {{ $item->id }} @endisset">
                                             <div
                                                 class="m-1 mr-2 flex items-center justify-center w-56 min-h-[230px] bg-white border rounded-md shrink-0">
-                                                <x-dropdown align="{{ $serie->items->count() > 0 ? 'right' : 'left' }}">
+                                                <x-dropdown
+                                                    align="{{ $serie->items->count() > 0 ? 'center-left' : 'center-right' }}">
                                                     <x-slot:trigger>
                                                         <div
                                                             wire:click="$set('selectedSerie', '{{ $serie->id }}')"
@@ -195,7 +196,7 @@
                                                         </div>
                                                     </x-slot:trigger>
                                                     <x-slot:content>
-                                                        <div class="px-1 space-y-1">
+                                                        <div class="px-1 space-y-0.5">
                                                             <div
                                                                 wire:click="$emit('openModal', 'personal-trainer.workouts.modals.add-exercises', {{ json_encode(['workout' => $workout->id, 'week' => $selectedWeekId, 'day' => $selectedDay, 'set' => $set->id, 'serie' => $serie->id]) }})"
                                                                 class="px-1 py-1 flex items-center space-x-2 text-fit-dark-blue text-sm rounded hover:cursor-pointer hover:text-white hover:bg-fit-dark-blue">

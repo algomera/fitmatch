@@ -2,6 +2,12 @@
 
 @php
     switch ($align) {
+		case 'center-right':
+			$alignmentClasses = '-top-[111px] left-[50px]';
+			break;
+		case 'center-left':
+			$alignmentClasses = '-top-[111px] right-[50px]';
+			break;
         case 'left':
             $alignmentClasses = 'origin-top-left left-0';
             break;
