@@ -3,9 +3,11 @@
         <span class="text-xs font-bold text-fit-magenta">???</span>
         <div class="flex space-x-2">
             <x-heroicon-o-play-circle
+                wire:click="$emit('openModal', 'components.lightbox', {{ json_encode(['type' => 'video', 'src' => $item->link]) }})"
                 class="h-4 w-4 hover:text-fit-magenta hover:cursor-pointer"></x-heroicon-o-play-circle>
             @if(auth()->user()->favorites->fresh()->contains($item->id))
-                <x-heroicon-o-heart class="h-4 w-4 stroke-fit-magenta fill-fit-magenta"></x-heroicon-o-heart>
+                <x-heroicon-o-heart class="h-4 w-4 stroke-fit-magenta fill-fit-magenta"
+                ></x-heroicon-o-heart>
             @else
                 <x-heroicon-o-heart class="h-4 w-4"></x-heroicon-o-heart>
             @endif

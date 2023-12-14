@@ -38,7 +38,7 @@ class Show extends Component
         $this->workout = $workout;
         $this->athlete = $workout->athlete;
         $this->weeks = $workout->workout_weeks()->whereHas('workout_days')->get();
-        $this->selectedWeekId = $this->weeks->first()->id;
+        $this->selectedWeekId = $this->weeks->first()->id ?? $workout->workout_weeks->first()->id;
         $this->selectedDay = $workout->workout_days()->orderBy('day')->first()->id ?? null;
     }
 

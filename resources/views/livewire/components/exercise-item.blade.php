@@ -7,7 +7,11 @@
         </h4>
         <p class="text-sm line-clamp-3 leading-relaxed mt-3">{{ $exercise->description }}</p>
     </div>
-    <div class="bg-gray-100 w-64 aspect-video shrink-0"></div>
+    @if($exercise->link)
+        <video src="{{ $exercise->link }}" controls class="w-64 aspect-video shrink-0"></video>
+    @else
+        <div class="bg-gray-200 w-64 aspect-video shrink-0"></div>
+    @endif
     <div class="flex flex-col justify-between w-64 shrink-0">
         <div class="flex items-start justify-between">
             <div class="flex flex-col">

@@ -44,7 +44,7 @@ class ExerciseImport implements ToCollection, WithStartRow
                 'area_id' => $area->id,
                 'name' => trim($row[3]),
                 'description' => $row[5],
-                'link' => trim($row[6])
+                'link' => trim($row[7])
             ]);
         }
     }
