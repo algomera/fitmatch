@@ -37,7 +37,7 @@ class Show extends Component
     {
         $this->workout = $workout;
         $this->athlete = $workout->athlete;
-        $this->weeks = $workout->workout_weeks;
+        $this->weeks = $workout->workout_weeks()->whereHas('workout_days')->get();
         $this->selectedWeekId = $this->weeks->first()->id;
         $this->selectedDay = $workout->workout_days()->orderBy('day')->first()->id ?? null;
     }
@@ -69,8 +69,9 @@ class Show extends Component
         ]);
     }
 
-    public function selectWeek(WorkoutWeek $week)
+    public function updatedselectedWeekId()
     {
+        $week = WorkoutWeek::find($this->selectedWeekId);
         $this->selectedWeek = $week->week;
         $this->selectedWeekId = $week->id;
         $this->selectedDay = $week->workout_days()->orderBy('day')->first()->id ?? null;

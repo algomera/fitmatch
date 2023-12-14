@@ -37,22 +37,15 @@
                 <span class="font-semibold">{{ $workout->end_date->format('d/m/Y') }}</span></p>
             <div class="flex items-center space-x-3">
                 <div
-                    class="w-44 border border-fit-dark-gray/80 text-fit-dark-gray text-sm font-semibold px-2 py-1.5 rounded-md cursor-pointer">
-                    <x-dropdown class="cursor-pointer"
-                                zIndexClass="z-[9999]">
-                        <x-slot:trigger>
-                            <div class="flex items-center justify-between">
-                                <span>Settimana {{ $selectedWeek }}</span>
-                                <x-heroicon-o-chevron-down class="h-3 w-3"></x-heroicon-o-chevron-down>
-                            </div>
-                        </x-slot:trigger>
-                        <x-slot:content>
-                            @foreach($workout->workout_weeks as $week)
-                                <x-dropdown-link wire:click="selectWeek({{$week->id}})">
-                                    Settimana {{ $week->week }}</x-dropdown-link>
-                            @endforeach
-                        </x-slot:content>
-                    </x-dropdown>
+                    class="w-44">
+                    <x-select wire:model="selectedWeekId" name="selectedWeek" id="selectedWeek"
+                              class="shadow-none !border !border-fit-dark-gray/80 text-fit-dark-gray text-sm font-semibold px-2 py-1.5 !rounded-md cursor-pointer">
+                        @foreach($workout->workout_weeks as $week)
+                            <option wire:click="selectWeek({{$week->id}})"
+                                    value="{{ $week->id }}" @selected($week->id == $selectedWeekId)>
+                                Settimana {{ $week->week }}</option>
+                        @endforeach
+                    </x-select>
                 </div>
                 @if($weekToCopy === $selectedWeekId || !$hasDataToCopy)
                     <x-primary-button wire:click="copyWeek({{ $selectedWeekId }})" color="ghost">Copia settimana
