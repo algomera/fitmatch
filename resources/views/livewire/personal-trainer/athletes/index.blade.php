@@ -27,7 +27,7 @@
                     @forelse($athletes as $athlete)
                         <li wire:click="setAthlete({{$athlete->id}})"
                             class="{{ $athlete->is($selectedAthlete) ? '' : 'group cursor-pointer' }} flex items-center space-x-5">
-                            @if($athlete->informations->profile_image)
+                            @if($athlete->informations->profile_image !== null)
                                 <img src="{{ asset($athlete->informations->profile_image) }}"
                                      class="w-9 h-9 bg-gray-200 ring-2 ring-white rounded-full"/>
                             @else
@@ -138,7 +138,12 @@
                                 </x-primary-button>
                             @endif
                         @endif
-                        <x-primary-button color="ghost">Storico prestazioni</x-primary-button>
+                        <x-primary-button
+                            href="{{ route('personal-trainer.athlete.performance', $athlete->id) }}"
+                            color="ghost"
+                        >
+                            Storico prestazioni
+                        </x-primary-button>
                     </div>
                 </div>
                 <div>

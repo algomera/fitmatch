@@ -57,6 +57,9 @@ Route::middleware(['auth'])->group(function () {
             Route::get('/athletes', [
                 \App\Http\Livewire\PersonalTrainer\Athletes\Index::class, '__invoke'
             ])->name('athletes');
+            Route::get('/athletes/{user}/performance', [
+                \App\Http\Livewire\PersonalTrainer\Athletes\Performance::class, '__invoke'
+            ])->name('athlete.performance');
             Route::get('/workouts', [
                 \App\Http\Livewire\PersonalTrainer\Workouts\Index::class, '__invoke'
             ])->name('workouts');

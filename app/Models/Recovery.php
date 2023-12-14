@@ -12,6 +12,7 @@ class Recovery extends Model
     public $timestamps = false;
 
     protected $casts = [
-        'quantity' => 'datetime'
+        'quantity' => 'datetime',
+        'executed' => 'datetime'
     ];
 }

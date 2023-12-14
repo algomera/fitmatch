@@ -28,7 +28,11 @@
                             </x-primary-button>
                         @endif
                     @endif
-                    <x-primary-button color="ghost">Storico prestazioni</x-primary-button>
+                    <x-primary-button
+                        href="{{ route('personal-trainer.athlete.performance', $athlete->id) }}"
+                        color="ghost">
+                        Storico prestazioni
+                    </x-primary-button>
                 </div>
             </div>
         @endif
