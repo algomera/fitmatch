@@ -239,12 +239,12 @@
                                                                     class="w-4 h-4"></x-heroicon-o-square-2-stack>
                                                                 <span>Duplica serie verticale</span>
                                                             </div>
-                                                            <div
-                                                                class="px-1 py-1 flex items-center space-x-2 text-sm text-fit-magenta rounded hover:cursor-pointer hover:text-white hover:bg-fit-magenta">
-                                                                <x-heroicon-o-stop-circle
-                                                                    class="w-4 h-4"></x-heroicon-o-stop-circle>
-                                                                <span>Fine esercizio</span>
-                                                            </div>
+                                                            {{--                                                            <div--}}
+                                                            {{--                                                                class="px-1 py-1 flex items-center space-x-2 text-sm text-fit-magenta rounded hover:cursor-pointer hover:text-white hover:bg-fit-magenta">--}}
+                                                            {{--                                                                <x-heroicon-o-stop-circle--}}
+                                                            {{--                                                                    class="w-4 h-4"></x-heroicon-o-stop-circle>--}}
+                                                            {{--                                                                <span>Fine esercizio</span>--}}
+                                                            {{--                                                            </div>--}}
                                                         </div>
                                                     </x-slot:content>
                                                 </x-dropdown>
