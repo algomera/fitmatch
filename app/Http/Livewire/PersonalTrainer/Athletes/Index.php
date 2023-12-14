@@ -8,11 +8,7 @@ use Livewire\Component;
 class Index extends Component
 {
     public User $selectedAthlete;
-
-    public function mount()
-    {
-        $this->setAthlete(3);
-    }
+    public $search = '';
 
     public function setAthlete($id)
     {
@@ -48,8 +44,15 @@ class Index extends Component
 
     public function render()
     {
+        $athletes = auth()->user()->athletes()->with('informations');
+        if ($this->search) {
+            $athletes->search($this->search, [
+                'informations.first_name',
+                'informations.last_name'
+            ]);
+        }
         return view('livewire.personal-trainer.athletes.index', [
-            'athletes' => auth()->user()->athletes,
+            'athletes' => $athletes->get(),
         ]);
     }
 }
