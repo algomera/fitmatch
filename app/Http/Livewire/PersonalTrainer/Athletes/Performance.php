@@ -28,6 +28,9 @@ class Performance extends Component
         }
 
         $this->workouts = $this->athlete->athlete_workouts;
+
+        $this->selectedWorkout = 1;
+        $this->updatedSelectedWorkout();
     }
 
     public function updatedSelectedWorkout()
