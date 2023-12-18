@@ -24,7 +24,7 @@
                             <ul class="ml-3 space-y-1 text-sm">
                                 @foreach($tab['children'] as $child => $label)
                                     @if($child === 'mestrual_cycle')
-                                        @if($athlete->informations->gender === 'female')
+                                        @if($athlete->informations->gender === 'female' || $athlete->informations->gender === 'other')
                                             <li wire:click.stop="$set('selectedTab', '{{ $child }}')"
                                                 class="{{ $selectedTab === $child ? 'text-fit-magenta' : 'text-fit-dark-gray' }} hover:cursor-pointer hover:text-fit-magenta">{{ $label }}</li>
                                         @endif
@@ -71,9 +71,11 @@
                     <livewire:personal-trainer.athletes.anamnesi.tabs.physiology.pathologies
                         :athlete="$athlete"/>
                     @break
-                @case('mestrual_cycle' && $athlete->informations->gender === 'female')
-                    <livewire:personal-trainer.athletes.anamnesi.tabs.physiology.mestrual-cycle
-                        :athlete="$athlete"/>
+                @case('mestrual_cycle')
+                    @if($athlete->informations->gender === 'female' || $athlete->informations->gender === 'other')
+                        <livewire:personal-trainer.athletes.anamnesi.tabs.physiology.mestrual-cycle
+                            :athlete="$athlete"/>
+                    @endif
                     @break
                 @case('anthropometric_measurements')
                     <livewire:personal-trainer.athletes.anamnesi.tabs.anthropometric-measurements
