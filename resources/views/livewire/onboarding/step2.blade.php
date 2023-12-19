@@ -9,17 +9,21 @@
         <div class="mt-6">
             <div class="space-y-4 sm:flex sm:items-center sm:space-x-10 sm:space-y-0">
                 <div class="flex items-center">
-                    <input wire:model="user_informations.profile_type" id="public" name="profile-type" type="radio" value="public"
+                    <input wire:model.defer="user_informations.profile_type" id="public" name="profile-type"
+                           type="radio" value="public"
                            class="h-4 w-4 border-gray-300 text-indigo-600 focus:ring-indigo-600">
-                    <label for="public" class="ml-3 block text-sm font-medium leading-6 text-gray-900">Richiedi profilo pubblico</label>
+                    <label for="public" class="ml-3 block text-sm font-medium leading-6 text-gray-900">Richiedi profilo
+                        pubblico</label>
                 </div>
                 <div class="flex items-center">
-                    <input wire:model="user_informations.profile_type" id="private" name="profile-type" type="radio" value="private"
+                    <input wire:model.defer="user_informations.profile_type" id="private" name="profile-type"
+                           type="radio" value="private"
                            class="h-4 w-4 border-gray-300 text-indigo-600 focus:ring-indigo-600">
-                    <label for="private" class="ml-3 block text-sm font-medium leading-6 text-gray-900">Preferisco solo il profilo privato</label>
+                    <label for="private" class="ml-3 block text-sm font-medium leading-6 text-gray-900">Preferisco solo
+                        il profilo privato</label>
                 </div>
             </div>
-            <x-input-error :messages="$errors->get('user_informations.profile_type')" class="not-prose mt-2" />
+            <x-input-error :messages="$errors->get('user_informations.profile_type')" class="not-prose mt-2"/>
         </div>
         <div class="not-prose mt-10">
             <x-primary-button wire:click="next" :disabled="!$user_informations->profile_type">Avanti</x-primary-button>

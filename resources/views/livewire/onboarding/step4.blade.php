@@ -7,29 +7,36 @@
         <div class="mt-6">
             <div class="mt-10 grid grid-cols-1 gap-5 sm:grid-cols-6">
                 <div class="sm:col-span-3">
-                    <x-input wire:model="user_informations.first_name" id="first_name" type="text" name="user_informations.first_name" label="Nome" required autofocus />
+                    <x-input wire:model.defer="user_informations.first_name" id="first_name" type="text"
+                             name="user_informations.first_name" label="Nome" required autofocus/>
                 </div>
 
                 <div class="sm:col-span-3">
-                    <x-input wire:model="user_informations.last_name" id="last_name" type="text" name="user_informations.last_name" label="Cognome" required autofocus />
+                    <x-input wire:model.defer="user_informations.last_name" id="last_name" type="text"
+                             name="user_informations.last_name" label="Cognome" required autofocus/>
                 </div>
 
                 <div class="sm:col-span-3">
-                    <x-input wire:model="user_informations.dob" id="dob" type="date" name="user_informations.dob" label="Data di nascita" required autofocus />
+                    <x-input wire:model.defer="user_informations.dob" id="dob" type="date" name="user_informations.dob"
+                             label="Data di nascita" required autofocus/>
                 </div>
 
                 <div class="sm:col-span-3">
-                    <x-input wire:model="user_informations.phone" id="phone" type="tel" name="user_informations.phone" label="Numero di telefono" required autofocus />
+                    <x-input wire:model.defer="user_informations.phone" id="phone" type="tel"
+                             name="user_informations.phone"
+                             label="Numero di telefono" required autofocus/>
                 </div>
 
                 <div class="sm:col-span-3">
-                    <x-input wire:model="user_informations.city" id="city" type="text" name="user_informations.city" label="Città" required autofocus />
+                    <x-input wire:model.defer="user_informations.city" id="city" type="text"
+                             name="user_informations.city"
+                             label="Città" required autofocus/>
                 </div>
             </div>
         </div>
-            <div class="not-prose mt-10">
-                <x-primary-button wire:click="next">Avanti</x-primary-button>
-            </div>
+        <div class="not-prose mt-10">
+            <x-primary-button wire:click="next">Avanti</x-primary-button>
+        </div>
     </div>
 </div>
 <x-slot:image>
