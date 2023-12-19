@@ -20,11 +20,13 @@ class Index extends Component
     {
         $workouts = auth()->user()->personal_trainer_workouts();
 
-        if ($this->filter === 'unassigned') {
-            $workouts->where('athlete_id', null);
-        } else {
-            $this->athlete = User::find($this->filter);
-            $workouts->where('athlete_id', $this->filter);
+        if ($this->filter !== null) {
+            if ($this->filter === 'unassigned') {
+                $workouts->where('athlete_id', null);
+            } else {
+                $this->athlete = User::find($this->filter);
+                $workouts->where('athlete_id', $this->filter);
+            }
         }
 
         return view('livewire.personal-trainer.workouts.index', [

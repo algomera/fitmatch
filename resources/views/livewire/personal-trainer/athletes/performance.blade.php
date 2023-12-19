@@ -30,14 +30,14 @@
     <div class="relative min-h-screen bg-fit-lighter-gray overflow-x-scroll">
         @forelse($weeks as $week)
             @if(!$selectedWeek)
-                <h3 class="mt-4 ml-5 text-lg font-semibold">Settimana {{ $week->week }}</h3>
+                <h3 class="sticky left-0 mt-4 px-4 text-lg font-semibold">Settimana {{ $week->week }}</h3>
                 @foreach($week->workout_days as $day)
                     @if(!$selectedDay)
-                        <h3 class="ml-5 text-sm font-semibold">{{ config('fitmatch.days.' . $day->day) }}</h3>
+                        <h3 class="sticky left-0 px-4 text-sm font-semibold">{{ config('fitmatch.days.' . $day->day) }}</h3>
                         <div class="flex flex-col">
                             @foreach($day->workout_sets as $set)
                                 <div wire:key="set-{{$set->id}}" class="flex">
-                                    <div class="sticky left-0 z-[49] flex py-4 min-h-[10rem] px-4 bg-fit-lighter-gray">
+                                    <div class="sticky left-0 z-[99] flex py-4 min-h-[10rem] px-4 bg-fit-lighter-gray">
                                         <div class="relative flex flex-col items-end px-2 w-8">
                                 <span
                                     class="text-xl font-bold text-fit-magenta">{{ str_pad($loop->iteration, 2, "0", STR_PAD_LEFT) }}</span>
@@ -88,15 +88,15 @@
                     @endif
                 @endforeach
             @elseif($selectedWeek == $week->id)
-                <h3 class="mt-4 ml-5 text-lg font-semibold">Settimana {{ $week->week }}</h3>
+                <h3 class="sticky left-0 mt-4 px-4 text-lg font-semibold">Settimana {{ $week->week }}</h3>
                 @forelse($week->workout_days as $day)
                     @if(!$selectedDay)
-                        <h3 class="ml-5 text-sm font-semibold">{{ config('fitmatch.days.' . $day->day) }}</h3>
+                        <h3 class="sticky left-0 px-4 text-sm font-semibold">{{ config('fitmatch.days.' . $day->day) }}</h3>
                         <div class="flex flex-col">
                             @foreach($day->workout_sets as $set)
                                 <div wire:key="set-{{$set->id}}" class="flex">
                                     <div
-                                        class="sticky left-0 z-[49] flex py-4 min-h-[10rem] px-4 bg-fit-lighter-gray">
+                                        class="sticky left-0 z-[99] flex py-4 min-h-[10rem] px-4 bg-fit-lighter-gray">
                                         <div class="relative flex flex-col items-end px-2 w-8">
                                 <span
                                     class="text-xl font-bold text-fit-magenta">{{ str_pad($loop->iteration, 2, "0", STR_PAD_LEFT) }}</span>
@@ -146,12 +146,12 @@
                             @endforeach
                         </div>
                     @elseif($selectedDay == $day->id)
-                        <h3 class="ml-5 text-sm font-semibold">{{ config('fitmatch.days.' . $day->day) }}</h3>
+                        <h3 class="sticky left-0 px-4 text-sm font-semibold">{{ config('fitmatch.days.' . $day->day) }}</h3>
                         <div class="flex flex-col">
                             @foreach($day->workout_sets as $set)
                                 <div wire:key="set-{{$set->id}}" class="flex">
                                     <div
-                                        class="sticky left-0 z-[49] flex py-4 min-h-[10rem] px-4 bg-fit-lighter-gray">
+                                        class="sticky left-0 z-[99] flex py-4 min-h-[10rem] px-4 bg-fit-lighter-gray">
                                         <div class="relative flex flex-col items-end px-2 w-8">
                                 <span
                                     class="text-xl font-bold text-fit-magenta">{{ str_pad($loop->iteration, 2, "0", STR_PAD_LEFT) }}</span>

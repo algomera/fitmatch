@@ -21,7 +21,9 @@
                              class="flex items-center justify-center h-6 w-6 border border-fit-dark-gray rounded-full {{ $repetitions <= 0 ? 'opacity-50 cursor-not-allowed' : 'hover:cursor-pointer' }}">
                             <x-heroicon-o-minus class="h-4 w-4 text-fit-dark-gray"></x-heroicon-o-minus>
                         </div>
-                        <h4 class="select-none text-2xl font-bold truncate">{{ $repetitions }}</h4>
+                        {{--                        <h4 class="select-none text-2xl font-bold truncate">{{ $repetitions }}</h4>--}}
+                        <input type="number" wire:model.debounce.250ms="repetitions"
+                               class="counter-input bg-transparent p-0 w-10 text-2xl text-center font-bold truncate"/>
                         <div wire:click="increment"
                              class="flex items-center justify-center h-6 w-6 border border-fit-dark-gray rounded-full hover:cursor-pointer">
                             <x-heroicon-o-plus class="h-4 w-4 text-fit-dark-gray"></x-heroicon-o-plus>
@@ -40,10 +42,11 @@
             @endif
         </div>
         <x-primary-button
+            color="ghost-blue"
             wire:click="$emit('openModal', 'personal-trainer.exercises.modals.add-exercise-to-existing-workout', {{ json_encode(['exercise' => $exercise->id, 'repetitions' => $repetitions]) }})"
             :disabled="$repetitions === 0"
-            class="select-none text-center justify-center space-x-3 disabled:bg-fit-purple-blue/80">
-            <div class="flex items-center space-x-3">
+            class="select-none text-center justify-center space-x-3">
+            <div class="flex items-center">
                 <x-heroicon-o-plus-small class="w-4 h-4"></x-heroicon-o-plus-small>
                 <span>Aggiungi</span>
             </div>

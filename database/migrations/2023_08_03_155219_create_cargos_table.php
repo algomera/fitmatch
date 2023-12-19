@@ -14,6 +14,9 @@ return new class extends Migration {
             $table->id();
             $table->foreignIdFor(\App\Models\Workout::class, 'workout_id')->constrained();
             $table->foreignIdFor(\App\Models\WorkoutWeek::class, 'workout_week_id')->constrained();
+            $table->float('massimale')->default(0);
+            $table->float('percentuale')->default(0);
+            $table->float('effettivo')->default(0);
             $table->float('quantity')->default(0);
             $table->float('executed')->default(0);
         });

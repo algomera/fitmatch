@@ -43,10 +43,9 @@
                         label="Atleta"
                         required
                     />
-                @else
-                    <div></div>
+                    <x-input wire:model="start_date" id="start_date" type="date" name="start_date" label="Data"
+                             required/>
                 @endif
-                <x-input wire:model="start_date" id="start_date" type="date" name="start_date" label="Data" required/>
                 <x-select wire:model="goal_id" name="goal" id="goal" label="Obbiettivo" required>
                     <option value="">Seleziona</option>
                     @foreach($goals as $goal)

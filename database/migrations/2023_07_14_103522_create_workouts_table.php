@@ -16,7 +16,7 @@ return new class extends Migration {
             $table->foreignIdFor(\App\Models\User::class, 'athlete_id')->nullable();
             $table->string('name');
             $table->integer('duration');
-            $table->date('start_date');
+            $table->date('start_date')->nullable();
             $table->foreignIdFor(\App\Models\Goal::class, 'goal_id');
             $table->timestamps();
         });

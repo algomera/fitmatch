@@ -20,18 +20,18 @@ class RecoveryCard extends Component
         $this->row = $row;
     }
 
-    public function increment()
+    public function increment($value)
     {
-        $time = Carbon::parse($this->item->quantity)->addSeconds(10);
+        $time = Carbon::parse($this->item->quantity)->addSeconds($value);
         $this->item->update(['quantity' => $time]);
     }
 
-    public function decrement()
+    public function decrement($value)
     {
         if ($this->item->quantity->format('i:s') <= '00:00') {
             return;
         }
-        $time = Carbon::parse($this->item->quantity)->subSeconds(10);
+        $time = Carbon::parse($this->item->quantity)->subSeconds($value);
         $this->item->update(['quantity' => $time]);
     }
 

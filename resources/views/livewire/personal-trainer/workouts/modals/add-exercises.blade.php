@@ -1,4 +1,4 @@
-<div class="relative overflow-hidden">
+<div class="container mx-auto relative overflow-hidden">
     <div>
         <div class="grid grid-cols-4 gap-8">
             <div class="col-span-1 p-4 space-y-5">

@@ -30,6 +30,7 @@ class CreateWorkout extends ModalComponent
     {
         if ($val === 'unassigned') {
             $this->athlete_id = null;
+            $this->start_date = null;
         }
     }
 
@@ -41,7 +42,7 @@ class CreateWorkout extends ModalComponent
             'athlete_id' => $this->athlete_id ?? null,
             'name' => $this->name,
             'duration' => $this->duration,
-            'start_date' => $this->start_date,
+            'start_date' => $this->start_date ?? null,
             'goal_id' => $this->goal_id
         ]);
         foreach (range(1, $workout->duration) as $week) {
@@ -79,7 +80,9 @@ class CreateWorkout extends ModalComponent
                         return $query->where('personal_trainer_id', auth()->user()->id);
                     }) : 'nullable'
             ],
-            'start_date' => 'required|date|after_or_equal:today',
+            'start_date' => [
+                $this->workout_type === 'athlete' ? ['required', 'date', 'after_or_equal:today'] : 'nullable'
+            ],
             'goal_id' => 'required|exists:goals,id'
         ];
     }

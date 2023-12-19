@@ -12,6 +12,13 @@
                     <h3>{{ $athlete->full_name }}</h3>
                 </div>
                 <div class="flex items-center space-x-5">
+                    <x-primary-button href="{{ route('personal-trainer.exercises') }}">
+                        Vedi esercizi
+                    </x-primary-button>
+                    <x-primary-button color="magenta"
+                                      href="{{ route('personal-trainer.exercises', ['favorites' => true]) }}">
+                        Vedi preferiti
+                    </x-primary-button>
                     @if($athlete->anamnesi)
                         @if(!auth()->user()->haveAccessToAnamnesiOf($athlete->anamnesi->id))
                             <x-primary-button wire:click="requestAnamnesiAccess">
@@ -23,6 +30,7 @@
                             </x-primary-button>
                         @else
                             <x-primary-button
+                                color="ghost-blue"
                                 wire:click="$emit('openModal', 'personal-trainer.athletes.anamnesi.show', {{ json_encode(['anamnesi' => $athlete->anamnesi->id]) }})">
                                 Anamnesi
                             </x-primary-button>
@@ -30,15 +38,19 @@
                     @endif
                     <x-primary-button
                         href="{{ route('personal-trainer.athlete.performance', $athlete->id) }}"
-                        color="ghost">
-                        Storico prestazioni
+                        color="link">
+                        Storico prestazione
                     </x-primary-button>
                 </div>
             </div>
         @endif
         <div class="flex items-center justify-between">
-            <p class="text-sm">Dal <span class="font-semibold">{{ $workout->start_date->format('d/m/Y') }}</span> al
-                <span class="font-semibold">{{ $workout->end_date->format('d/m/Y') }}</span></p>
+            @if($workout->start_date)
+                <p class="text-sm">Dal <span class="font-semibold">{{ $workout->start_date->format('d/m/Y') }}</span> al
+                    <span class="font-semibold">{{ $workout->end_date->format('d/m/Y') }}</span></p>
+            @else
+                <p></p>
+            @endif
             <div class="flex items-center space-x-3">
                 <div
                     class="w-44">
@@ -104,7 +116,7 @@
             @if($selectedDay)
                 @foreach($sets as $set)
                     <div wire:key="set-{{$set->id}}" class="flex">
-                        <div class="sticky left-0 z-[49] flex py-4 min-h-[10rem] px-4 bg-fit-lighter-gray">
+                        <div class="sticky left-0 z-[99] flex py-4 min-h-[10rem] px-4 bg-fit-lighter-gray">
                             <div class="relative flex flex-col items-end px-2 w-8">
                             <span
                                 class="text-xl font-bold text-fit-magenta">{{ str_pad($loop->iteration, 2, "0", STR_PAD_LEFT) }}</span>
@@ -129,15 +141,15 @@
                             @forelse($set->workout_series as $serie)
                                 <div wire:key="{{ $set->id }}-{{ $serie->id }}"
                                      class="relative flex-1 py-4 {{ $selectedSerie == $serie->id ? 'z-50' : 'z-0' }}">
-                                    @if($loop->index !== 0)
-                                        <div class="absolute top-1/2 -left-3 -mt-3 z-[60]">
-                                            <div
-                                                wire:click="deleteSerie({{$serie->id}})"
-                                                class="flex items-center justify-center w-6 h-6 bg-fit-magenta hover:cursor-pointer hover:bg-fit-magenta/80 rounded-md">
-                                                <x-heroicon-o-minus class="w-4 h-4 text-white"></x-heroicon-o-minus>
-                                            </div>
-                                        </div>
-                                    @endif
+                                    {{--                                    @if($loop->index !== 0)--}}
+                                    {{--                                        <div class="absolute top-1/2 -left-3 -mt-3 z-[60]">--}}
+                                    {{--                                            <div--}}
+                                    {{--                                                wire:click="deleteSerie({{$serie->id}})"--}}
+                                    {{--                                                class="flex items-center justify-center w-6 h-6 bg-fit-magenta hover:cursor-pointer hover:bg-fit-magenta/80 rounded-md">--}}
+                                    {{--                                                <x-heroicon-o-minus class="w-4 h-4 text-white"></x-heroicon-o-minus>--}}
+                                    {{--                                            </div>--}}
+                                    {{--                                        </div>--}}
+                                    {{--                                    @endif--}}
                                     <div class="flex">
                                         @foreach($serie->items as $item)
                                             @switch($item->item_type)
@@ -243,6 +255,15 @@
                                                                     class="w-4 h-4"></x-heroicon-o-square-2-stack>
                                                                 <span>Duplica serie verticale</span>
                                                             </div>
+                                                            @if($loop->index !== 0)
+                                                                <div
+                                                                    wire:click="deleteSerie({{$serie->id}})"
+                                                                    class="px-1 py-1 flex items-center space-x-2 text-sm text-fit-magenta rounded hover:cursor-pointer hover:text-white hover:bg-fit-magenta">
+                                                                    <x-heroicon-o-x-mark
+                                                                        class="w-4 h-4"></x-heroicon-o-x-mark>
+                                                                    <span>Elimina serie</span>
+                                                                </div>
+                                                            @endif
                                                             {{--                                                            <div--}}
                                                             {{--                                                                class="px-1 py-1 flex items-center space-x-2 text-sm text-fit-magenta rounded hover:cursor-pointer hover:text-white hover:bg-fit-magenta">--}}
                                                             {{--                                                                <x-heroicon-o-stop-circle--}}

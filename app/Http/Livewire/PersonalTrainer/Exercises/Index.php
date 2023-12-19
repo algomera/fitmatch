@@ -17,6 +17,11 @@ class Index extends Component
     public $typology;
     public $zone;
     public $favorites = false;
+    public $show;
+
+    protected $queryString = [
+        'favorites' => ['except' => false]
+    ];
 
     protected $listeners = [
         'add-exercise' => 'addExercise',

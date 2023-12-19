@@ -23,6 +23,9 @@ class CargoCalculation extends ModalComponent
     {
         $this->serie = $serie;
         $this->item = $item;
+        $this->massimale = $item->massimale;
+        $this->percentuale = $item->percentuale;
+        $this->effettivo = $item->effettivo;
     }
 
     public function increment($what)
@@ -43,7 +46,10 @@ class CargoCalculation extends ModalComponent
     {
         $carico = $this->massimale * $this->percentuale / 100;
         $this->item->update([
-            'quantity' => $carico
+            'quantity' => $carico,
+            'massimale' => $this->massimale,
+            'percentuale' => $this->percentuale,
+            'effettivo' => $this->effettivo
         ]);
         $this->emit('cargo-calculated');
         $this->closeModal();

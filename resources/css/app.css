@@ -2,7 +2,9 @@
 @tailwind components;
 @tailwind utilities;
 
-[x-cloak] { display: none !important; }
+[x-cloak] {
+    display: none !important;
+}
 
 @layer base {
     @font-face {
@@ -45,10 +47,29 @@
     h1 {
         @apply font-black text-3xl
     }
+
     h2 {
         @apply font-extrabold text-2xl
     }
+
     h3 {
         @apply font-bold text-xl text-fit-black
+    }
+
+    /* Chrome, Safari, Edge, Opera */
+    input::-webkit-outer-spin-button,
+    input::-webkit-inner-spin-button {
+        -webkit-appearance: none;
+        margin: 0;
+    }
+
+    /* Firefox */
+    input[type=number].counter-input {
+        -moz-appearance: textfield;
+        border: none;
+    }
+
+    input[type=number].counter-input:focus {
+        @apply !outline-0 !outline-transparent !ring-0 !ring-transparent
     }
 }

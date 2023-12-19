@@ -63,13 +63,17 @@
             @endif
         </div>
     @else
-        <div
-            class="flex items-center justify-center min-w-0 max-w-none flex-auto px-4 py-6 lg:max-w-none lg:pl-6 lg:pr-0">
-            <div class="text-center">
-                <x-heroicon-o-funnel class="mx-auto h-12 w-12 text-gray-400"></x-heroicon-o-funnel>
-                <h3 class="mt-2 text-sm font-semibold text-gray-900">Seleziona un filtro</h3>
-                <p class="mt-1 text-sm text-gray-500">Seleziona un filtro per visualizzarne le schede</p>
+        <div class="min-w-0 max-w-none flex-auto px-4 py-6 space-y-5 lg:pl-6 lg:pr-0">
+            <div class="grid grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-5">
+                @foreach($workouts as $workout)
+                    <livewire:components.workout :workout="$workout" :key="$workout->id"/>
+                @endforeach
             </div>
+            {{--            <div class="text-center">--}}
+            {{--                <x-heroicon-o-funnel class="mx-auto h-12 w-12 text-gray-400"></x-heroicon-o-funnel>--}}
+            {{--                <h3 class="mt-2 text-sm font-semibold text-gray-900">Seleziona un filtro</h3>--}}
+            {{--                <p class="mt-1 text-sm text-gray-500">Seleziona un filtro per visualizzarne le schede</p>--}}
+            {{--            </div>--}}
         </div>
     @endif
 </div>

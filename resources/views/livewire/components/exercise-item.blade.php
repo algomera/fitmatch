@@ -22,7 +22,9 @@
                              class="flex items-center justify-center h-6 w-6 border border-fit-dark-gray rounded-full {{ $repetitions <= 0 ? 'opacity-50 cursor-not-allowed' : 'hover:cursor-pointer' }}">
                             <x-heroicon-o-minus class="h-4 w-4 text-fit-dark-gray"></x-heroicon-o-minus>
                         </div>
-                        <h4 class="select-none text-2xl font-bold truncate">{{ $repetitions }}</h4>
+                        {{--                        <h4 class="select-none text-2xl font-bold truncate">{{ $repetitions }}</h4>--}}
+                        <input type="number" wire:model.debounce.250ms="repetitions"
+                               class="counter-input bg-transparent p-0 w-10 text-2xl text-center font-bold truncate"/>
                         <div wire:click="increment"
                              class="flex items-center justify-center h-6 w-6 border border-fit-dark-gray rounded-full hover:cursor-pointer">
                             <x-heroicon-o-plus class="h-4 w-4 text-fit-dark-gray"></x-heroicon-o-plus>
@@ -40,16 +42,17 @@
                     class="w-6 h-6 cursor-pointer text-gray-400 hover:text-fit-magenta"></x-heroicon-o-heart>
             @endif
         </div>
-        <x-primary-button x-on:click="setTimeout(() => { added = false, $wire.repetitions = 0 }, 2000);"
+        <x-primary-button color="ghost-blue"
+                          x-on:click="setTimeout(() => { added = false, $wire.repetitions = 0 }, 2000);"
                           wire:click="$emit('add-exercise', {{ $exercise->id }}, {{ $repetitions }})"
                           :disabled="$repetitions === 0"
-                          class="{{ $added ? '!bg-fit-magenta' : '' }} select-none text-center justify-center space-x-3 disabled:bg-fit-purple-blue/80">
-            <div x-show="!added" class="flex items-center space-x-3">
+                          class="{{ $added ? '!bg-fit-magenta' : '' }} select-none text-center justify-center space-x-3">
+            <div x-show="!added" class="flex items-center">
                 <x-heroicon-o-plus-small class="w-4 h-4"></x-heroicon-o-plus-small>
                 <span>Aggiungi</span>
             </div>
             <div x-show="added">
-                <span>Aggiunto</span>
+                <span class="!text-white">Aggiunto</span>
             </div>
         </x-primary-button>
     </div>

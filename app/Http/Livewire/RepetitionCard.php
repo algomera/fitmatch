@@ -12,11 +12,22 @@ class RepetitionCard extends Component
     public $item;
     public $row;
 
+    protected $rules = [
+        'item.quantity' => 'numeric'
+    ];
+
     public function mount(WorkoutSerie $serie, Repetition $item, $row)
     {
         $this->serie = $serie;
         $this->item = $item;
         $this->row = $row;
+    }
+
+    public function updatedItemQuantity()
+    {
+        $this->item->update([
+            'quantity' => $this->item->quantity
+        ]);
     }
 
     public function increment()

@@ -1,8 +1,12 @@
 <a href="{{ route('personal-trainer.workout', $workout->id) }}"
    class="block bg-white shadow border rounded-md transition-shadow hover:cursor-pointer hover:shadow-lg">
     <div class="p-4 border-b">
-        <span
-            class="text-xs text-gray-400">{{ $workout->start_date->format('d/m/Y') }} - {{ $workout->end_date->format('d/m/Y') }}</span>
+        @if($workout->start_date)
+            <span
+                class="text-xs text-gray-400">{{ $workout->start_date->format('d/m/Y') }} - {{ $workout->end_date->format('d/m/Y') }}</span>
+        @else
+            <div class="h-6"></div>
+        @endif
         <p class="text-lg font-bold text-fit-black mt-1">{{ $workout->name }}</p>
         @if($workout->athlete)
             <span class="text-xs font-semibold text-gray-500">{{ $workout->athlete->full_name }}</span>

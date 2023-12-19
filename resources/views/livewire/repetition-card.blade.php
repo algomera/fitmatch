@@ -5,7 +5,8 @@
             <h4 class="text-2xl font-bold truncate">Ripetizioni</h4>
         </div>
         <div class="flex w-full items-center justify-between flex-1 p-4">
-            <h4 class="text-2xl font-bold truncate">{{ $item->quantity }}</h4>
+            <input type="number" wire:model.debounce.250ms="item.quantity"
+                   class="counter-input text-2xl font-bold truncate"/>
             <div class="flex items-center space-x-2">
                 <div wire:click="decrement"
                      class="flex items-center justify-center h-6 w-6 border border-fit-dark-gray rounded-full {{ $item->quantity <= 0 ? 'opacity-50 cursor-not-allowed' : 'hover:cursor-pointer' }}">
