@@ -9,14 +9,17 @@ class ExerciseItem extends Component
 {
     public $exercise;
     public $repetitions = 0;
+    public $intensities = [];
+    public $intensity = null;
 
     protected $listeners = [
         'item-added' => 'itemAdded'
     ];
 
-    public function mount(Exercise $exercise)
+    public function mount(Exercise $exercise, $intensities)
     {
         $this->exercise = $exercise;
+        $this->intensities = $intensities;
     }
 
     public function increment()
@@ -35,6 +38,7 @@ class ExerciseItem extends Component
     public function itemAdded($id)
     {
         $this->repetitions = 0;
+        $this->intensity = null;
         $this->dispatchBrowserEvent('open-notification', [
             'title' => __('Esercizio assegnato'),
             'subtitle' => __('L\'esercizio e le ripetizioni sono state assegnate correttamente.'),

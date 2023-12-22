@@ -6,6 +6,7 @@ use App\Models\Exercise;
 use App\Models\ExerciseArea;
 use App\Models\ExerciseTypology;
 use App\Models\ExerciseZone;
+use App\Models\Intensity;
 use App\Models\Repetition;
 use App\Models\Workout;
 use App\Models\WorkoutDay;
@@ -62,12 +63,13 @@ class AddExercises extends ModalComponent
         $this->resetPage();
     }
 
-    public function addExercise($id, $repetitions)
+    public function addExercise($id, $repetitions, $intensity)
     {
         $this->serie->items()->create([
             'workout_id' => $this->workout->id,
             'item_id' => $id,
-            'item_type' => Exercise::class
+            'item_type' => Exercise::class,
+            'intensity_id' => $intensity
         ]);
         $repetition = Repetition::create([
             'workout_id' => $this->workout->id,
@@ -116,7 +118,8 @@ class AddExercises extends ModalComponent
             'exercises' => $exercises->paginate(10),
             'areas' => $areas,
             'typologies' => $typologies,
-            'zones' => $zones
+            'zones' => $zones,
+            'intensities' => Intensity::all(),
         ]);
     }
 }

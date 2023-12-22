@@ -41,9 +41,18 @@
                     class="w-6 h-6 cursor-pointer text-gray-400 hover:text-fit-magenta"></x-heroicon-o-heart>
             @endif
         </div>
+        <div class="py-2">
+            <x-select wire:model="intensity" name="intensity" label="Tecnica di intensità"
+                      class="shadow-none bg-gray-200 text-fit-dark-gray text-sm font-semibold px-2 py-1 !rounded-md cursor-pointer">
+                <option value="">Seleziona</option>
+                @foreach($intensities as $int)
+                    <option value="{{ $int->id }}">{{ $int->name }}</option>
+                @endforeach
+            </x-select>
+        </div>
         <x-primary-button
             color="ghost-blue"
-            wire:click="$emit('openModal', 'personal-trainer.exercises.modals.add-exercise-to-existing-workout', {{ json_encode(['exercise' => $exercise->id, 'repetitions' => $repetitions]) }})"
+            wire:click="$emit('openModal', 'personal-trainer.exercises.modals.add-exercise-to-existing-workout', {{ json_encode(['exercise' => $exercise->id, 'repetitions' => $repetitions, 'intensity' => $intensity]) }})"
             :disabled="$repetitions === 0"
             class="select-none text-center justify-center space-x-3">
             <div class="flex items-center">

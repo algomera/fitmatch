@@ -6,6 +6,7 @@ use App\Models\Exercise;
 use App\Models\ExerciseArea;
 use App\Models\ExerciseTypology;
 use App\Models\ExerciseZone;
+use App\Models\Intensity;
 use Livewire\Component;
 use Livewire\WithPagination;
 
@@ -84,7 +85,8 @@ class Index extends Component
             'exercises' => $exercises->paginate(10),
             'areas' => $areas,
             'typologies' => $typologies,
-            'zones' => $zones
+            'zones' => $zones,
+            'intensities' => Intensity::all(),
         ]);
     }
 }

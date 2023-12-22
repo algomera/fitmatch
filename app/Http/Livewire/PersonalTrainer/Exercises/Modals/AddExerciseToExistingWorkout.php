@@ -15,6 +15,7 @@ class AddExerciseToExistingWorkout extends ModalComponent
 {
     public Exercise $exercise;
     public $repetitions;
+    public $intensity;
     public $selectedWorkout;
     public $selectedWeek;
     public $selectedDay;
@@ -146,7 +147,8 @@ class AddExerciseToExistingWorkout extends ModalComponent
         $serie->items()->create([
             'workout_id' => $this->selectedWorkout,
             'item_id' => $this->exercise->id,
-            'item_type' => Exercise::class
+            'item_type' => Exercise::class,
+            'intensity_id' => $this->intensity
         ]);
         $repetition = Repetition::create([
             'workout_id' => $this->selectedWorkout,

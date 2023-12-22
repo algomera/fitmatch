@@ -42,8 +42,11 @@
             </div>
             <div class="col-span-3 h-[calc(100vh-6.7rem)] overflow-y-scroll divide-y pt-4 pb-14 px-5">
                 @forelse($exercises as $exercise)
-                    <livewire:personal-trainer.exercises.exercise-item :exercise="$exercise->id"
-                                                                       :wire:key="$exercise->id"/>
+                    <livewire:personal-trainer.exercises.exercise-item
+                        :wire:key="$exercise->id"
+                        :exercise="$exercise->id"
+                        :intensities="$intensities"
+                    />
                 @empty
                     <p class="text-gray-600 text-sm">Nessun esercizio trovato</p>
                 @endforelse

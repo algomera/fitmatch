@@ -42,10 +42,19 @@
                     class="w-6 h-6 cursor-pointer text-gray-400 hover:text-fit-magenta"></x-heroicon-o-heart>
             @endif
         </div>
+        <div class="py-2">
+            <x-select wire:model="intensity" name="intensity" label="Tecnica di intensità"
+                      class="shadow-none bg-gray-100 text-fit-dark-gray text-sm font-semibold px-2 py-1 !rounded-md cursor-pointer">
+                <option value="">Seleziona</option>
+                @foreach($intensities as $int)
+                    <option value="{{ $int->id }}">{{ $int->name }}</option>
+                @endforeach
+            </x-select>
+        </div>
         <x-primary-button color="ghost-blue"
-                          x-on:click="setTimeout(() => { added = false, $wire.repetitions = 0 }, 2000);"
-                          wire:click="$emit('add-exercise', {{ $exercise->id }}, {{ $repetitions }})"
-                          :disabled="$repetitions === 0"
+                          x-on:click="setTimeout(() => { added = false, $wire.repetitions = 0, $wire.intensity = null }, 2000);"
+                          wire:click="$emit('add-exercise', {{ $exercise->id }}, {{ $repetitions }}, {{ $intensity }})"
+                          :disabled="$repetitions === 0 || !$intensity"
                           class="{{ $added ? '!bg-fit-magenta' : '' }} select-none text-center justify-center space-x-3">
             <div x-show="!added" class="flex items-center">
                 <x-heroicon-o-plus-small class="w-4 h-4"></x-heroicon-o-plus-small>

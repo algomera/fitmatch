@@ -10,14 +10,17 @@ class ExerciseItem extends Component
     public $exercise;
     public $repetitions = 0;
     public $added = false;
+    public $intensities = [];
+    public $intensity = null;
 
     protected $listeners = [
         'item-added' => 'itemAdded'
     ];
 
-    public function mount(Exercise $exercise)
+    public function mount(Exercise $exercise, $intensities)
     {
         $this->exercise = $exercise;
+        $this->intensities = $intensities;
     }
 
     public function increment()
