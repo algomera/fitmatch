@@ -17,6 +17,7 @@ return new class extends Migration {
             $table->unsignedBigInteger('item_id');
             $table->string('item_type');
             $table->foreignIdFor(\App\Models\Intensity::class)->nullable();
+            $table->longText('notes')->nullable();
         });
     }
 

@@ -7,7 +7,13 @@
             <h4 class="text-2xl font-bold truncate">Carico</h4>
         </div>
         <div class="flex w-full items-center justify-between flex-1 p-4">
-            <h4 class="text-2xl font-bold truncate">{{ $item->quantity }}</h4>
+            @if($item->freestyle)
+                <h4 class="text-2xl font-bold truncate">PC</h4>
+            @elseif($item->max)
+                <h4 class="text-2xl font-bold truncate">MAX</h4>
+            @else
+                <h4 class="text-2xl font-bold truncate">{{ $item->quantity }}</h4>
+            @endif
             <div class="flex items-center space-x-2">
                 <div
                     wire:click="$emit('openModal', 'personal-trainer.workouts.modals.cargo-calculation', {{ json_encode(['item' => $item->id, 'serie' => $serie->id]) }})"
@@ -18,10 +24,21 @@
         </div>
         <div class="border-t w-full flex items-center justify-between p-4">
             <div class="flex space-x-2">
-                {{--                <x-heroicon-o-presentation-chart-line--}}
-                {{--                    class="h-4 w-4 hover:text-fit-magenta hover:cursor-pointer"></x-heroicon-o-presentation-chart-line>--}}
-                {{--                <x-heroicon-o-user--}}
-                {{--                    class="h-4 w-4 hover:text-fit-magenta hover:cursor-pointer"></x-heroicon-o-user>--}}
+                @if($item->max)
+                    <x-heroicon-o-chart-bar wire:click="setMax"
+                                            class="h-4 w-4 stroke-fit-magenta fill-fit-magenta cursor-pointer"
+                    ></x-heroicon-o-chart-bar>
+                @else
+                    <x-heroicon-o-chart-bar wire:click="setMax"
+                                            class="h-4 w-4 cursor-pointer"></x-heroicon-o-chart-bar>
+                @endif
+                @if($item->freestyle)
+                    <x-heroicon-o-user wire:click="setFreestyle"
+                                       class="h-4 w-4 stroke-fit-magenta fill-fit-magenta cursor-pointer"
+                    ></x-heroicon-o-user>
+                @else
+                    <x-heroicon-o-user wire:click="setFreestyle" class="h-4 w-4 cursor-pointer"></x-heroicon-o-user>
+                @endif
                 {{--                <x-heroicon-o-queue-list--}}
                 {{--                    class="h-4 w-4 hover:text-fit-magenta hover:cursor-pointer"></x-heroicon-o-queue-list>--}}
             </div>

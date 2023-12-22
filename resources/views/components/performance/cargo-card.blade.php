@@ -12,7 +12,13 @@
         </div>
         <div
             class="flex w-full items-center justify-between flex-1 p-4 divide-x">
-            <h4 class="w-1/2 h-full flex items-center justify-center text-2xl font-semibold truncate">{{ str_pad($item->quantity, 2, "0", STR_PAD_LEFT) }}</h4>
+            @if($item->freestyle)
+                <h4 class="w-1/2 h-full flex items-center justify-center text-2xl font-semibold truncate">PC</h4>
+            @elseif($item->max)
+                <h4 class="w-1/2 h-full flex items-center justify-center text-2xl font-semibold truncate">MAX</h4>
+            @else
+                <h4 class="w-1/2 h-full flex items-center justify-center text-2xl font-semibold truncate">{{ str_pad($item->quantity, 2, "0", STR_PAD_LEFT) }}</h4>
+            @endif
             <h4 class="w-1/2 h-full flex items-center justify-center text-2xl text-fit-dark-gray font-semibold truncate">{{ str_pad($item->executed, 2, "0", STR_PAD_LEFT) }}</h4>
         </div>
     </div>

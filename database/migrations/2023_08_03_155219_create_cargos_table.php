@@ -19,6 +19,8 @@ return new class extends Migration {
             $table->float('effettivo')->default(0);
             $table->float('quantity')->default(0);
             $table->float('executed')->default(0);
+            $table->boolean('freestyle')->default(false);
+            $table->boolean('max')->default(false);
         });
     }
 

@@ -25,6 +25,24 @@ class CargoCard extends Component
         $this->row = $row;
     }
 
+    public function setFreestyle()
+    {
+        $this->item->update([
+            'quantity' => 0,
+            'freestyle' => !$this->item->freestyle,
+            'max' => false
+        ]);
+    }
+
+    public function setMax()
+    {
+        $this->item->update([
+            'quantity' => 0,
+            'freestyle' => false,
+            'max' => !$this->item->max
+        ]);
+    }
+
     public function delete()
     {
         $this->serie->items()->find($this->row)->delete();
