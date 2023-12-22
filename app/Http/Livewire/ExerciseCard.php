@@ -4,6 +4,7 @@ namespace App\Http\Livewire;
 
 use App\Models\Exercise;
 use App\Models\WorkoutSerie;
+use App\Models\WorkoutSerieItem;
 use Livewire\Component;
 
 class ExerciseCard extends Component
@@ -11,12 +12,14 @@ class ExerciseCard extends Component
     public $serie;
     public $item;
     public $row;
+    public $intensity = null;
 
     public function mount(WorkoutSerie $serie, Exercise $item, $row)
     {
         $this->serie = $serie;
         $this->item = $item;
         $this->row = $row;
+        $this->intensity = WorkoutSerieItem::find($row)->intensity?->name;
     }
 
     public function delete()

@@ -35,4 +35,9 @@ class WorkoutSerieItem extends Model
     {
         return $this->belongsTo(Cargo::class, 'item_id');
     }
+
+    public function intensity()
+    {
+        return $this->belongsTo(Intensity::class);
+    }
 }

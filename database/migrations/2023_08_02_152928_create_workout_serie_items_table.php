@@ -16,6 +16,7 @@ return new class extends Migration {
             $table->foreignIdFor(\App\Models\WorkoutSerie::class, 'workout_serie_id')->constrained()->onDelete('cascade');
             $table->unsignedBigInteger('item_id');
             $table->string('item_type');
+            $table->foreignIdFor(\App\Models\Intensity::class)->nullable();
         });
     }
 

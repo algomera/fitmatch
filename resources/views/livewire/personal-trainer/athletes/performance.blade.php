@@ -54,9 +54,12 @@
                                                         @switch($item->item_type)
                                                             @case('App\Models\Exercise')
                                                                 @php
-                                                                    $exercise = \App\Models\Exercise::find($item->item_id)
+                                                                    $exercise = \App\Models\Exercise::find($item->item_id);
+                                                                    $intensity = \App\Models\Intensity::find($item->intensity_id)
                                                                 @endphp
-                                                                <x-performance.exercise-card :item="$exercise"/>
+                                                                <x-performance.exercise-card :item="$exercise"
+                                                                                             :intensity="$intensity"
+                                                                />
                                                                 @break
                                                             @case('App\Models\Repetition')
                                                                 @php
@@ -113,9 +116,12 @@
                                                         @switch($item->item_type)
                                                             @case('App\Models\Exercise')
                                                                 @php
-                                                                    $exercise = \App\Models\Exercise::find($item->item_id)
+                                                                    $exercise = \App\Models\Exercise::find($item->item_id);
+                                                                    $intensity = \App\Models\Intensity::find($item->intensity_id)
                                                                 @endphp
-                                                                <x-performance.exercise-card :item="$exercise"/>
+                                                                <x-performance.exercise-card :item="$exercise"
+                                                                                             :intensity="$intensity"
+                                                                />
                                                                 @break
                                                             @case('App\Models\Repetition')
                                                                 @php
@@ -168,9 +174,12 @@
                                                         @switch($item->item_type)
                                                             @case('App\Models\Exercise')
                                                                 @php
-                                                                    $exercise = \App\Models\Exercise::find($item->item_id)
+                                                                    $exercise = \App\Models\Exercise::find($item->item_id);
+                                                                    $intensity = \App\Models\Intensity::find($item->intensity_id)
                                                                 @endphp
-                                                                <x-performance.exercise-card :item="$exercise"/>
+                                                                <x-performance.exercise-card :item="$exercise"
+                                                                                             :intensity="$intensity"
+                                                                />
                                                                 @break
                                                             @case('App\Models\Repetition')
                                                                 @php

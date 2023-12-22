@@ -1,8 +1,9 @@
-@props(['item' => null])
+@props(['item' => null, 'intensity' => null])
 <div
     class="m-1 select-none border border-b-4 border-b-fit-magenta rounded-md overflow-hidden h-40 min-h-[10rem] w-80 shrink-0">
     <div class="w-full h-full items-center justify-center bg-white">
         <div class="flex flex-col justify-center h-full p-4">
+            <span class="text-xs font-bold text-fit-magenta mb-2">{{ $intensity?->name }}</span>
             <p class="text-xs text-fit-black">
                 {{ $item->area->name }}/{{ $item->zone->name }}
             </p>

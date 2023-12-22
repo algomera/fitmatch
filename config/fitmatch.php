@@ -71,5 +71,5 @@ return [
             'natual' => 'Naturale',
             'cesarean' => 'Cesareo',
         ]
-    ]
+    ],
 ];
