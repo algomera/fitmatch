@@ -11,20 +11,20 @@
                 <div class="space-y-6">
                     <x-select wire:model="typology" name="typology" id="typology" label="Tipologia">
                         <option value="">Seleziona</option>
-                        @foreach($typologies as $typology)
-                            <option value="{{ $typology->id }}">{{ $typology->name }}</option>
+                        @foreach($typologies as $t)
+                            <option value="{{ $t->id }}">{{ $t->name }}</option>
                         @endforeach
                     </x-select>
-                    <x-select wire:model="zone" name="zone" id="zone" label="Zona">
+                    <x-select wire:model="zone" name="zone" id="zone" label="Zona" :disabled="!$typology">
                         <option value="">Seleziona</option>
-                        @foreach($zones as $zone)
-                            <option value="{{ $zone->id }}">{{ $zone->name }}</option>
+                        @foreach($zones as $z)
+                            <option value="{{ $z->id }}">{{ $z->name }}</option>
                         @endforeach
                     </x-select>
-                    <x-select wire:model="area" name="area" id="area" label="Area">
+                    <x-select wire:model="area" name="area" id="area" label="Area" :disabled="!$zone">
                         <option value="">Seleziona</option>
-                        @foreach($areas as $area)
-                            <option value="{{ $area->id }}">{{ $area->name }}</option>
+                        @foreach($areas as $a)
+                            <option value="{{ $a->id }}">{{ $a->name }}</option>
                         @endforeach
                     </x-select>
                 </div>
