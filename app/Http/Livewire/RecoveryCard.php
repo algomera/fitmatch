@@ -10,12 +10,14 @@ use Livewire\Component;
 class RecoveryCard extends Component
 {
     public $serie;
+    public $color = null;
     public $item;
     public $row;
 
-    public function mount(WorkoutSerie $serie, Recovery $item, $row)
+    public function mount(WorkoutSerie $serie, Recovery $item, $row, $color)
     {
         $this->serie = $serie;
+        $this->color = $color;
         $this->item = $item;
         $this->row = $row;
     }

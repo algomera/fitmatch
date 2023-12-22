@@ -10,13 +10,15 @@ use Livewire\Component;
 class ExerciseCard extends Component
 {
     public $serie;
+    public $color = null;
     public $item;
     public $row;
     public $intensity = null;
 
-    public function mount(WorkoutSerie $serie, Exercise $item, $row)
+    public function mount(WorkoutSerie $serie, Exercise $item, $row, $color)
     {
         $this->serie = $serie;
+        $this->color = $color;
         $this->item = $item;
         $this->row = $row;
         $this->intensity = WorkoutSerieItem::find($row)->intensity?->name;

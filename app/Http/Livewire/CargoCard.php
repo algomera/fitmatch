@@ -9,6 +9,7 @@ use Livewire\Component;
 class CargoCard extends Component
 {
     public $serie;
+    public $color = null;
     public $item;
     public $row;
 
@@ -16,9 +17,10 @@ class CargoCard extends Component
         'cargo-calculated' => '$refresh'
     ];
 
-    public function mount(WorkoutSerie $serie, Cargo $item, $row)
+    public function mount(WorkoutSerie $serie, Cargo $item, $row, $color)
     {
         $this->serie = $serie;
+        $this->color = $color;
         $this->item = $item;
         $this->row = $row;
     }

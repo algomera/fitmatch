@@ -119,19 +119,25 @@
                         <div class="sticky left-0 z-[99] flex py-4 min-h-[10rem] px-4 bg-fit-lighter-gray">
                             <div class="relative flex flex-col items-end px-2 w-8">
                             <span
-                                class="text-xl font-bold text-fit-magenta">{{ str_pad($loop->iteration, 2, "0", STR_PAD_LEFT) }}</span>
-                                <span class="absolute inset-y-0 right-0 flex-1 w-[3px] bg-fit-magenta"></span>
+                                class="text-xl font-bold"
+                                style="color: {{config('fitmatch.workout.colors.'. $loop->index)}}">{{ str_pad($loop->iteration, 2, "0", STR_PAD_LEFT) }}</span>
+                                <span class="absolute inset-y-0 right-0 flex-1 w-[3px]"
+                                      style="background-color: {{config('fitmatch.workout.colors.'. $loop->index)}}"></span>
                                 @if(!$loop->first)
                                     <div
                                         wire:click="deleteSet({{$set->id}})"
-                                        class="absolute {{ $loop->last ? 'bottom-10' : 'bottom-0' }} flex items-center justify-center w-6 h-6 bg-fit-magenta rounded-full hover:cursor-pointer hover:bg-fit-magenta/70">
+                                        class="absolute {{ $loop->last ? 'bottom-10' : 'bottom-0' }} flex items-center justify-center w-6 h-6 rounded-full hover:cursor-pointer"
+                                        style="background-color: {{config('fitmatch.workout.colors.'. $loop->index)}}"
+                                    >
                                         <x-heroicon-o-minus class="w-3.5 h-3.5 text-white"></x-heroicon-o-minus>
                                     </div>
                                 @endif
                                 @if($loop->last)
                                     <div
                                         wire:click="addSet({{$selectedDay}})"
-                                        class="z-10 absolute bottom-0 flex items-center justify-center w-6 h-6 bg-fit-magenta rounded-full hover:cursor-pointer hover:bg-fit-magenta/70">
+                                        class="z-10 absolute bottom-0 flex items-center justify-center w-6 h-6 rounded-full hover:cursor-pointer"
+                                        style="background-color: {{config('fitmatch.workout.colors.'. $loop->index)}}"
+                                    >
                                         <x-heroicon-o-plus class="w-3.5 h-3.5 text-white"></x-heroicon-o-plus>
                                     </div>
                                 @endif
@@ -159,6 +165,7 @@
                                                     @endphp
                                                     <livewire:exercise-card :serie="$serie" :item="$exercise"
                                                                             :row="$item->id"
+                                                                            color="{{config('fitmatch.workout.colors.'. $loop->parent->parent->index)}}"
                                                                             wire:key="{{ $selectedWeekId }}-{{ $serie->id }}-{{ $item->id }}"/>
                                                     @break
                                                 @case('App\Models\Repetition')
@@ -168,6 +175,7 @@
                                                     @if($repetition)
                                                         <livewire:repetition-card :serie="$serie" :item="$repetition"
                                                                                   :row="$item->id"
+                                                                                  color="{{config('fitmatch.workout.colors.'. $loop->parent->parent->index)}}"
                                                                                   wire:key="{{ $selectedWeekId }}-{{ $serie->id }}-{{ $item->id }}"/>
                                                     @endif
                                                     @break
@@ -178,6 +186,7 @@
                                                     @if($recovery)
                                                         <livewire:recovery-card :serie="$serie" :item="$recovery"
                                                                                 :row="$item->id"
+                                                                                color="{{config('fitmatch.workout.colors.'. $loop->parent->parent->index)}}"
                                                                                 wire:key="{{ $selectedWeekId }}-{{ $serie->id }}-{{ $item->id }}"/>
                                                     @endif
                                                     @break
@@ -185,7 +194,9 @@
                                                     @php
                                                         $cargo = \App\Models\Cargo::find($item->item_id)
                                                     @endphp
-                                                    <livewire:cargo-card :serie="$serie" :item="$cargo" :row="$item->id"
+                                                    <livewire:cargo-card :serie="$serie" :item="$cargo"
+                                                                         :row="$item->id"
+                                                                         color="{{config('fitmatch.workout.colors.'. $loop->parent->parent->index)}}"
                                                                          wire:key="{{ $selectedWeekId }}-{{ $serie->id }}-{{ $item->id }}"/>
                                                     @break
                                             @endswitch

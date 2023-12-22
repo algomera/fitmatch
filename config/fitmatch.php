@@ -72,4 +72,12 @@ return [
             'cesarean' => 'Cesareo',
         ]
     ],
+    'workout' => [
+        'colors' => [
+            '#F72585',
+            '#4361EE',
+            '#7209B7',
+            '#4CC9F0',
+        ]
+    ]
 ];

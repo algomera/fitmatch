@@ -1,5 +1,7 @@
 <div
-    class="m-1 select-none border border-b-4 border-b-fit-magenta rounded-md overflow-hidden w-56 min-h-[230px] shrink-0">
+    class="m-1 select-none border border-b-4 rounded-md overflow-hidden w-56 min-h-[230px] shrink-0"
+    style="border-bottom-color: {{ $color }}"
+>
     <div class="flex flex-col w-full h-full items-start justify-center bg-white space-y-1.5">
         <div class="flex w-full items-center flex-1 p-4 border-b">
             <h4 class="text-2xl font-bold truncate">Ripetizioni</h4>

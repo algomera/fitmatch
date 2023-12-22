@@ -1,4 +1,6 @@
-<div class="m-1 select-none border border-b-4 border-b-fit-magenta rounded-md overflow-hidden w-80 shrink-0">
+<div class="m-1 select-none border border-b-4 rounded-md overflow-hidden w-80 shrink-0"
+     style="border-bottom-color: {{ $color }}"
+>
     <div class="w-full flex items-center justify-between bg-fit-lighter-gray p-4">
         <span class="text-xs font-bold text-fit-magenta">{{ $intensity }}</span>
         <div class="flex space-x-2">

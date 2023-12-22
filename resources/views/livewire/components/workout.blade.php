@@ -10,6 +10,8 @@
         <p class="text-lg font-bold text-fit-black mt-1">{{ $workout->name }}</p>
         @if($workout->athlete)
             <span class="text-xs font-semibold text-gray-500">{{ $workout->athlete->full_name }}</span>
+        @else
+            <div class="h-6"></div>
         @endif
     </div>
     <div class="p-4 border-b bg-gray-100">

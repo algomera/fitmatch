@@ -9,6 +9,7 @@ use Livewire\Component;
 class RepetitionCard extends Component
 {
     public $serie;
+    public $color = null;
     public $item;
     public $row;
 
@@ -16,9 +17,10 @@ class RepetitionCard extends Component
         'item.quantity' => 'numeric'
     ];
 
-    public function mount(WorkoutSerie $serie, Repetition $item, $row)
+    public function mount(WorkoutSerie $serie, Repetition $item, $row, $color)
     {
         $this->serie = $serie;
+        $this->color = $color;
         $this->item = $item;
         $this->row = $row;
     }
