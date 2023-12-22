@@ -1,5 +1,7 @@
 <?php
 
+use App\Events\MessageSent;
+use App\Events\SimpleTestEvent;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 
@@ -49,8 +51,7 @@ Route::middleware(['auth'])->group(function () {
             ])->name('personal-trainer.show');
         });
         // Personal Trainer
-        Route::middleware(['role:personal-trainer'])->prefix('personal-trainer')->name('personal-trainer.')->group(function (
-        ) {
+        Route::middleware(['role:personal-trainer'])->prefix('personal-trainer')->name('personal-trainer.')->group(function () {
             Route::get('/dashboard', [
                 \App\Http\Livewire\PersonalTrainer\Dashboard::class, '__invoke'
             ])->name('dashboard');
@@ -72,5 +73,9 @@ Route::middleware('auth')->group(function () {
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
+Route::post('/trigger-message', function () {
+    broadcast(new SimpleTestEvent());
 
-require __DIR__.'/auth.php';
+    return response()->json(['status' => 'Message sent']);
+})->name('trigger.message');
+require __DIR__ . '/auth.php';

@@ -8,6 +8,7 @@ use App\Models\Appointment;
 use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
 
 class AppointmentController extends Controller
@@ -17,12 +18,17 @@ class AppointmentController extends Controller
      */
     public function getAppointments($id, $isAthlete)
     {
+        // dd($id);
         if ($isAthlete == 'true') {
             $appointments = Appointment::with('personalTrainer')->where('athlete_id', $id)->get();
         } else {
             $appointments = Appointment::with('athlete')->where('personal_trainer_id', $id)->get();
+            $user = User::find($id);
+            $athletes = $user->athletes;
         }
-        return response()->json($appointments);
+
+
+        return response()->json(['appointments' => $appointments, 'athletes' => $athletes]);
     }
 
     /**
@@ -37,7 +43,6 @@ class AppointmentController extends Controller
      */
     public function store(Request $request)
     {
-
         $validator = Validator::make($request->all(), [
             'personal_trainer_id' => 'required',
             'athlete_id' => 'required',
@@ -52,22 +57,29 @@ class AppointmentController extends Controller
             return response()->json($response, 400);
         }
 
-        $date = Carbon::parse($request['date']);
-        $appointment = new Appointment([
-            'description' => $request['description'],
-            'is_confirmed' => false,
-            'is_free' => $request['isFree'],
-            'date' => $date,
-            'price' => $request['price']
-        ]);
+        try {
+            DB::beginTransaction();
 
-        $appointment->personalTrainer()->associate(User::find($request['personal_trainer_id']));
-        $appointment->athlete()->associate(User::find($request['athlete_id']));
+            $appointment = new Appointment();
+            $appointment->description = $request['description'];
+            $appointment->is_confirmed = false;
+            $appointment->is_free = $request['isFree'];
+            $appointment->date = $appointment->getDateAttribute($request->date);
+            $appointment->price = $request['price'];
 
-        $appointment->save();
-        // dd($appointment->personalTrainer->role);
+            $appointment->personalTrainer()->associate(User::find($request['personal_trainer_id']));
+            $appointment->athlete()->associate(User::find($request['athlete_id']));
+            $appointment->save();
 
-        return response()->json(['message' => 'Appointment created successfully', 'appointment' => $appointment], 201);
+            DB::commit();
+
+            return response()->json(['message' => 'Appointment created successfully', 'appointment' => $appointment], 201);
+        } catch (\Exception $e) {
+            // Something went wrong, rollback the transaction
+            DB::rollBack();
+
+            return response()->json(['message' => 'Error creating appointment', 'error' => $e->getMessage()], 500);
+        }
     }
 
     /**
