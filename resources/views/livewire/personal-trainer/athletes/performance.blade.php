@@ -40,9 +40,11 @@
                                     <div class="sticky left-0 z-[99] flex py-4 min-h-[10rem] px-4 bg-fit-lighter-gray">
                                         <div class="relative flex flex-col items-end px-2 w-8">
                                 <span
-                                    class="text-xl font-bold text-fit-magenta">{{ str_pad($loop->iteration, 2, "0", STR_PAD_LEFT) }}</span>
+                                    class="text-xl font-bold"
+                                    style="color: {{config('fitmatch.workout.colors.'. $loop->index % count(config('fitmatch.workout.colors')))}}">{{ str_pad($loop->iteration, 2, "0", STR_PAD_LEFT) }}</span>
                                             <span
-                                                class="absolute inset-y-0 right-0 flex-1 w-[3px] bg-fit-magenta"></span>
+                                                class="absolute inset-y-0 right-0 flex-1 w-[3px]"
+                                                style="background-color: {{config('fitmatch.workout.colors.'. $loop->index % count(config('fitmatch.workout.colors')))}}"></span>
                                         </div>
                                     </div>
                                     <div class="flex flex-col w-full z-[50]">
@@ -58,6 +60,7 @@
                                                                     $intensity = \App\Models\Intensity::find($item->intensity_id)
                                                                 @endphp
                                                                 <x-performance.exercise-card :item="$exercise"
+                                                                                             color="{{config('fitmatch.workout.colors.'. $loop->parent->parent->index % count(config('fitmatch.workout.colors')))}}"
                                                                                              :intensity="$intensity"
                                                                 />
                                                                 @break
@@ -65,19 +68,25 @@
                                                                 @php
                                                                     $repetition = \App\Models\Repetition::find($item->item_id)
                                                                 @endphp
-                                                                <x-performance.repetition-card :item="$repetition"/>
+                                                                <x-performance.repetition-card :item="$repetition"
+                                                                                               color="{{config('fitmatch.workout.colors.'. $loop->parent->parent->index % count(config('fitmatch.workout.colors')))}}"
+                                                                />
                                                                 @break
                                                             @case('App\Models\Recovery')
                                                                 @php
                                                                     $recovery = \App\Models\Recovery::find($item->item_id)
                                                                 @endphp
-                                                                <x-performance.recovery-card :item="$recovery"/>
+                                                                <x-performance.recovery-card :item="$recovery"
+                                                                                             color="{{config('fitmatch.workout.colors.'. $loop->parent->parent->index % count(config('fitmatch.workout.colors')))}}"
+                                                                />
                                                                 @break
                                                             @case('App\Models\Cargo')
                                                                 @php
                                                                     $cargo = \App\Models\Cargo::find($item->item_id)
                                                                 @endphp
-                                                                <x-performance.cargo-card :item="$cargo"/>
+                                                                <x-performance.cargo-card :item="$cargo"
+                                                                                          color="{{config('fitmatch.workout.colors.'. $loop->parent->parent->index % count(config('fitmatch.workout.colors')))}}"
+                                                                />
                                                                 @break
                                                         @endswitch
                                                     @endforeach
@@ -102,9 +111,11 @@
                                         class="sticky left-0 z-[99] flex py-4 min-h-[10rem] px-4 bg-fit-lighter-gray">
                                         <div class="relative flex flex-col items-end px-2 w-8">
                                 <span
-                                    class="text-xl font-bold text-fit-magenta">{{ str_pad($loop->iteration, 2, "0", STR_PAD_LEFT) }}</span>
+                                    class="text-xl font-bold"
+                                    style="color: {{config('fitmatch.workout.colors.'. $loop->index % count(config('fitmatch.workout.colors')))}}">{{ str_pad($loop->iteration, 2, "0", STR_PAD_LEFT) }}</span>
                                             <span
-                                                class="absolute inset-y-0 right-0 flex-1 w-[3px] bg-fit-magenta"></span>
+                                                class="absolute inset-y-0 right-0 flex-1 w-[3px]"
+                                                style="background-color: {{config('fitmatch.workout.colors.'. $loop->index % count(config('fitmatch.workout.colors')))}}"></span>
                                         </div>
                                     </div>
                                     <div class="flex flex-col w-full z-[50]">
@@ -120,6 +131,7 @@
                                                                     $intensity = \App\Models\Intensity::find($item->intensity_id)
                                                                 @endphp
                                                                 <x-performance.exercise-card :item="$exercise"
+                                                                                             color="{{config('fitmatch.workout.colors.'. $loop->parent->parent->index % count(config('fitmatch.workout.colors')))}}"
                                                                                              :intensity="$intensity"
                                                                 />
                                                                 @break
@@ -127,20 +139,25 @@
                                                                 @php
                                                                     $repetition = \App\Models\Repetition::find($item->item_id)
                                                                 @endphp
-                                                                <x-performance.repetition-card
-                                                                    :item="$repetition"/>
+                                                                <x-performance.repetition-card :item="$repetition"
+                                                                                               color="{{config('fitmatch.workout.colors.'. $loop->parent->parent->index % count(config('fitmatch.workout.colors')))}}"
+                                                                />
                                                                 @break
                                                             @case('App\Models\Recovery')
                                                                 @php
                                                                     $recovery = \App\Models\Recovery::find($item->item_id)
                                                                 @endphp
-                                                                <x-performance.recovery-card :item="$recovery"/>
+                                                                <x-performance.recovery-card :item="$recovery"
+                                                                                             color="{{config('fitmatch.workout.colors.'. $loop->parent->parent->index % count(config('fitmatch.workout.colors')))}}"
+                                                                />
                                                                 @break
                                                             @case('App\Models\Cargo')
                                                                 @php
                                                                     $cargo = \App\Models\Cargo::find($item->item_id)
                                                                 @endphp
-                                                                <x-performance.cargo-card :item="$cargo"/>
+                                                                <x-performance.cargo-card :item="$cargo"
+                                                                                          color="{{config('fitmatch.workout.colors.'. $loop->parent->parent->index % count(config('fitmatch.workout.colors')))}}"
+                                                                />
                                                                 @break
                                                         @endswitch
                                                     @endforeach
@@ -160,9 +177,11 @@
                                         class="sticky left-0 z-[99] flex py-4 min-h-[10rem] px-4 bg-fit-lighter-gray">
                                         <div class="relative flex flex-col items-end px-2 w-8">
                                 <span
-                                    class="text-xl font-bold text-fit-magenta">{{ str_pad($loop->iteration, 2, "0", STR_PAD_LEFT) }}</span>
+                                    class="text-xl font-bold"
+                                    style="color: {{config('fitmatch.workout.colors.'. $loop->index % count(config('fitmatch.workout.colors')))}}">{{ str_pad($loop->iteration, 2, "0", STR_PAD_LEFT) }}</span>
                                             <span
-                                                class="absolute inset-y-0 right-0 flex-1 w-[3px] bg-fit-magenta"></span>
+                                                class="absolute inset-y-0 right-0 flex-1 w-[3px]"
+                                                style="background-color: {{config('fitmatch.workout.colors.'. $loop->index % count(config('fitmatch.workout.colors')))}}"></span>
                                         </div>
                                     </div>
                                     <div class="flex flex-col w-full z-[50]">
@@ -178,6 +197,7 @@
                                                                     $intensity = \App\Models\Intensity::find($item->intensity_id)
                                                                 @endphp
                                                                 <x-performance.exercise-card :item="$exercise"
+                                                                                             color="{{config('fitmatch.workout.colors.'. $loop->parent->parent->index % count(config('fitmatch.workout.colors')))}}"
                                                                                              :intensity="$intensity"
                                                                 />
                                                                 @break
@@ -185,20 +205,25 @@
                                                                 @php
                                                                     $repetition = \App\Models\Repetition::find($item->item_id)
                                                                 @endphp
-                                                                <x-performance.repetition-card
-                                                                    :item="$repetition"/>
+                                                                <x-performance.repetition-card :item="$repetition"
+                                                                                               color="{{config('fitmatch.workout.colors.'. $loop->parent->parent->index % count(config('fitmatch.workout.colors')))}}"
+                                                                />
                                                                 @break
                                                             @case('App\Models\Recovery')
                                                                 @php
                                                                     $recovery = \App\Models\Recovery::find($item->item_id)
                                                                 @endphp
-                                                                <x-performance.recovery-card :item="$recovery"/>
+                                                                <x-performance.recovery-card :item="$recovery"
+                                                                                             color="{{config('fitmatch.workout.colors.'. $loop->parent->parent->index % count(config('fitmatch.workout.colors')))}}"
+                                                                />
                                                                 @break
                                                             @case('App\Models\Cargo')
                                                                 @php
                                                                     $cargo = \App\Models\Cargo::find($item->item_id)
                                                                 @endphp
-                                                                <x-performance.cargo-card :item="$cargo"/>
+                                                                <x-performance.cargo-card :item="$cargo"
+                                                                                          color="{{config('fitmatch.workout.colors.'. $loop->parent->parent->index % count(config('fitmatch.workout.colors')))}}"
+                                                                />
                                                                 @break
                                                         @endswitch
                                                     @endforeach

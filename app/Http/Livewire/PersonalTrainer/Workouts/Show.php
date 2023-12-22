@@ -125,7 +125,7 @@ class Show extends Component
                                 $newSerie->items()->create([
                                     'workout_id' => $this->workout->id,
                                     'item_id' => $repetition->id,
-                                    'item_type' => Repetition::class
+                                    'item_type' => Repetition::class,
                                 ]);
                                 break;
                             case Recovery::class:
@@ -157,7 +157,8 @@ class Show extends Component
                                 $newSerie->items()->create([
                                     'workout_id' => $newSerie->workout->id,
                                     'item_id' => $exercise->item_id,
-                                    'item_type' => Exercise::class
+                                    'item_type' => Exercise::class,
+                                    'intensity_id' => $exercise->intensity_id
                                 ]);
                                 break;
                         }

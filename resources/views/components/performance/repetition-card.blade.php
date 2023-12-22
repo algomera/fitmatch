@@ -1,6 +1,8 @@
-@props(['item' => null])
+@props(['item' => null, 'color' => null])
 <div
-    class="m-1 select-none border border-b-4 border-b-fit-magenta rounded-md overflow-hidden w-56 h-40 shrink-0">
+    class="m-1 select-none border border-b-4 rounded-md overflow-hidden w-56 h-40 shrink-0"
+    style="border-bottom-color: {{ $color }}"
+>
     <div
         class="flex flex-col w-full h-full items-start justify-center bg-white space-y-1.5">
         <div

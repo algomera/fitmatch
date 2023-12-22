@@ -120,14 +120,14 @@
                             <div class="relative flex flex-col items-end px-2 w-8">
                             <span
                                 class="text-xl font-bold"
-                                style="color: {{config('fitmatch.workout.colors.'. $loop->index)}}">{{ str_pad($loop->iteration, 2, "0", STR_PAD_LEFT) }}</span>
+                                style="color: {{config('fitmatch.workout.colors.'. $loop->index % count(config('fitmatch.workout.colors')))}}">{{ str_pad($loop->iteration, 2, "0", STR_PAD_LEFT) }}</span>
                                 <span class="absolute inset-y-0 right-0 flex-1 w-[3px]"
-                                      style="background-color: {{config('fitmatch.workout.colors.'. $loop->index)}}"></span>
+                                      style="background-color: {{config('fitmatch.workout.colors.'. $loop->index % count(config('fitmatch.workout.colors')))}}"></span>
                                 @if(!$loop->first)
                                     <div
                                         wire:click="deleteSet({{$set->id}})"
                                         class="absolute {{ $loop->last ? 'bottom-10' : 'bottom-0' }} flex items-center justify-center w-6 h-6 rounded-full hover:cursor-pointer"
-                                        style="background-color: {{config('fitmatch.workout.colors.'. $loop->index)}}"
+                                        style="background-color: {{config('fitmatch.workout.colors.'. $loop->index % count(config('fitmatch.workout.colors')))}}"
                                     >
                                         <x-heroicon-o-minus class="w-3.5 h-3.5 text-white"></x-heroicon-o-minus>
                                     </div>
@@ -136,7 +136,7 @@
                                     <div
                                         wire:click="addSet({{$selectedDay}})"
                                         class="z-10 absolute bottom-0 flex items-center justify-center w-6 h-6 rounded-full hover:cursor-pointer"
-                                        style="background-color: {{config('fitmatch.workout.colors.'. $loop->index)}}"
+                                        style="background-color: {{config('fitmatch.workout.colors.'. $loop->index % count(config('fitmatch.workout.colors')))}}"
                                     >
                                         <x-heroicon-o-plus class="w-3.5 h-3.5 text-white"></x-heroicon-o-plus>
                                     </div>
@@ -165,7 +165,7 @@
                                                     @endphp
                                                     <livewire:exercise-card :serie="$serie" :item="$exercise"
                                                                             :row="$item->id"
-                                                                            color="{{config('fitmatch.workout.colors.'. $loop->parent->parent->index)}}"
+                                                                            color="{{config('fitmatch.workout.colors.'. $loop->parent->parent->index % count(config('fitmatch.workout.colors')))}}"
                                                                             wire:key="{{ $selectedWeekId }}-{{ $serie->id }}-{{ $item->id }}"/>
                                                     @break
                                                 @case('App\Models\Repetition')
@@ -175,7 +175,7 @@
                                                     @if($repetition)
                                                         <livewire:repetition-card :serie="$serie" :item="$repetition"
                                                                                   :row="$item->id"
-                                                                                  color="{{config('fitmatch.workout.colors.'. $loop->parent->parent->index)}}"
+                                                                                  color="{{config('fitmatch.workout.colors.'. $loop->parent->parent->index % count(config('fitmatch.workout.colors')))}}"
                                                                                   wire:key="{{ $selectedWeekId }}-{{ $serie->id }}-{{ $item->id }}"/>
                                                     @endif
                                                     @break
@@ -186,7 +186,7 @@
                                                     @if($recovery)
                                                         <livewire:recovery-card :serie="$serie" :item="$recovery"
                                                                                 :row="$item->id"
-                                                                                color="{{config('fitmatch.workout.colors.'. $loop->parent->parent->index)}}"
+                                                                                color="{{config('fitmatch.workout.colors.'. $loop->parent->parent->index % count(config('fitmatch.workout.colors')))}}"
                                                                                 wire:key="{{ $selectedWeekId }}-{{ $serie->id }}-{{ $item->id }}"/>
                                                     @endif
                                                     @break
@@ -196,7 +196,7 @@
                                                     @endphp
                                                     <livewire:cargo-card :serie="$serie" :item="$cargo"
                                                                          :row="$item->id"
-                                                                         color="{{config('fitmatch.workout.colors.'. $loop->parent->parent->index)}}"
+                                                                         color="{{config('fitmatch.workout.colors.'. $loop->parent->parent->index % count(config('fitmatch.workout.colors')))}}"
                                                                          wire:key="{{ $selectedWeekId }}-{{ $serie->id }}-{{ $item->id }}"/>
                                                     @break
                                             @endswitch
