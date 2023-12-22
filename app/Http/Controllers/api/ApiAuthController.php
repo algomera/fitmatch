@@ -37,6 +37,7 @@ class ApiAuthController extends Controller
         }
 
         $userID = $user->id;
+
         if ($user != '[]' && Hash::check($request->password, $user->password)) {
             $token = User::find($userID)->createToken('token')->plainTextToken;
             $response = ['token' => $token, 'user' => $user, 'user_type' => $user->getRoleAttribute()->name, 'message' => 'Login effettuato con successo'];
@@ -66,6 +67,7 @@ class ApiAuthController extends Controller
 
             $user = new User();
             $user->email = $request->input('email');
+            $user->status = $request->isAthlete ? null : 'pending';
             $user->password = Hash::make($request->input('password'));
             $user->assignRole($request->isAthlete ? 'athlete' : 'personal-trainer');
             $user->save();
