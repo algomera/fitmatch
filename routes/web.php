@@ -2,6 +2,7 @@
 
 use App\Events\SimpleTestEvent;
 use App\Http\Controllers\ProfileController;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -36,7 +37,19 @@ Route::middleware(['auth'])->group(function () {
         Route::get('/step-11', [\App\Http\Livewire\Onboarding\Step11::class, '__invoke'])->name('step-11');
         Route::get('/step-12', [\App\Http\Livewire\Onboarding\Step12::class, '__invoke'])->name('step-12');
     });
-    Route::middleware(['verified', 'onboarding', 'subscriber'])->group(function () {
+
+    Route::get('/subscribe', [\App\Http\Livewire\Onboarding\Subscribe::class, '__invoke'])->name('subscribe');
+    Route::get('/subscription-ok', function () {
+        if (auth()->user()->subscribed()) {
+            return redirect()->route('personal-trainer.dashboard');
+        }
+    })->name('subscription-ok');
+    Route::get('/subscription-failed', function () {
+        return "Iscrizione fallita, riprova.";
+    })->name('subscription-failed');
+
+
+    Route::middleware(['verified', 'onboarding'])->group(function () {
         // Admin
         Route::middleware(['role:admin'])->prefix('admin')->name('admin.')->group(function () {
             Route::get('/dashboard', function () {
@@ -50,8 +63,10 @@ Route::middleware(['auth'])->group(function () {
             ])->name('personal-trainer.show');
         });
         // Personal Trainer
-        Route::middleware(['role:personal-trainer'])->prefix('personal-trainer')->name('personal-trainer.')->group(function (
-        ) {
+        Route::middleware([
+            'role:personal-trainer',
+            'subscriber'
+        ])->prefix('personal-trainer')->name('personal-trainer.')->group(function () {
             Route::get('/dashboard', [
                 \App\Http\Livewire\PersonalTrainer\Dashboard::class, '__invoke'
             ])->name('dashboard');
@@ -70,6 +85,10 @@ Route::middleware(['auth'])->group(function () {
             Route::get('/exercises', [
                 \App\Http\Livewire\PersonalTrainer\Exercises\Index::class, '__invoke'
             ])->name('exercises');
+
+            Route::get('/billing', function (Request $request) {
+                return $request->user()->redirectToBillingPortal(route('personal-trainer.dashboard'));
+            })->name('billing');
         });
     });
 });

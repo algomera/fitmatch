@@ -18,7 +18,10 @@ class UserIsSubscriber
         $user = $request->user();
 
         if ($user->role->name === 'personal-trainer') {
-            // Check se l'utente ha un abbonamento
+            if (!$user->subscribed()) {
+                // Se l'utente NON ha un abbonamento
+                return redirect()->route('subscribe');
+            }
         }
 
         return $next($request);
