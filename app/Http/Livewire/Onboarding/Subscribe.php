@@ -6,6 +6,13 @@ use Livewire\Component;
 
 class Subscribe extends Component
 {
+    public function mount()
+    {
+        if (auth()->user()->subscribed()) {
+            return redirect()->route('personal-trainer.dashboard');
+        }
+    }
+
     public function checkout($plan)
     {
         return auth()->user()
