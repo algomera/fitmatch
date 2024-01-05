@@ -1,6 +1,5 @@
 <?php
 
-use App\Events\MessageSent;
 use App\Events\SimpleTestEvent;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
@@ -37,7 +36,7 @@ Route::middleware(['auth'])->group(function () {
         Route::get('/step-11', [\App\Http\Livewire\Onboarding\Step11::class, '__invoke'])->name('step-11');
         Route::get('/step-12', [\App\Http\Livewire\Onboarding\Step12::class, '__invoke'])->name('step-12');
     });
-    Route::middleware(['verified', 'onboarding'])->group(function () {
+    Route::middleware(['verified', 'onboarding', 'subscriber'])->group(function () {
         // Admin
         Route::middleware(['role:admin'])->prefix('admin')->name('admin.')->group(function () {
             Route::get('/dashboard', function () {
@@ -51,7 +50,8 @@ Route::middleware(['auth'])->group(function () {
             ])->name('personal-trainer.show');
         });
         // Personal Trainer
-        Route::middleware(['role:personal-trainer'])->prefix('personal-trainer')->name('personal-trainer.')->group(function () {
+        Route::middleware(['role:personal-trainer'])->prefix('personal-trainer')->name('personal-trainer.')->group(function (
+        ) {
             Route::get('/dashboard', [
                 \App\Http\Livewire\PersonalTrainer\Dashboard::class, '__invoke'
             ])->name('dashboard');
@@ -84,4 +84,4 @@ Route::post('/trigger-message', function () {
 
     return response()->json(['status' => 'Message sent']);
 })->name('trigger.message');
-require __DIR__ . '/auth.php';
+require __DIR__.'/auth.php';

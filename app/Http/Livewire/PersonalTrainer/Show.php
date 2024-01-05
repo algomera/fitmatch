@@ -15,10 +15,16 @@ class Show extends Component
     ];
     public $currentTab = 'informations';
 
-    public function changeStatus($status) {
+    public function changeStatus($status)
+    {
         $this->user->update([
             'status' => $status
         ]);
+
+        if ($status === 'approved') {
+            // Invia email con link per pagamento
+        }
+
         $this->emitSelf('$refresh');
     }
 

@@ -9,12 +9,12 @@
         <div class="mt-6">
             <div class="space-y-4 sm:flex sm:items-center sm:space-x-10 sm:space-y-0">
                 <div class="flex items-center">
-                    <input wire:model.defer="user_informations.remote" id="remote" name="remote" type="checkbox"
+                    <input wire:model="user_informations.remote" id="remote" name="remote" type="checkbox"
                            class="h-4 w-4 border-gray-300 ring-fit-light-blue focus:ring-fit-light-blue">
                     <label for="remote" class="ml-3 block text-gray-900">Lezioni da remoto</label>
                 </div>
                 <div class="flex items-center">
-                    <input wire:model.defer="user_informations.in_person" id="in-person" name="in-person"
+                    <input wire:model="user_informations.in_person" id="in-person" name="in-person"
                            type="checkbox"
                            class="h-4 w-4 border-gray-300 ring-fit-light-blue focus:ring-fit-light-blue">
                     <label for="in-person" class="ml-3 block text-gray-900">Lezioni in presenza</label>
