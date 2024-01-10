@@ -43,6 +43,7 @@ Route::group(['middleware' => 'auth:sanctum'], function () {
     Route::apiResources(['/scheda-anamnesi' => AnamnesiController::class]);
     Route::post('/anamnesi/create_request', [AnamnesiController::class, 'createRequest']);
     Route::post('/anamnesi/accept_request', [AnamnesiController::class, 'acceptRequest']);
+    Route::put('/anamnesi/deny_request', [AnamnesiController::class, 'denyRequest']);
     Route::get('/anamnesi/showAllRequests/{id}', [AnamnesiController::class, 'showAllRequests']);
 
     // User Management

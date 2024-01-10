@@ -68,12 +68,12 @@ class AnamnesiController extends Controller
             return response()->json(['error' => 'User not found'], 404);
         }
 
-        $X =  DB::table('anamnesi_personal_trainer')
+        DB::table('anamnesi_personal_trainer')
             ->where('personal_trainer_id', $request->personal_trainer_id)
             ->update(['accepted' => 1]);
 
 
-        return response()->json(['message' => 'Record updated successfully', $X], 200);
+        return response()->json(['message' => 'Record updated successfully'], 200);
     }
 
     /**
@@ -144,7 +144,7 @@ class AnamnesiController extends Controller
         }
     }
 
-    public function removeRequest(Request $request)
+    public function denyRequest(Request $request)
     {
         try {
             // Delete the specified record from the anamnesi_personal_trainer pivot table
