@@ -19,6 +19,7 @@ return new class extends Migration
             $table->boolean('is_confirmed')->default(false);
             $table->boolean('is_free')->default(false);
             $table->decimal('price', 6, 2)->default(0.00);
+            $table->integer('session_number')->default(1);
             $table->dateTime('date')->default(now());
             $table->timestamps();
         });

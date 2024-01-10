@@ -6,7 +6,6 @@ use App\Http\Controllers\Controller;
 
 use App\Models\Appointment;
 use App\Models\User;
-use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
@@ -21,15 +20,55 @@ class AppointmentController extends Controller
         // dd($id);
         if ($isAthlete == 'true') {
             $appointments = Appointment::with('personalTrainer')->where('athlete_id', $id)->get();
+            return response()->json(['appointments' => $appointments]);
         } else {
             $appointments = Appointment::with('athlete')->where('personal_trainer_id', $id)->get();
             $user = User::find($id);
             $athletes = $user->athletes;
+            return response()->json(['appointments' => $appointments, 'athletes' => $athletes]);
         }
-
-
-        return response()->json(['appointments' => $appointments, 'athletes' => $athletes]);
     }
+
+    public function confirmAppointment(Request $request)
+    {
+        try {
+            $appointment = Appointment::find($request->id);
+            if (!$appointment) {
+                return response()->json(['message' => 'Appointment not found'], 404);
+            }
+
+            $appointment->is_confirmed = 1;
+            $appointment->update();
+
+            return response()->json(['message' => 'Appointment confirmed'], 200);
+        } catch (\Exception $e) {
+            return response()->json(['message' => 'An error occurred'], 500);
+        }
+    }
+
+    public function denyAppointment(Request $request)
+    {
+        try {
+            $appointment = Appointment::find($request->id);
+
+            if ($appointment) {
+                $message = $appointment->message;
+
+                if ($message) {
+                    $message->delete();
+                }
+
+                $appointment->delete();
+            }
+
+            return response()->json(['message' => 'Appuntamento Rifiutato'], 200);
+        } catch (\Exception $e) {
+            return response()->json(['message' => 'An error occurred: ' . $e], 500);
+        }
+    }
+
+
+
 
     /**
      * Show the form for creating a new resource.
@@ -66,6 +105,7 @@ class AppointmentController extends Controller
             $appointment->is_free = $request['isFree'];
             $appointment->date = $appointment->getDateAttribute($request->date);
             $appointment->price = $request['price'];
+            $appointment->session_number = $request['session_number'];
 
             $appointment->personalTrainer()->associate(User::find($request['personal_trainer_id']));
             $appointment->athlete()->associate(User::find($request['athlete_id']));
@@ -75,7 +115,7 @@ class AppointmentController extends Controller
 
             return response()->json(['message' => 'Appointment created successfully', 'appointment' => $appointment], 201);
         } catch (\Exception $e) {
-            // Something went wrong, rollback the transaction
+
             DB::rollBack();
 
             return response()->json(['message' => 'Error creating appointment', 'error' => $e->getMessage()], 500);

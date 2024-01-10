@@ -23,4 +23,8 @@ class Appointment extends Model
     {
         return Carbon::parse($value)->format('Y-m-d H:i:s');
     }
+    public function message()
+    {
+        return $this->hasOne(Message::class, 'appointment_id', 'id');
+    }
 }

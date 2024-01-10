@@ -1,9 +1,17 @@
 <?php
 
+use App\Events\MessageSent;
 use App\Events\SimpleTestEvent;
+use App\Http\Controllers\MessageController;
 use App\Http\Controllers\ProfileController;
-use Illuminate\Support\Facades\Route;
+use Illuminate\Http\Request;
 
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Broadcast;
+use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Storage;
+use Pusher\Pusher;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -79,9 +87,5 @@ Route::middleware('auth')->group(function () {
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
-Route::post('/trigger-message', function () {
-    broadcast(new SimpleTestEvent());
 
-    return response()->json(['status' => 'Message sent']);
-})->name('trigger.message');
-require __DIR__.'/auth.php';
+require __DIR__ . '/auth.php';

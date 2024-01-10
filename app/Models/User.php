@@ -88,7 +88,7 @@ class User extends Authenticatable implements MustVerifyEmail
 
     public function athletes()
     {
-        return $this->belongsToMany(User::class, 'personal_trainer_athlete', 'personal_trainer_id', 'athlete_id');
+        return $this->belongsToMany(User::class, 'personal_trainer_athlete', 'personal_trainer_id', 'athlete_id')->withPivot(['accepted']);
     }
 
     public function job_experiences()
@@ -124,5 +124,10 @@ class User extends Authenticatable implements MustVerifyEmail
     public function favorites()
     {
         return $this->belongsToMany(Exercise::class, 'favorite_exercises');
+    }
+
+    public function getDateAttribute($value)
+    {
+        return Carbon::parse($value)->format('Y-m-d');
     }
 }
