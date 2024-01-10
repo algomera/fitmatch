@@ -15,6 +15,7 @@ return new class extends Migration
             $table->id();
             $table->foreignIdFor(\App\Models\User::class, 'personal_trainer_id');
             $table->foreignIdFor(\App\Models\User::class, 'athlete_id');
+            $table->boolean('accepted')->default(0);
             $table->timestamps();
         });
     }

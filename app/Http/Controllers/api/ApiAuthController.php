@@ -13,11 +13,28 @@ use Illuminate\Support\Facades\Validator;
 
 class ApiAuthController extends Controller
 {
-    public function getData()
+    public function getData($id)
     {
         $categories = Category::all();
-        return response()->json(['categories' => $categories]);
+        $pts = User::where('status', 'approved')->get();
+
+        // Loop through the $pts collection to load the relations for each user
+        foreach ($pts as $pt) {
+            $pt->load(['job_experiences', 'medias', 'athletes', 'categories']);
+        }
+
+        $current_user = User::find($id);
+        $user_role = $current_user->getRoleAttribute()->name;
+
+        if ($user_role == 'personal-trainer') {
+            $chat_users = $current_user->athletes;
+        } else {
+            $chat_users = $current_user->personal_trainers->load(['job_experiences', 'medias', 'athletes', 'categories']);
+        }
+
+        return response()->json(['categories' => $categories, 'personal_trainers' => $pts, 'chat_users' => $chat_users]);
     }
+
 
     public function login(Request $request)
     {

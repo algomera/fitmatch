@@ -1,6 +1,5 @@
 <?php
 
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Broadcast;
 use Illuminate\Support\Facades\Log;
 
@@ -16,13 +15,6 @@ use Illuminate\Support\Facades\Log;
 |
 */
 
-// Broadcast::channel('App.Models.User.{id}', function ($user, $id) {
-//     Log::info('asd');
-//     return (int) $user->id === (int) $id;
-// });
-
-Broadcast::channel('private-test-channel', function ($user, $userId) {
-    Log::info($user);
-    Log::info($userId);
-    return true;
+Broadcast::channel('App.Models.User.{id}', function ($user, $id) {
+    return (int) $user->id === (int) $id;
 });

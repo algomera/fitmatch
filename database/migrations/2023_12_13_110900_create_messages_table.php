@@ -15,11 +15,11 @@ return new class extends Migration
             $table->id();
             $table->unsignedBigInteger('sender_id');
             $table->unsignedBigInteger('receiver_id');
+            $table->unsignedBigInteger('appointment_id')->nullable();
+            $table->foreign('appointment_id')->references('id')->on('appointments')->onDelete('cascade');
+            $table->enum('type', ['text', 'appointment', 'richiesta_anamnesi'])->default('text');
             $table->text('message');
             $table->timestamps();
-
-            $table->foreign('sender_id')->references('id')->on('users');
-            $table->foreign('receiver_id')->references('id')->on('users');
         });
     }
 

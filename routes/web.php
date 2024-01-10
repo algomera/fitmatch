@@ -2,9 +2,16 @@
 
 use App\Events\MessageSent;
 use App\Events\SimpleTestEvent;
+use App\Http\Controllers\MessageController;
 use App\Http\Controllers\ProfileController;
-use Illuminate\Support\Facades\Route;
+use Illuminate\Http\Request;
 
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Broadcast;
+use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Storage;
+use Pusher\Pusher;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -23,6 +30,30 @@ Route::middleware([])->group(function () {
 });
 
 Route::middleware(['auth'])->group(function () {
+    Route::post('/broadcasting/auth', function (Request $request) {
+        $user = Auth::user(); // Authenticate the user
+        $socketId = $request->socket_id;
+        $channelName = $request->channel_name;
+        // Log::info($user);
+        // Log::info($socketId);
+        // Log::info($channelName);
+        $pusher = new Pusher(
+            env('PUSHER_APP_KEY'),
+            env('PUSHER_APP_SECRET'),
+            env('PUSHER_APP_ID'),
+            ['cluster' => env('PUSHER_APP_CLUSTER')]
+        );
+
+        if ($user) {
+            // Authenticate the user's subscription to the channel
+            $authData = $pusher->authorizeChannel($channelName, $socketId);
+            $authDataArray = json_decode($authData, true);
+
+            return response()->json(['auth' => $authDataArray['auth']]);
+        } else {
+            return response()->json(['message' => 'Forbidden'], 403);
+        }
+    });
     Route::prefix('onboarding')->name('onboarding.')->group(function () {
         Route::get('/step-1', [\App\Http\Livewire\Onboarding\Step1::class, '__invoke'])->name('step-1');
         Route::get('/step-2', [\App\Http\Livewire\Onboarding\Step2::class, '__invoke'])->name('step-2');
@@ -67,15 +98,24 @@ Route::middleware(['auth'])->group(function () {
         });
     });
 });
+// Route::post('/trigger-message', function () {
+//     Log::info('message');
+//     Broadcast::channel('private-test-channel', function ($user, $userID) {
+//         Log::info('private channel');
+//         Log::info($userID);
+//         return true;
+//     })->broadcast(['private-test-channel'], 'client-test-event');
+
+//     return response()->json(['status' => 'Message sent']);
+// })->name('trigger.message');
+
+Route::post('/messages', [MessageController::class, 'sendMessage']);
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
-Route::post('/trigger-message', function () {
-    broadcast(new SimpleTestEvent());
 
-    return response()->json(['status' => 'Message sent']);
-})->name('trigger.message');
+
 require __DIR__ . '/auth.php';
