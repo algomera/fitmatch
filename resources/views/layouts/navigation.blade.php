@@ -67,9 +67,9 @@
                             <button
                                 class="inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md text-gray-500 bg-white hover:text-gray-700 focus:outline-none transition ease-in-out duration-150">
                                 <div>
-                                    @if(auth()->user()->informations->profile_image)
+                                    @if(auth()->user()->avatar())
                                         <img class="h-8 w-8 rounded-full"
-                                             src="{{ asset(auth()->user()->informations->profile_image) }}" alt="">
+                                             src="{{ auth()->user()->avatar() }}" alt="">
                                     @else
                                         <x-heroicon-o-user-circle class="h-8 w-8"></x-heroicon-o-user-circle>
                                     @endif
@@ -78,9 +78,16 @@
                         </x-slot>
 
                         <x-slot name="content">
+                            @role('personal-trainer')
+                            <x-dropdown-link :href="route('personal-trainer.profile')">
+                                {{ __('Profile') }}
+                            </x-dropdown-link>
+                            @endrole
+                            @role('admin')
                             <x-dropdown-link :href="route('profile.edit')">
                                 {{ __('Profile') }}
                             </x-dropdown-link>
+                            @endrole
 
                             <!-- Authentication -->
                             <form method="POST" action="{{ route('logout') }}">
@@ -137,9 +144,9 @@
         <div class="border-t border-gray-200 pb-3 pt-4">
             <div class="flex items-center px-4">
                 <div class="flex-shrink-0">
-                    @if(auth()->user()->informations->profile_image)
+                    @if(auth()->user()->avatar())
                         <img class="h-10 w-10 rounded-full"
-                             src="{{ asset(auth()->user()->informations->profile_image) }}" alt="">
+                             src="{{ auth()->user()->avatar() }}" alt="">
                     @else
                         <x-heroicon-o-user-circle class="h-10 w-10"></x-heroicon-o-user-circle>
                     @endif
@@ -150,9 +157,16 @@
                 </div>
             </div>
             <div class="mt-3 space-y-1">
+                @role('personal-trainer')
+                <x-responsive-nav-link :href="route('personal-trainer.profile')">
+                    {{ __('Profile') }}
+                </x-responsive-nav-link>
+                @endrole
+                @role('admin')
                 <x-responsive-nav-link :href="route('profile.edit')">
                     {{ __('Profile') }}
                 </x-responsive-nav-link>
+                @endrole
 
                 <!-- Authentication -->
                 <form method="POST" action="{{ route('logout') }}">

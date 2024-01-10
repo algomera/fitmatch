@@ -18,8 +18,8 @@
                     @foreach($athletes as $athlete)
                         <li wire:click="$set('filter', '{{$athlete->id}}')"
                             class="{{ $filter == $athlete->id ? '' : 'group cursor-pointer' }} flex items-center space-x-5">
-                            @if($athlete->informations->profile_image)
-                                <img src="{{ asset($athlete->informations->profile_image) }}"
+                            @if($athlete->avatar())
+                                <img src="{{ $athlete->avatar() }}"
                                      class="w-9 h-9 bg-gray-200 ring-2 ring-white rounded-full"/>
                             @else
                                 <div class="w-9 h-9 bg-gray-200 ring-2 ring-white rounded-full"></div>
@@ -35,8 +35,8 @@
         <div class="min-w-0 max-w-none flex-auto px-4 py-6 space-y-5 lg:pl-6 lg:pr-0">
             @if($filter !== 'unassigned')
                 <div wire:key="unassigned" class="flex items-center space-x-5 border-b pb-5">
-                    @if($athlete->informations->profile_image)
-                        <img src="{{ asset($athlete->informations->profile_image) }}"
+                    @if($athlete->avatar())
+                        <img src="{{ $athlete->avatar() }}"
                              class="w-11 h-11 bg-gray-200 ring-2 ring-white rounded-full"/>
                     @else
                         <div class="w-11 h-11 bg-gray-200 ring-2 ring-white rounded-full"></div>

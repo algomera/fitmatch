@@ -2,8 +2,8 @@
     <div class="lg:grid lg:grid-cols-12 lg:gap-x-5">
         <aside class="p-6 lg:col-span-3">
             <div class="flex items-center space-x-5">
-                @if($athlete->informations->profile_image)
-                    <img src="{{ asset($athlete->informations->profile_image) }}"
+                @if($athlete->avatar())
+                    <img src="{{ $athlete->avatar() }}"
                          class="w-11 h-11 bg-gray-200 ring-2 ring-white rounded-full"/>
                 @else
                     <div class="w-11 h-11 bg-gray-200 ring-2 ring-white rounded-full"></div>

@@ -44,13 +44,13 @@
         </div>
         <div class="my-5">
             @if($currentTab === 'informations')
-                <livewire:personal-trainer.partials.informations wire:key="user-informations" :user="$user">
-                    @endif
-                    @if($currentTab === 'curriculum')
-                        <livewire:personal-trainer.partials.curriculum wire:key="user-curriculum" :user="$user">
-                            @endif
-                            @if($currentTab === 'medias')
-                                <livewire:personal-trainer.partials.medias wire:key="user-medias" :user="$user">
+                <livewire:personal-trainer.partials.informations wire:key="user-informations" :user="$user"/>
+            @endif
+            @if($currentTab === 'curriculum')
+                <livewire:personal-trainer.partials.curriculum wire:key="user-curriculum" :user="$user"/>
+            @endif
+            @if($currentTab === 'medias')
+                <livewire:personal-trainer.partials.medias wire:key="user-medias" :user="$user"/>
             @endif
         </div>
     </div>
