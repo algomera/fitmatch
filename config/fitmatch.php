@@ -79,5 +79,9 @@ return [
             2 => '#7209B7',
             3 => '#4CC9F0',
         ]
+    ],
+    'plans' => [
+        env('STRIPE_YEAR_SUBSCRIPTION') => 'Piano annuale',
+        env('STRIPE_MONTH_SUBSCRIPTION') => 'Piano mensile',
     ]
 ];

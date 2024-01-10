@@ -38,6 +38,14 @@ class User extends Authenticatable implements MustVerifyEmail
         'password' => 'hashed',
     ];
 
+    public function avatar()
+    {
+        if (!$this->informations->profile_image) {
+            return '';
+        }
+        return asset('storage/'.$this->informations->profile_image);
+    }
+
     public function getAgeAttribute()
     {
         return Carbon::parse($this->informations->dob)->age;

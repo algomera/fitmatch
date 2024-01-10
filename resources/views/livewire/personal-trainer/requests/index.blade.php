@@ -26,9 +26,9 @@
                             <td class="whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium text-gray-900 sm:pl-0">
                                 <div class="flex items-center space-x-0 md:space-x-4">
                                     <div class="hidden md:block">
-                                        @if($request->informations->profile_image)
+                                        @if($request->avatar())
                                             <img class="h-8 w-8 rounded-full"
-                                                 src="{{ asset($request->informations->profile_image) }}" alt="">
+                                                 src="{{ $request->avatar() }}" alt="">
                                         @else
                                             <x-heroicon-o-user-circle class="h-8 w-8"></x-heroicon-o-user-circle>
                                         @endif

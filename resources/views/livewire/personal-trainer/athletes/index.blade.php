@@ -27,8 +27,8 @@
                     @forelse($athletes as $athlete)
                         <li wire:click="setAthlete({{$athlete->id}})"
                             class="{{ $athlete->is($selectedAthlete) ? '' : 'group cursor-pointer' }} flex items-center space-x-5">
-                            @if($athlete->informations->profile_image !== null)
-                                <img src="{{ asset($athlete->informations->profile_image) }}"
+                            @if($athlete->avatar() !== null)
+                                <img src="{{ $athlete->avatar() }}"
                                      class="w-9 h-9 bg-gray-200 ring-2 ring-white rounded-full"/>
                             @else
                                 <div class="w-9 h-9 bg-gray-200 ring-2 ring-white rounded-full"></div>
@@ -47,8 +47,8 @@
             <div class="grid grid-cols-1 sm:grid-cols-3 gap-5">
                 <div class="col-span-2 space-y-5">
                     <div class="flex items-center space-x-5">
-                        @if($selectedAthlete->informations->profile_image)
-                            <img src="{{ asset($selectedAthlete->informations->profile_image) }}"
+                        @if($selectedAthlete->avatar())
+                            <img src="{{ $selectedAthlete->avatar() }}"
                                  class="w-11 h-11 bg-gray-200 ring-2 ring-white rounded-full"/>
                         @else
                             <div class="w-11 h-11 bg-gray-200 ring-2 ring-white rounded-full"></div>

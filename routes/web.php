@@ -85,6 +85,9 @@ Route::middleware(['auth'])->group(function () {
             Route::get('/exercises', [
                 \App\Http\Livewire\PersonalTrainer\Exercises\Index::class, '__invoke'
             ])->name('exercises');
+            Route::get('/profile', [
+                \App\Http\Livewire\PersonalTrainer\Profile\Edit::class, '__invoke'
+            ])->name('profile');
 
             Route::get('/billing', function (Request $request) {
                 return $request->user()->redirectToBillingPortal(route('personal-trainer.dashboard'));

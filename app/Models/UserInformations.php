@@ -11,7 +11,7 @@ class UserInformations extends Model
 
     public $timestamps = false;
     protected $casts = [
-        'dob' => 'datetime'
+        'dob' => 'date:Y-m-d'
     ];
 
     public function user()

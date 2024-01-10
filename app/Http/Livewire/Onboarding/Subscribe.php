@@ -8,7 +8,7 @@ class Subscribe extends Component
 {
     public function mount()
     {
-        if (auth()->user()->subscribed()) {
+        if (auth()->user()->role->name === 'personal-trainer' && auth()->user()->subscribed()) {
             return redirect()->route('personal-trainer.dashboard');
         }
     }

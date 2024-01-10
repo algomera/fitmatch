@@ -21,10 +21,6 @@ class Show extends Component
             'status' => $status
         ]);
 
-        if ($status === 'approved') {
-            // Invia email con link per pagamento
-        }
-
         $this->emitSelf('$refresh');
     }
 

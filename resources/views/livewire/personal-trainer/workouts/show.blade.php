@@ -3,8 +3,8 @@
         @if($athlete)
             <div class="flex items-center justify-between border-b pb-5">
                 <div class="flex items-center space-x-5">
-                    @if($athlete->informations->profile_image)
-                        <img src="{{ asset($athlete->informations->profile_image) }}"
+                    @if($athlete->avatar())
+                        <img src="{{ $athlete->avatar() }}"
                              class="w-11 h-11 bg-gray-200 ring-2 ring-white rounded-full"/>
                     @else
                         <div class="w-11 h-11 bg-gray-200 ring-2 ring-white rounded-full"></div>
