@@ -83,7 +83,7 @@ Route::middleware(['auth'])->group(function () {
             ])->name('workout');
             Route::get('/workouts/{workout}/pdf', [
                 \App\Http\Livewire\Workouts\Pdf::class, '__invoke'
-            ])->name('workout');
+            ])->name('workout.pdf');
             Route::get('/exercises', [
                 \App\Http\Livewire\PersonalTrainer\Exercises\Index::class, '__invoke'
             ])->name('exercises');

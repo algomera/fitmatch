@@ -19,6 +19,7 @@
     </div>
     <div class="p-4 flex items-center justify-between">
         <x-heroicon-o-arrow-up-on-square
+            wire:click.prevent="$emit('openModal', 'workouts.modals.share', {{ json_encode(['workout' => $workout->id]) }})"
             class="w-5 h-5 hover:cursor-pointer hover:text-fit-magenta"></x-heroicon-o-arrow-up-on-square>
         <div class="flex space-x-4">
             <x-heroicon-o-trash
