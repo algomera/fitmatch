@@ -3,13 +3,13 @@
         <tbody class="divide-y divide-gray-200 bg-white">
         @foreach($workout->workout_weeks()->whereHas('workout_days')->get() as $week)
             <tr class="divide-x divide-gray-200">
-                <td colspan="100%" class="whitespace-nowrap p-4 text-sm text-gray-800 font-semibold">
-                    Settimana {{ $week->week }}
+                <td colspan="100%" class="whitespace-nowrap p-4 text-sm text-gray-800 font-bold bg-gray-50">
+                    SETTIMANA {{ $week->week }}
                 </td>
             </tr>
             @foreach($week->workout_days as $day)
                 <tr class="divide-x divide-gray-200">
-                    <td colspan="100%" class="whitespace-nowrap p-4 text-sm text-gray-700 font-semibold pl-8">
+                    <td colspan="100%" class="whitespace-nowrap p-4 text-sm text-gray-700 font-semibold pl-8 uppercase">
                         {{ config('fitmatch.days.'.$day->day) }}
                     </td>
                 </tr>
@@ -20,10 +20,10 @@
                         >
                             SET {{ str_pad($loop->iteration, 2, "0", STR_PAD_LEFT) }}
                         </td>
-                        <td class="whitespace-nowrap p-4 text-sm text-center text-gray-500 font-semibold">
+                        <td class="whitespace-nowrap min-w-[110px] p-4 text-sm text-center text-gray-500 font-semibold">
                             RIPETIZIONI
                         </td>
-                        <td class="whitespace-nowrap p-4 text-sm text-center text-gray-500 font-semibold">
+                        <td class="whitespace-nowrap min-w-[110px] p-4 text-sm text-center text-gray-500 font-semibold">
                             CARICO
                         </td>
                     </tr>
@@ -49,11 +49,11 @@
                                             @php
                                                 $repetition = \App\Models\Repetition::find($serie->items[$loop->index + 1]->item_id)
                                             @endphp
-                                            <td class="whitespace-nowrap p-4 text-sm text-center text-gray-500">
+                                            <td class="whitespace-nowrap min-w-[110px] align-top p-4 pt-8 text-sm text-center text-gray-500">
                                                 <p>{{$repetition->quantity}}</p>
                                             </td>
                                         @else
-                                            <td class="whitespace-nowrap p-4 text-sm text-center text-gray-500">
+                                            <td class="whitespace-nowrap min-w-[110px] align-top p-4 pt-8 text-sm text-center text-gray-500">
                                                 <p>-</p>
                                             </td>
                                         @endif
@@ -61,11 +61,11 @@
                                             @php
                                                 $cargo = \App\Models\Repetition::find($serie->items[$loop->index + 2]->item_id)
                                             @endphp
-                                            <td class="whitespace-nowrap p-4 text-sm text-gray-500 pl-12">
+                                            <td class="whitespace-nowrap min-w-[110px] align-top p-4 pt-8 text-sm text-center text-gray-500">
                                                 <p>{{$cargo->quantity}}</p>
                                             </td>
                                         @else
-                                            <td class="whitespace-nowrap p-4 text-sm text-gray-500 pl-12">
+                                            <td class="whitespace-nowrap min-w-[110px] align-top p-4 pt-8 text-sm text-center text-gray-500">
                                                 <p>-</p>
                                             </td>
                                         @endif
