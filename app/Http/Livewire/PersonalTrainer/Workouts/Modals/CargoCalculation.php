@@ -13,10 +13,15 @@ class CargoCalculation extends ModalComponent
     public $massimale = 0;
     public $percentuale = 0;
     public $effettivo = 0;
+    protected $rules = [
+        'massimale' => 'numeric',
+        'percentuale' => 'numeric',
+        'effettivo' => 'numeric',
+    ];
 
     public static function modalMaxWidth(): string
     {
-        return 'sm';
+        return 'md';
     }
 
     public function mount(WorkoutSerie $serie, Cargo $item)
@@ -28,9 +33,72 @@ class CargoCalculation extends ModalComponent
         $this->effettivo = $item->effettivo;
     }
 
+    public function updated($field)
+    {
+        $this->validateOnly($field);
+
+        $this->updateValues($field);
+    }
+
+    private function updateValues($changedField)
+    {
+        switch ($changedField) {
+            case 'massimale':
+                $this->calculateEffettivo();
+                $this->calculatePercentuale();
+                break;
+            case 'percentuale':
+                $this->calculateEffettivo();
+                $this->calculateMassimale();
+                break;
+            case 'effettivo':
+                $this->calculateMassimale();
+                $this->calculatePercentuale();
+                break;
+        }
+    }
+
+    private function calculateEffettivo()
+    {
+        if ($this->percentuale > 0 && $this->massimale > 0) {
+            $this->reset("effettivo");
+            $this->effettivo = round(($this->percentuale * 100) / $this->massimale, 2);
+        }
+    }
+
+    private function calculatePercentuale()
+    {
+        if ($this->massimale > 0 && $this->effettivo > 0) {
+            $this->reset("percentuale");
+            $this->percentuale = round($this->massimale * $this->effettivo, 2); //todo mmh
+        }
+    }
+
+    private function calculateMassimale()
+    {
+        if ($this->percentuale > 0 && $this->effettivo > 0) {
+            $this->reset("massimale");
+            $this->massimale = round(($this->percentuale * 100) / $this->effettivo, 2);
+        }
+    }
+
     public function increment($what)
     {
         $this->$what++;
+        switch ($what) {
+            case 'massimale':
+                $this->calculateEffettivo();
+                $this->calculatePercentuale();
+                break;
+            case 'percentuale':
+                $this->calculateEffettivo();
+                $this->calculateMassimale();
+                break;
+            case 'effettivo':
+                $this->calculateMassimale();
+                $this->calculatePercentuale();
+                break;
+        }
     }
 
     public function decrement($what)
@@ -39,6 +107,20 @@ class CargoCalculation extends ModalComponent
             return;
         }
         $this->$what--;
+        switch ($what) {
+            case 'massimale':
+                $this->calculateEffettivo();
+                $this->calculatePercentuale();
+                break;
+            case 'percentuale':
+                $this->calculateEffettivo();
+                $this->calculateMassimale();
+                break;
+            case 'effettivo':
+                $this->calculateMassimale();
+                $this->calculatePercentuale();
+                break;
+        }
     }
 
 
