@@ -25,14 +25,19 @@
                          class="shadow-none rounded-md ring-1 ring-inset ring-gray-300"
                          placeholder="email@example.com"/>
             </div>
-
         @endif
     </div>
     <div class="flex justify-end px-4 py-3.5 font-semibold border-t">
         @if($sharing_method === 'pdf')
-            <x-primary-button wire:click="share">Esporta</x-primary-button>
+            <x-primary-button wire:click="share" wire:loading.attr="disabled" wire:target="share">
+                <span wire:loading wire:target="share">Attendere..</span>
+                <span wire:loading.remove>Esporta</span>
+            </x-primary-button>
         @elseif($sharing_method === 'email')
-            <x-primary-button wire:click="share">Invia</x-primary-button>
+            <x-primary-button wire:click="share" wire:loading.attr="disabled" wire:target="share">
+                <span wire:loading wire:target="share">Attendere..</span>
+                <span wire:loading.remove>Invia</span>
+            </x-primary-button>
         @endif
     </div>
 </div>

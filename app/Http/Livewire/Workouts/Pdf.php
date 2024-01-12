@@ -7,13 +7,19 @@ use Livewire\Component;
 
 class Pdf extends Component
 {
-    public Workout $workout;
+    public $workout;
+    public $workout_weeks;
 
-    public function mount()
+    public function mount($workout, $workout_weeks = null)
     {
+        $this->workout = Workout::find($workout);
         if ($this->workout->personal_trainer->id !== auth()->user()->id) {
             return abort(403);
         }
+        if (!$workout_weeks) {
+            $this->workout_weeks = $this->workout->workout_weeks()->whereHas('workout_days')->get();
+        }
+
     }
 
     public function render()

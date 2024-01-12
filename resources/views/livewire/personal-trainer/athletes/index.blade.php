@@ -27,7 +27,7 @@
                     @forelse($athletes as $athlete)
                         <li wire:click="setAthlete({{$athlete->id}})"
                             class="{{ $athlete->is($selectedAthlete) ? '' : 'group cursor-pointer' }} flex items-center space-x-5">
-                            @if($athlete->avatar() !== null)
+                            @if($athlete->avatar() !== '')
                                 <img src="{{ $athlete->avatar() }}"
                                      class="w-9 h-9 bg-gray-200 ring-2 ring-white rounded-full"/>
                             @else

@@ -12,8 +12,7 @@
     <style>
         @page {
             size: 210mm 297mm;
-            /* Chrome sets own margins, we change these printer settings */
-            margin: 5mm;
+            margin: 3mm;
         }
 
         * {
@@ -31,8 +30,6 @@
         {{ $slot }}
     </main>
 </div>
-<x-notification/>
-@livewire('livewire-ui-modal')
 @livewireScripts
 </body>
 </html>
