@@ -3,6 +3,7 @@
 use App\Http\Controllers\ProfileController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use Stripe\Stripe;
 
 /*
 |--------------------------------------------------------------------------
@@ -90,6 +91,22 @@ Route::middleware(['auth'])->group(function () {
             Route::get('/profile', [
                 \App\Http\Livewire\PersonalTrainer\Profile\Edit::class, '__invoke'
             ])->name('profile');
+
+            Route::get('/oauth/confirm', function (Request $request) {
+                $token = $request->get('code');
+
+                Stripe::setApiKey(env('STRIPE_SECRET'));
+                $response = \Stripe\OAuth::token([
+                    'grant_type' => 'authorization_code',
+                    'code' => $token,
+                ]);
+
+                auth()->user()->update([
+                    'stripe_account_id' => $response->stripe_user_id
+                ]);
+
+                return redirect()->route('personal-trainer.profile', ['currentTab' => 'account']);
+            });
 
             Route::get('/billing', function (Request $request) {
                 return $request->user()->redirectToBillingPortal(route('personal-trainer.dashboard'));

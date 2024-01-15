@@ -9,6 +9,8 @@ use Illuminate\Support\Str;
 use Illuminate\Validation\Rules\Password;
 use Livewire\Component;
 use Livewire\WithFileUploads;
+use Stripe\OAuth;
+use Stripe\Stripe;
 
 class Edit extends Component
 {
@@ -28,8 +30,8 @@ class Edit extends Component
     public $profile_image;
     public $photos = [];
     public $videos = [];
-
     public $current_password, $password, $password_confirmation;
+    protected $queryString = 'currentTab';
     protected $listeners = [
         'job-experience-created' => '$refresh',
         'job-experience-updated' => '$refresh',
@@ -44,6 +46,18 @@ class Edit extends Component
         foreach (auth()->user()->categories as $category) {
             $this->selectedCategories[] = $category->id;
         }
+    }
+
+    public function stripeLogout()
+    {
+        Stripe::setApiKey(env('STRIPE_SECRET'));
+        OAuth::deauthorize([
+            'client_id' => env('STRIPE_CLIENT_ID'),
+            'stripe_user_id' => auth()->user()->stripe_account_id,
+        ]);
+        auth()->user()->update([
+            'stripe_account_id' => null
+        ]);
     }
 
     public function updatedProfileImage()

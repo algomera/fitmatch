@@ -317,6 +317,26 @@
                 @endif
                 @if($currentTab === 'account')
                     <div class="px-4 sm:px-0">
+                        <h3 class="text-2xl font-semibold leading-7 text-gray-900">Stripe</h3>
+                    </div>
+                    <div class="mt-6">
+                        @if(!auth()->user()->stripe_account_id)
+                            <x-primary-button
+                                href="https://connect.stripe.com/oauth/authorize?response_type=code&client_id={{env('STRIPE_CLIENT_ID')}}&scope=read_write">
+                                Accedi con Stripe
+                            </x-primary-button>
+                        @else
+                            <div class="flex items-center space-x-5">
+                                <span
+                                    class="bg-gray-200 ring-1 ring-gray-300 px-4 py-1 rounded-md
+                                     text-sm font-semibold font-mono">{{ auth()->user()->stripe_account_id }}</span>
+                                <span wire:click="stripeLogout"
+                                      class="text-xs font-semibold text-red-500 cursor-pointer">Esci</span>
+                            </div>
+                        @endif
+                    </div>
+
+                    <div class="px-4 sm:px-0 mt-6">
                         <h3 class="text-2xl font-semibold leading-7 text-gray-900">Account</h3>
                     </div>
                     <div class="mt-6">
