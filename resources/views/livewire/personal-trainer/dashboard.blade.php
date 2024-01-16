@@ -5,6 +5,7 @@
 
 <div class="max-w-7xl mx-auto py-6 pt-0 px-4 sm:px-6 lg:px-8">
     <div class="space-y-8">
+        {{--        <x-primary-button wire:click="test">Trasferisci</x-primary-button>--}}
         <div>
             <dl class="grid grid-cols-1 divide-y divide-gray-200 overflow-hidden rounded-lg bg-white shadow md:grid-cols-3 md:divide-x md:divide-y-0">
                 <div class="px-4 py-5 sm:p-6">

@@ -66,13 +66,17 @@
                         <x-slot name="trigger">
                             <button
                                 class="inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md text-gray-500 bg-white hover:text-gray-700 focus:outline-none transition ease-in-out duration-150">
-                                <div>
+                                <div class="relative">
                                     @if(auth()->user()->avatar())
                                         <img class="h-8 w-8 rounded-full"
                                              src="{{ auth()->user()->avatar() }}" alt="">
                                     @else
                                         <x-heroicon-o-user-circle class="h-8 w-8"></x-heroicon-o-user-circle>
                                     @endif
+                                    <div class="absolute rounded-full bg-white -top-0.5 -right-0.5">
+                                        <x-heroicon-o-exclamation-circle
+                                            class="text-red-600 w-4 h-4"></x-heroicon-o-exclamation-circle>
+                                    </div>
                                 </div>
                             </button>
                         </x-slot>

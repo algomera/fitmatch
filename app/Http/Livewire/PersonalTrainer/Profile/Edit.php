@@ -41,8 +41,6 @@ class Edit extends Component
 
     public function mount()
     {
-
-
         foreach (auth()->user()->categories as $category) {
             $this->selectedCategories[] = $category->id;
         }

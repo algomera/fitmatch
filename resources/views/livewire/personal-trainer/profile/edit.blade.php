@@ -4,7 +4,13 @@
         <nav class="flex gap-x-3 gap-y-3 whitespace-nowrap lg:flex-col">
             @foreach($tabs as $k => $tab)
                 <span wire:click="$set('currentTab', '{{ $k }}')"
-                      class="{{ $currentTab === $k ? 'bg-fit-magenta text-white' : 'text-fit-dark-gray cursor-pointer hover:text-fit-magenta' }} rounded-full px-5 py-1 text-sm font-medium">{{ $tab }}</span>
+                      class="{{ $currentTab === $k ? 'bg-fit-magenta text-white' : 'text-fit-dark-gray cursor-pointer hover:text-fit-magenta' }} flex items-center justify-between rounded-full px-5 py-1 text-sm font-medium">
+                    <span>{{ $tab }}</span>
+                    @if($k === 'account' && !auth()->user()->stripe_account_id)
+                        <x-heroicon-o-exclamation-circle
+                            class="{{ $currentTab === $k ? 'text-white' : 'text-red-600' }} w-5 h-5"></x-heroicon-o-exclamation-circle>
+                    @endif
+                </span>
             @endforeach
         </nav>
     </aside>
