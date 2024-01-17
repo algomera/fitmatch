@@ -4,7 +4,8 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-return new class extends Migration {
+new class extends Migration
+{
     /**
      * Run the migrations.
      */
@@ -19,6 +20,7 @@ return new class extends Migration {
             $table->integer('onboarding_current_step')->default(1);
             $table->enum('status', array_keys(config('fitmatch.profile_statuses')))->nullable()->default('pending');
             $table->text('stripe_account_id')->nullable();
+            $table->boolean('is_online')->default(0);
             $table->timestamps();
         });
     }

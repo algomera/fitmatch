@@ -43,7 +43,7 @@ class User extends Authenticatable implements MustVerifyEmail
         if (!$this->informations->profile_image) {
             return '';
         }
-        return asset('storage/'.$this->informations->profile_image);
+        return asset('storage/' . $this->informations->profile_image);
     }
 
     public function getAgeAttribute()
@@ -138,5 +138,15 @@ class User extends Authenticatable implements MustVerifyEmail
     public function getDateAttribute($value)
     {
         return Carbon::parse($value)->format('Y-m-d');
+    }
+
+    public function sentMessages()
+    {
+        return $this->hasMany(Message::class, 'sender_id');
+    }
+
+    public function receivedMessages()
+    {
+        return $this->hasMany(Message::class, 'receiver_id');
     }
 }

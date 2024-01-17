@@ -1,14 +1,18 @@
 <?php
 
+use App\Events\ChangeUserStatus;
 use App\Http\Controllers\api\AnamnesiController;
 use App\Http\Controllers\api\ApiAuthController;
 use App\Http\Controllers\api\AppointmentController;
+use App\Http\Controllers\api\EmailController;
 use App\Http\Controllers\Api\UserController;
 use App\Http\Controllers\api\WorkoutController;
 use App\Http\Controllers\MessageController;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Log;
 use Pusher\Pusher;
 
 /*
@@ -25,7 +29,7 @@ use Pusher\Pusher;
 // Authentication routes
 Route::post('/register', [ApiAuthController::class, 'register']);
 Route::post('/login', [ApiAuthController::class, 'login']);
-
+Route::post('/send-email', [EmailController::class, 'sendEmail']);
 // Routes protected by 'auth:sanctum' middleware
 Route::group(['middleware' => 'auth:sanctum'], function () {
     // User data retrieval
@@ -59,9 +63,12 @@ Route::group(['middleware' => 'auth:sanctum'], function () {
 
     //Workouts Managmeent
     Route::get('/workouts/{id}', [WorkoutController::class, 'index']);
+    Route::get('/show-workout/{id}', [WorkoutController::class, 'show']);
+    Route::put('/updateWorkoutItems', [WorkoutController::class, 'updateItems']);
 
     // Broadcasting Authentication
     Route::post('/broadcasting/auth', function (Request $request) {
+
         $user = Auth::user(); // Authenticate the user
         $socketId = $request->input('socket_id');
         $channelName = $request->input('channel_name');
@@ -73,18 +80,41 @@ Route::group(['middleware' => 'auth:sanctum'], function () {
             ['cluster' => env('PUSHER_APP_CLUSTER')]
         );
 
+
+
         if ($user) {
-            // Authenticate the user's subscription to the channel
-            $authData = $pusher->authorizeChannel($channelName, $socketId);
+            // Generate the authorization data including the 'user_id'
+            $channelData = json_encode(['user_id' => $user->id]); // Convert to JSON
+
+            // Use $channelData as the third parameter for authorizeChannel
+            $authData = $pusher->authorizeChannel($channelName, $socketId, $channelData);
+
+            // Convert $authData to an array
             $authDataArray = json_decode($authData, true);
 
-            return response()->json(['auth' => $authDataArray['auth']]);
+            // Return the 'auth' key as a string and 'user_id' as a string or null
+            return response()->json([
+                'auth' => $authDataArray['auth'],
+                'user_id' => $user->id,
+            ]);
         } else {
             return response()->json(['message' => 'Forbidden'], 403);
         }
     });
+    Route::post('/update-status', function (Request $request) {
+        // Validate request, authenticate user, etc.
 
+        $id = $request->input('id');
+        $status = $request->input('status');
+
+        // Trigger the event
+        event(new ChangeUserStatus($id, $status));
+        $user = User::find($id);
+        $user->update(['is_online' => 1]);
+        return response()->json(['message' => 'Status updated']);
+    });
     // Messages
     Route::post('/messages', [MessageController::class, 'sendMessage']);
+    Route::get('/getLatestMessages/{id}', [MessageController::class, 'getLatestMessages']);
     Route::get('/messages/{user1}/{user2}/{page}', [MessageController::class, 'fetchMessages']);
 });
