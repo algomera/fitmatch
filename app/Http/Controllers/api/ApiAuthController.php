@@ -4,6 +4,7 @@ namespace App\Http\Controllers\api;
 
 use App\Http\Controllers\Controller;
 use App\Models\Category;
+use App\Models\Message;
 use App\Models\User;
 use App\Models\UserInformations;
 use Illuminate\Http\Request;
@@ -24,15 +25,31 @@ class ApiAuthController extends Controller
         }
 
         $current_user = User::find($id);
-        $user_role = $current_user->getRoleAttribute()->name;
 
-        if ($user_role == 'personal-trainer') {
-            $chat_users = $current_user->athletes;
+        if ($current_user->getRoleAttribute()->name == 'personal-trainer') {
+            $chat_users = $current_user->athletes()
+                ->wherePivot('accepted', 1)
+                ->get();
         } else {
-            $chat_users = $current_user->personal_trainers->load(['job_experiences', 'medias', 'athletes', 'categories']);
+            $chat_users = $current_user->personal_trainers()
+                ->wherePivot('accepted', 1)
+                ->with(['job_experiences', 'medias', 'athletes', 'categories'])
+                ->get();
         }
 
-        return response()->json(['categories' => $categories, 'personal_trainers' => $pts, 'chat_users' => $chat_users]);
+        // Group notifications by sender and select only one notification per sender
+        $notifications = Message::where('receiver_id', $id)
+            ->where('is_seen', 0)
+            ->with('sender')
+            ->whereIn('id', function ($query) {
+                $query->select(DB::raw('MAX(id)'))
+                    ->from('messages')
+                    ->groupBy('sender_id');
+            })
+            ->get();
+
+
+        return response()->json(['categories' => $categories, 'personal_trainers' => $pts, 'chat_users' => $chat_users, 'notifications' => $notifications]);
     }
 
 
@@ -52,10 +69,9 @@ class ApiAuthController extends Controller
             $response = ['message' => 'User not found'];
             return response()->json($response, 404);
         }
-
         $userID = $user->id;
 
-        if ($user != '[]' && Hash::check($request->password, $user->password)) {
+        if ($user != [] && Hash::check($request->password, $user->password)) {
             $token = User::find($userID)->createToken('token')->plainTextToken;
             $response = ['token' => $token, 'user' => $user, 'user_type' => $user->getRoleAttribute()->name, 'message' => 'Login effettuato con successo'];
             return response()->json($response, 200);

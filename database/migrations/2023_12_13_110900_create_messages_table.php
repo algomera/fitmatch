@@ -19,6 +19,7 @@ return new class extends Migration
             $table->foreign('appointment_id')->references('id')->on('appointments')->onDelete('cascade');
             $table->enum('type', ['text', 'appointment', 'richiesta_anamnesi'])->default('text');
             $table->text('message');
+            $table->boolean('is_seen')->default(false);
             $table->timestamps();
         });
     }

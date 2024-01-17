@@ -7,7 +7,9 @@ use App\Models\User;
 use App\Models\UserInformations;
 use DateTimeZone;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Str;
 
 class UserController extends Controller
 {
@@ -142,8 +144,8 @@ class UserController extends Controller
             }
 
             $filePath = '/public/user/' . $userId . '/profile_image/';
-            //Str::uid;
-            $fileName = 'example_pro_pic.webp';
+
+            $fileName = Str::uuid() . '.webp';
             $file->storeAs($filePath, $fileName);
             $withoutPublic = str_replace('/public', '', $filePath);
             $userInfo->update(['profile_image' => $withoutPublic . $fileName]);
@@ -151,7 +153,20 @@ class UserController extends Controller
 
             return response()->json(['message' => 'Profile picture uploaded successfully', 'path' => $filePath, 'file_name' => $fileName], 200);
         } catch (\Exception $e) {
-            return response()->json(['error' => 'Something went wrong'], 500);
+            return response()->json(['error' => 'Something went wrong: ' . $e], 500);
+        }
+    }
+
+    public function destroy($id)
+    {
+        $user = User::find($id);
+        $info = UserInformations::where('user_id', $id)->first();
+        try {
+            $user->delete();
+            $info->delete();
+            return response()->json(['message' => 'Profilo eliminato']);
+        } catch (\Exception $e) {
+            return response()->json('error', 'Failed to delete user. Please try again.');
         }
     }
 }
