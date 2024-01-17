@@ -1,9 +1,9 @@
 @props(['messages'])
 
 @if ($messages)
-    <div {{ $attributes->merge(['class' => 'text-sm text-red-600 space-y-1']) }}>
+    <ul {{ $attributes->merge(['class' => 'text-sm text-red-600 space-y-1']) }}>
         @foreach ((array) $messages as $message)
-            <span class="block">{{ $message }}</span>
+            <li>{{ $message }}</li>
         @endforeach
-    </div>
+    </ul>
 @endif
