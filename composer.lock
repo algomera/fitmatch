@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "c34efeaaf7ae7542a6f4578d00f47f6b",
+    "content-hash": "64ff8b6df2a148c448ecc7c13ecd5d07",
     "packages": [
         {
             "name": "blade-ui-kit/blade-heroicons",
@@ -1402,16 +1402,16 @@
         },
         {
             "name": "laravel/cashier",
-            "version": "v15.1.1",
+            "version": "v15.0.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/laravel/cashier-stripe.git",
-                "reference": "4dfcf91a0d502efc95c61d5587aed822dfc82a73"
+                "reference": "d6047a96a21d6a95b9f9c138c0d8d6fe54e45f89"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/laravel/cashier-stripe/zipball/4dfcf91a0d502efc95c61d5587aed822dfc82a73",
-                "reference": "4dfcf91a0d502efc95c61d5587aed822dfc82a73",
+                "url": "https://api.github.com/repos/laravel/cashier-stripe/zipball/d6047a96a21d6a95b9f9c138c0d8d6fe54e45f89",
+                "reference": "d6047a96a21d6a95b9f9c138c0d8d6fe54e45f89",
                 "shasum": ""
             },
             "require": {
@@ -1485,7 +1485,7 @@
                 "issues": "https://github.com/laravel/cashier/issues",
                 "source": "https://github.com/laravel/cashier"
             },
-            "time": "2024-01-12T14:15:15+00:00"
+            "time": "2023-12-22T14:33:24+00:00"
         },
         {
             "name": "laravel/framework",
@@ -9948,5 +9948,5 @@
         "php": "^8.1"
     },
     "platform-dev": [],
-    "plugin-api-version": "2.3.0"
+    "plugin-api-version": "2.6.0"
 }
