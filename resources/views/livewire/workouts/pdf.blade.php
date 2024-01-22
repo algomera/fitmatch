@@ -61,7 +61,7 @@
                                             @endif
                                             @if(isset($serie->items[$loop->index + 2]) && $serie->items[$loop->index + 2]->item_type === 'App\Models\Cargo')
                                                 @php
-                                                    $cargo = \App\Models\Repetition::find($serie->items[$loop->index + 2]->item_id)
+                                                    $cargo = \App\Models\Cargo::find($serie->items[$loop->index + 2]->item_id)
                                                 @endphp
                                                 <td class="whitespace-nowrap min-w-[110px] align-top p-4 pt-8 text-sm text-center text-gray-500">
                                                     <p>{{$cargo->quantity}}</p>
