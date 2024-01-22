@@ -40,8 +40,6 @@ class WorkoutController extends Controller
     {
         $workoutModel = Workout::find($id);
         $workout_weeks = $workoutModel->workout_weeks;
-
-
         $workout = [];
         foreach ($workout_weeks as $week) {
             $week_label = str_pad($week->week, 2, "0", STR_PAD_LEFT);

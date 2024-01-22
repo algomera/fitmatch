@@ -8,12 +8,14 @@ use App\Http\Controllers\api\EmailController;
 use App\Http\Controllers\Api\UserController;
 use App\Http\Controllers\api\WorkoutController;
 use App\Http\Controllers\MessageController;
+use App\Http\Controllers\StripeController;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Log;
 use Pusher\Pusher;
+use Stripe\StripeClient;
 
 /*
 |--------------------------------------------------------------------------
@@ -32,6 +34,8 @@ Route::post('/login', [ApiAuthController::class, 'login']);
 Route::post('/send-email', [EmailController::class, 'sendEmail']);
 // Routes protected by 'auth:sanctum' middleware
 Route::group(['middleware' => 'auth:sanctum'], function () {
+    Route::post('/stripe-transfer', [StripeController::class, 'transfer']);
+
     // User data retrieval
     Route::get('/getData/{id}', [ApiAuthController::class, 'getData']);
 
@@ -79,8 +83,6 @@ Route::group(['middleware' => 'auth:sanctum'], function () {
             env('PUSHER_APP_ID'),
             ['cluster' => env('PUSHER_APP_CLUSTER')]
         );
-
-
 
         if ($user) {
             // Generate the authorization data including the 'user_id'

@@ -120,8 +120,8 @@ class UserController extends Controller
     public function denyContactRequest(Request $request)
     {
         try {
-            $personalTrainerId = $request->input('personal_trainer_id');
-            $athleteId = $request->input('athlete_id');
+            $personalTrainerId = $request['personal_trainer_id'];
+            $athleteId = $request['athlete_id'];
 
             // Find the user relationship and detach it to remove the pivot record
             User::find($personalTrainerId)->athletes()->detach($athleteId);
