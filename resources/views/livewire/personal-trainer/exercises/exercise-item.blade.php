@@ -1,5 +1,5 @@
 <div
-    class="flex space-x-6 py-3 select-none">
+    class="flex flex-col space-x-0 sm:flex-row sm:space-x-6 py-3 select-none">
     <div class="w-full max-w-sm shrink-0">
         <h4 class="text-lg font-bold leading-tight space-x-3">
             {{ $exercise->name }}
@@ -7,9 +7,9 @@
         <p class="text-sm line-clamp-3 leading-relaxed mt-3">{{ $exercise->description }}</p>
     </div>
     @if($exercise->link)
-        <video src="{{ $exercise->link }}" controls class="w-64 aspect-video shrink-0"></video>
+        <video src="{{ $exercise->link }}" controls class="my-2 sm:my-0 sm:w-64 aspect-video shrink-0"></video>
     @else
-        <div class="bg-gray-200 w-64 aspect-video shrink-0"></div>
+        <div class="bg-gray-200 my-2 sm:my-0 sm:w-64 aspect-video shrink-0"></div>
     @endif
     <div class="flex flex-col justify-between w-full flex-1 shrink-0">
         <div class="flex items-start justify-between">
@@ -50,15 +50,17 @@
                 @endforeach
             </x-select>
         </div>
-        <x-primary-button
-            color="ghost-blue"
-            wire:click="$emit('openModal', 'personal-trainer.exercises.modals.add-exercise-to-existing-workout', {{ json_encode(['exercise' => $exercise->id, 'repetitions' => $repetitions, 'intensity' => $intensity]) }})"
-            :disabled="$repetitions === 0"
-            class="select-none text-center justify-center space-x-3">
-            <div class="flex items-center">
-                <x-heroicon-o-plus-small class="w-4 h-4"></x-heroicon-o-plus-small>
-                <span>Aggiungi</span>
-            </div>
-        </x-primary-button>
+        @if(auth()->user()->role->name === 'personal-trainer')
+            <x-primary-button
+                color="ghost-blue"
+                wire:click="$emit('openModal', 'personal-trainer.exercises.modals.add-exercise-to-existing-workout', {{ json_encode(['exercise' => $exercise->id, 'repetitions' => $repetitions, 'intensity' => $intensity]) }})"
+                :disabled="$repetitions === 0 || !$intensity"
+                class="select-none text-center justify-center space-x-3">
+                <div class="flex items-center">
+                    <x-heroicon-o-plus-small class="w-4 h-4"></x-heroicon-o-plus-small>
+                    <span>Aggiungi</span>
+                </div>
+            </x-primary-button>
+        @endif
     </div>
 </div>

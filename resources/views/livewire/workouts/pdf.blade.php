@@ -64,7 +64,13 @@
                                                     $cargo = \App\Models\Cargo::find($serie->items[$loop->index + 2]->item_id)
                                                 @endphp
                                                 <td class="whitespace-nowrap min-w-[110px] align-top p-4 pt-8 text-sm text-center text-gray-500">
-                                                    <p>{{$cargo->quantity}}</p>
+                                                    @if($cargo->max)
+                                                        <p>MAX</p>
+                                                    @elseif($cargo->freestyle)
+                                                        <p>PC</p>
+                                                    @else
+                                                        <p>{{$cargo->quantity}}</p>
+                                                    @endif
                                                 </td>
                                             @else
                                                 <td class="whitespace-nowrap min-w-[110px] align-top p-4 pt-8 text-sm text-center text-gray-500">

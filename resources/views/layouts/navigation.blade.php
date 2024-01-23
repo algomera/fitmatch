@@ -17,7 +17,7 @@
                     <x-nav-link href="#" :active="request()->routeIs('admin.subscribers*')">
                         {{ __('Lista iscritti') }}
                     </x-nav-link>
-                    <x-nav-link href="#" :active="request()->routeIs('admin.exercises*')">
+                    <x-nav-link href="{{ route('admin.exercises') }}" :active="request()->routeIs('admin.exercises*')">
                         {{ __('Esercizi') }}
                     </x-nav-link>
                     @endrole
@@ -73,10 +73,12 @@
                                     @else
                                         <x-heroicon-o-user-circle class="h-8 w-8"></x-heroicon-o-user-circle>
                                     @endif
-                                    <div class="absolute rounded-full bg-white -top-0.5 -right-0.5">
-                                        <x-heroicon-o-exclamation-circle
-                                            class="text-red-600 w-4 h-4"></x-heroicon-o-exclamation-circle>
-                                    </div>
+                                    @if(auth()->user()->role->name === 'personal-trainer' && !auth()->user()->stripe_account_id)
+                                        <div class="absolute rounded-full bg-white -top-0.5 -right-0.5">
+                                            <x-heroicon-o-exclamation-circle
+                                                class="text-red-600 w-4 h-4"></x-heroicon-o-exclamation-circle>
+                                        </div>
+                                    @endif
                                 </div>
                             </button>
                         </x-slot>
@@ -120,7 +122,8 @@
             <x-responsive-nav-link href="#" :active="request()->routeIs('admin.subscribers*')">
                 {{ __('Lista iscritti') }}
             </x-responsive-nav-link>
-            <x-responsive-nav-link href="#" :active="request()->routeIs('admin.exercises*')">
+            <x-responsive-nav-link href="{{ route('admin.exercises') }}"
+                                   :active="request()->routeIs('admin.exercises*')">
                 {{ __('Esercizi') }}
             </x-responsive-nav-link>
             @endrole
@@ -133,7 +136,8 @@
                                    :active="request()->routeIs('personal-trainer.workouts*')">
                 {{ __('Schede') }}
             </x-responsive-nav-link>
-            <x-responsive-nav-link href="#" :active="request()->routeIs('personal-trainer.exercises*')">
+            <x-responsive-nav-link href="{{ route('personal-trainer.exercises') }}"
+                                   :active="request()->routeIs('personal-trainer.exercises*')">
                 {{ __('Esercizi') }}
             </x-responsive-nav-link>
             <div class="mx-4">
