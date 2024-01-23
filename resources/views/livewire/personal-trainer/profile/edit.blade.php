@@ -41,12 +41,14 @@
                     <h3 class="text-xl uppercase font-extrabold">{{ auth()->user()->informations->first_name }}</h3>
                     <h3 class="text-xl uppercase font-extrabold">{{ auth()->user()->informations->last_name }}</h3>
                     <h5 class="mt-5 text-sm">Iscritto dal {{ auth()->user()->created_at->format('d/m/Y') }}</h5>
-                    <h6 class="text-fit-magenta font-semibold text-sm mt-2 space-x-1">
+                    @if(auth()->user()->subscriptions()->first())
+                        <h6 class="text-fit-magenta font-semibold text-sm mt-2 space-x-1">
                         <span
                             class="inline-flex items-center rounded-md bg-fit-magenta/20 px-2 py-1 text-xs font-medium text-fit-magenta ring-1 ring-inset ring-fit-magenta/5">{{ config('fitmatch.plans.'.auth()->user()->subscriptions()->first()->stripe_price) }}</span>
-                        <a href="{{ route('personal-trainer.billing') }}"
-                           class="text-xs text-fit-dark-gray hover:text-fit-magenta hover:underline hover:cursor-pointer">Modifica</a>
-                    </h6>
+                            <a href="{{ route('personal-trainer.billing') }}"
+                               class="text-xs text-fit-dark-gray hover:text-fit-magenta hover:underline hover:cursor-pointer">Modifica</a>
+                        </h6>
+                    @endif
                 </div>
             </div>
             <div>
