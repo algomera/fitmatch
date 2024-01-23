@@ -9,9 +9,9 @@
                          class="flex items-center justify-center h-6 w-6 border border-fit-dark-gray rounded-full {{ $massimale <= 0 ? 'opacity-50 cursor-not-allowed' : 'hover:cursor-pointer' }}">
                         <x-heroicon-o-minus class="h-4 w-4 text-fit-dark-gray"></x-heroicon-o-minus>
                     </div>
-                    {{--                    <span class="font-bold">{{ $massimale }}</span>--}}
+                    {{--                    <span class="font-fit-bold">{{ $massimale }}</span>--}}
                     <input type="number" wire:model.debounce.250ms="massimale"
-                           class="counter-input bg-transparent p-0 w-10 text-2xl text-center font-bold truncate"/>
+                           class="counter-input bg-transparent p-0 w-10 text-2xl text-center font-fit-bold truncate"/>
                     <div wire:click="increment('massimale')"
                          class="flex items-center justify-center h-6 w-6 border border-fit-dark-gray rounded-full hover:cursor-pointer">
                         <x-heroicon-o-plus class="h-4 w-4 text-fit-dark-gray"></x-heroicon-o-plus>
@@ -25,9 +25,9 @@
                          class="flex items-center justify-center h-6 w-6 border border-fit-dark-gray rounded-full {{ $percentuale <= 0 ? 'opacity-50 cursor-not-allowed' : 'hover:cursor-pointer' }}">
                         <x-heroicon-o-minus class="h-4 w-4 text-fit-dark-gray"></x-heroicon-o-minus>
                     </div>
-                    {{--                    <span class="font-bold">{{ $percentuale }}</span>--}}
+                    {{--                    <span class="font-fit-bold">{{ $percentuale }}</span>--}}
                     <input type="number" wire:model.debounce.250ms="percentuale"
-                           class="counter-input bg-transparent p-0 w-10 text-2xl text-center font-bold truncate"/>
+                           class="counter-input bg-transparent p-0 w-10 text-2xl text-center font-fit-bold truncate"/>
                     <div wire:click="increment('percentuale')"
                          class="flex items-center justify-center h-6 w-6 border border-fit-dark-gray rounded-full hover:cursor-pointer">
                         <x-heroicon-o-plus class="h-4 w-4 text-fit-dark-gray"></x-heroicon-o-plus>
@@ -41,9 +41,9 @@
                          class="flex items-center justify-center h-6 w-6 border border-fit-dark-gray rounded-full {{ $effettivo <= 0 ? 'opacity-50 cursor-not-allowed' : 'hover:cursor-pointer' }}">
                         <x-heroicon-o-minus class="h-4 w-4 text-fit-dark-gray"></x-heroicon-o-minus>
                     </div>
-                    {{--                    <span class="font-bold">{{ $effettivo }}</span>--}}
+                    {{--                    <span class="font-fit-bold">{{ $effettivo }}</span>--}}
                     <input type="number" wire:model.debounce.250ms="effettivo"
-                           class="counter-input bg-transparent p-0 w-10 text-2xl text-center font-bold truncate"/>
+                           class="counter-input bg-transparent p-0 w-10 text-2xl text-center font-fit-bold truncate"/>
                     <div wire:click="increment('effettivo')"
                          class="flex items-center justify-center h-6 w-6 border border-fit-dark-gray rounded-full hover:cursor-pointer">
                         <x-heroicon-o-plus class="h-4 w-4 text-fit-dark-gray"></x-heroicon-o-plus>

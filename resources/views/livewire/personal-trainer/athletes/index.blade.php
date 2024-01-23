@@ -58,7 +58,7 @@
                     <div class="grid grid-cols-2 gap-5 sm:grid-cols-3">
                         <div class="bg-white col-span-1">
                             <div class="p-2 border-b">
-                                <p class="text-lg font-bold text-fit-dark-gray">Anni</p>
+                                <p class="text-lg font-fit-bold text-fit-dark-gray">Anni</p>
                             </div>
                             <div class="p-2">
                                 <p class="text-lg font-semibold">32</p>
@@ -66,7 +66,7 @@
                         </div>
                         <div class="bg-white col-span-1">
                             <div class="p-2 border-b">
-                                <p class="text-lg font-bold text-fit-dark-gray">Ultima sessione</p>
+                                <p class="text-lg font-fit-bold text-fit-dark-gray">Ultima sessione</p>
                             </div>
                             <div class="p-2">
                                 <p class="text-lg font-semibold">2 giorni fa</p>
@@ -74,7 +74,7 @@
                         </div>
                         <div class="bg-white col-span-1">
                             <div class="p-2 border-b">
-                                <p class="text-lg font-bold text-fit-dark-gray">Sessioni rimaste</p>
+                                <p class="text-lg font-fit-bold text-fit-dark-gray">Sessioni rimaste</p>
                             </div>
                             <div class="p-2">
                                 <p class="text-lg font-semibold">8/12</p>
@@ -82,7 +82,7 @@
                         </div>
                         <div class="bg-white col-span-1">
                             <div class="p-2 border-b">
-                                <p class="text-lg font-bold text-fit-dark-gray">Sesso</p>
+                                <p class="text-lg font-fit-bold text-fit-dark-gray">Sesso</p>
                             </div>
                             <div class="p-2">
                                 <p class="text-lg font-semibold">Maschio</p>
@@ -90,7 +90,7 @@
                         </div>
                         <div class="bg-white col-span-1">
                             <div class="p-2 border-b">
-                                <p class="text-lg font-bold text-fit-dark-gray">Livello</p>
+                                <p class="text-lg font-fit-bold text-fit-dark-gray">Livello</p>
                             </div>
                             <div class="p-2">
                                 <p class="text-lg font-semibold">Avanzato</p>
@@ -98,7 +98,7 @@
                         </div>
                         <div class="bg-white col-span-1">
                             <div class="p-2 border-b">
-                                <p class="text-lg font-bold text-fit-dark-gray">Data di inizio</p>
+                                <p class="text-lg font-fit-bold text-fit-dark-gray">Data di inizio</p>
                             </div>
                             <div class="p-2">
                                 <p class="text-lg font-semibold">gg/mm/aaaa</p>
@@ -106,7 +106,7 @@
                         </div>
                         <div class="bg-white col-span-1">
                             <div class="p-2 border-b">
-                                <p class="text-lg font-bold text-fit-dark-gray">Peso</p>
+                                <p class="text-lg font-fit-bold text-fit-dark-gray">Peso</p>
                             </div>
                             <div class="p-2">
                                 <p class="text-lg font-semibold">82Kg</p>
@@ -114,7 +114,7 @@
                         </div>
                         <div class="bg-white col-span-2">
                             <div class="p-2 border-b">
-                                <p class="text-lg font-bold text-fit-dark-gray">Obbiettivo</p>
+                                <p class="text-lg font-fit-bold text-fit-dark-gray">Obbiettivo</p>
                             </div>
                             <div class="p-2">
                                 <p class="text-lg font-semibold">Ricomposizione corporea</p>
@@ -148,7 +148,7 @@
                 </div>
                 <div>
                     <div class="border-b pb-5">
-                        <h4 class="font-bold text-fit-purple-blue">Schede</h4>
+                        <h4 class="font-fit-bold text-fit-purple-blue">Schede</h4>
                     </div>
                     <div class="pt-5 -mt-px space-y-5">
                         @foreach($selectedAthlete->athlete_workouts as $workout)

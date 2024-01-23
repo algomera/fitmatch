@@ -23,12 +23,12 @@ export default {
     theme: {
         extend: {
             fontFamily: {
-                light: ['TTNorms-Light', ...defaultTheme.fontFamily.sans],
-                sans: ['TTNorms-Regular', ...defaultTheme.fontFamily.sans],
-                medium: ['TTNorms-Medium', ...defaultTheme.fontFamily.sans],
-                bold: ['TTNorms-Bold', ...defaultTheme.fontFamily.sans],
-                extrabold: ['TTNorms-ExtraBold', ...defaultTheme.fontFamily.sans],
-                black: ['TTNorms-Black', ...defaultTheme.fontFamily.sans],
+                "fit-light": ['TTNorms-Light', ...defaultTheme.fontFamily.sans],
+                "fit-sans": ['TTNorms-Regular', ...defaultTheme.fontFamily.sans],
+                "fit-medium": ['TTNorms-Medium', ...defaultTheme.fontFamily.sans],
+                "fit-bold": ['TTNorms-Bold', ...defaultTheme.fontFamily.sans],
+                "fit-extrabold": ['TTNorms-ExtraBold', ...defaultTheme.fontFamily.sans],
+                "fit-black": ['TTNorms-Black', ...defaultTheme.fontFamily.sans],
             },
             colors: {
                 'fit': {

@@ -15,13 +15,13 @@
                                    value="athlete" checked
                                    class="h-4 w-4 border-gray-300 text-indigo-600 focus:ring-indigo-600">
                             <label for="athlete"
-                                   class="ml-3 block text-sm font-medium leading-6 text-gray-900">Atleta</label>
+                                   class="ml-3 block text-sm font-fit-medium leading-6 text-gray-900">Atleta</label>
                         </div>
                         <div class="flex items-center">
                             <input wire:model="workout_type" id="unassigned" name="workout_type" type="radio"
                                    value="unassigned"
                                    class="h-4 w-4 border-gray-300 text-indigo-600 focus:ring-indigo-600">
-                            <label for="unassigned" class="ml-3 block text-sm font-medium leading-6 text-gray-900">Non
+                            <label for="unassigned" class="ml-3 block text-sm font-fit-medium leading-6 text-gray-900">Non
                                 assegnata</label>
                         </div>
                     </div>

@@ -9,7 +9,7 @@
                 <div class="grid grid-cols-2">
                     @foreach($tabs as $tab => $label)
                         <div wire:click="$set('currentTab', '{{ $tab }}')"
-                             class="{{ $tab == $currentTab ? 'font-bold text-white bg-fit-magenta' : 'text-fit-dark-gray hover:cursor-pointer' }} py-3 px-4 rounded-full text-center">
+                             class="{{ $tab == $currentTab ? 'font-fit-bold text-white bg-fit-magenta' : 'text-fit-dark-gray hover:cursor-pointer' }} py-3 px-4 rounded-full text-center">
                             {{ $label }}
                         </div>
                     @endforeach
@@ -30,17 +30,20 @@
             <div wire:key="personal-trainer-tab">
                 <!-- Email Address -->
                 <div class="mt-4">
-                    <x-input wire:model="email" id="email" type="email" name="email" :value="old('email')" label="Email" required autofocus />
+                    <x-input wire:model="email" id="email" type="email" name="email" :value="old('email')" label="Email"
+                             required autofocus/>
                 </div>
 
                 <!-- Password -->
                 <div class="mt-4">
-                    <x-input wire:model="password" id="password" type="password" name="password" label="Password" required />
+                    <x-input wire:model="password" id="password" type="password" name="password" label="Password"
+                             required/>
                 </div>
 
                 <!-- Confirm Password -->
                 <div class="mt-4">
-                    <x-input wire:model="password_confirmation" id="password_confirmation" type="password" name="password_confirmation" label="Conferma Password" required />
+                    <x-input wire:model="password_confirmation" id="password_confirmation" type="password"
+                             name="password_confirmation" label="Conferma Password" required/>
                 </div>
 
                 <div class="block mt-4">
@@ -48,8 +51,10 @@
                         <input wire:model="terms" type="checkbox"
                                class="border-2 border-gray-400 w-6 h-6 text-fit-magenta bg-fit-lighter-gray focus:ring-fit-light-blue"
                                name="remember">
-                        <span class="ml-5 text-sm text-gray-600">Accetto la <a href="#" class="font-bold text-fit-black">Privacy Policy</a> e <a
-                                href="#" class="font-bold text-fit-black">Termini e Condizioni</a> di FitMatch Pro</span>
+                        <span class="ml-5 text-sm text-gray-600">Accetto la <a href="#"
+                                                                               class="font-fit-bold text-fit-black">Privacy Policy</a> e <a
+                                href="#"
+                                class="font-fit-bold text-fit-black">Termini e Condizioni</a> di FitMatch Pro</span>
                     </label>
                 </div>
                 <div class="flex items-center justify-end mt-4">

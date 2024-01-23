@@ -4,15 +4,15 @@
 >
     <div class="flex flex-col w-full h-full items-start justify-center bg-white space-y-1.5">
         <div class="flex w-full items-center flex-1 p-4 border-b">
-            <h4 class="text-2xl font-bold truncate">Carico</h4>
+            <h4 class="text-2xl font-fit-bold truncate">Carico</h4>
         </div>
         <div class="flex w-full items-center justify-between flex-1 p-4">
             @if($item->freestyle)
-                <h4 class="text-2xl font-bold truncate">PC</h4>
+                <h4 class="text-2xl font-fit-bold truncate">PC</h4>
             @elseif($item->max)
-                <h4 class="text-2xl font-bold truncate">MAX</h4>
+                <h4 class="text-2xl font-fit-bold truncate">MAX</h4>
             @else
-                <h4 class="text-2xl font-bold truncate">{{ $item->quantity }}</h4>
+                <h4 class="text-2xl font-fit-bold truncate">{{ $item->quantity }}</h4>
             @endif
             <div class="flex items-center space-x-2">
                 <div

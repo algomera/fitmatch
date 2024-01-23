@@ -4,10 +4,10 @@
 >
     <div class="flex flex-col w-full h-full items-start justify-center bg-white space-y-1.5">
         <div class="flex w-full items-center flex-1 p-4 border-b">
-            <h4 class="text-2xl font-bold truncate">Recupero</h4>
+            <h4 class="text-2xl font-fit-bold truncate">Recupero</h4>
         </div>
         <div class="flex w-full items-center justify-between flex-1 p-4">
-            <h4 class="text-2xl font-bold truncate">{{ $item->quantity->format('i:s') }}</h4>
+            <h4 class="text-2xl font-fit-bold truncate">{{ $item->quantity->format('i:s') }}</h4>
             <div x-data class="flex items-center space-x-2">
                 <div x-on:click="$wire.decrement(10)"
                      class="flex items-center justify-center h-6 w-6 border border-fit-dark-gray rounded-full {{ $item->quantity->format('i:s') <= '00:00' ? 'opacity-50 cursor-not-allowed' : 'hover:cursor-pointer' }}">

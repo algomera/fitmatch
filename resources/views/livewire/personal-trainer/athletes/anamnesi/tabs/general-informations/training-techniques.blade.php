@@ -6,7 +6,7 @@
     <div class="mt-6 border-t border-gray-100">
         <dl class="divide-y divide-gray-100">
             <div class="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0">
-                <dt class="text-sm font-medium leading-6 text-gray-900">Conosci i movimenti base dell'allenamento in
+                <dt class="text-sm font-fit-medium leading-6 text-gray-900">Conosci i movimenti base dell'allenamento in
                     sala pesi?
                 </dt>
                 <dd class="mt-1 text-sm leading-6 text-gray-700 sm:col-span-2 sm:mt-0">
@@ -14,7 +14,7 @@
                 </dd>
             </div>
             <div class="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0">
-                <dt class="text-sm font-medium leading-6 text-gray-900">Conosci i movimenti complementari
+                <dt class="text-sm font-fit-medium leading-6 text-gray-900">Conosci i movimenti complementari
                     dell'allenamento in sala pesi?
                 </dt>
                 <dd class="mt-1 text-sm leading-6 text-gray-700 sm:col-span-2 sm:mt-0">

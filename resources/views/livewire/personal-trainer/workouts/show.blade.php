@@ -86,7 +86,7 @@
                         wire:click.stop="$set('selectedDay', {{ $day->id }})"
                         class="group flex items-center space-x-5 rounded-t-md px-4 py-2.5 {{ $day->id === $selectedDay ? 'bg-fit-lighter-gray' : 'cursor-pointer' }}">
                         <span
-                            class="text-sm {{ $day->id === $selectedDay ? 'text-fit-dark-blue font-bold' : 'text-gray-400 group-hover:text-gray-500' }}">{{ config('fitmatch.days.' . $day->day) }}</span>
+                            class="text-sm {{ $day->id === $selectedDay ? 'text-fit-dark-blue font-fit-bold' : 'text-gray-400 group-hover:text-gray-500' }}">{{ config('fitmatch.days.' . $day->day) }}</span>
                         <span wire:key="delete-{{$day->id}}" wire:click.stop="deleteDay({{$day->id}})"
                               class="cursor-pointer">&times;</span>
                     </div>
@@ -119,7 +119,7 @@
                         <div class="sticky left-0 z-[99] flex py-4 min-h-[10rem] px-4 bg-fit-lighter-gray">
                             <div class="relative flex flex-col items-end px-2 w-8">
                             <span
-                                class="text-xl font-bold"
+                                class="text-xl font-fit-bold"
                                 style="color: {{config('fitmatch.workout.colors.'. $loop->index % count(config('fitmatch.workout.colors')))}}">{{ str_pad($loop->iteration, 2, "0", STR_PAD_LEFT) }}</span>
                                 <span class="absolute inset-y-0 right-0 flex-1 w-[3px]"
                                       style="background-color: {{config('fitmatch.workout.colors.'. $loop->index % count(config('fitmatch.workout.colors')))}}"></span>

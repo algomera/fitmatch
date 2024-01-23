@@ -4,7 +4,7 @@
             <tbody class="divide-y divide-gray-200 bg-white">
             @foreach($workout_weeks as $week)
                 <tr class="divide-x divide-gray-200">
-                    <td colspan="100%" class="whitespace-nowrap p-4 text-sm text-gray-800 font-bold bg-gray-50">
+                    <td colspan="100%" class="whitespace-nowrap p-4 text-sm text-gray-800 font-fit-bold bg-gray-50">
                         SETTIMANA {{ $week->week }}
                     </td>
                 </tr>

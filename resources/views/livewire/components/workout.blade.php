@@ -7,7 +7,7 @@
         @else
             <div class="h-6"></div>
         @endif
-        <p class="text-lg font-bold text-fit-black mt-1">{{ $workout->name }}</p>
+        <p class="text-lg font-fit-bold text-fit-black mt-1">{{ $workout->name }}</p>
         @if($workout->athlete)
             <span class="text-xs font-semibold text-gray-500">{{ $workout->athlete->full_name }}</span>
         @else

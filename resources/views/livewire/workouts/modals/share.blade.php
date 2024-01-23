@@ -6,14 +6,14 @@
                 <div class="flex items-center">
                     <input wire:model="sharing_method" id="pdf" value="pdf" name="sharing-method" type="radio"
                            class="h-4 w-4 border-gray-300 text-indigo-600 focus:ring-indigo-600">
-                    <label for="pdf" class="ml-3 block text-sm font-medium leading-6 text-gray-900">
+                    <label for="pdf" class="ml-3 block text-sm font-fit-medium leading-6 text-gray-900">
                         Esporta in PDF
                     </label>
                 </div>
                 <div class="flex items-center">
                     <input wire:model="sharing_method" id="email" value="email" name="sharing-method" type="radio"
                            class="h-4 w-4 border-gray-300 text-indigo-600 focus:ring-indigo-600">
-                    <label for="email" class="ml-3 block text-sm font-medium leading-6 text-gray-900">
+                    <label for="email" class="ml-3 block text-sm font-fit-medium leading-6 text-gray-900">
                         Invia tramite email
                     </label>
                 </div>
