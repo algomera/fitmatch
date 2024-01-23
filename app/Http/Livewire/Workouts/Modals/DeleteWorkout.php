@@ -2,6 +2,9 @@
 
 namespace App\Http\Livewire\Workouts\Modals;
 
+use App\Models\Cargo;
+use App\Models\Recovery;
+use App\Models\Repetition;
 use App\Models\Workout;
 use LivewireUI\Modal\ModalComponent;
 
@@ -21,6 +24,9 @@ class DeleteWorkout extends ModalComponent
 
     public function delete()
     {
+        Repetition::where('workout_id', $this->workout->id)->delete();
+        Recovery::where('workout_id', $this->workout->id)->delete();
+        Cargo::where('workout_id', $this->workout->id)->delete();
         $this->workout->delete();
         $this->emit('workout-deleted');
         $this->closeModal();
