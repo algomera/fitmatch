@@ -16,7 +16,7 @@ class CargoCalculation extends ModalComponent
 
     public static function modalMaxWidth(): string
     {
-        return 'sm';
+        return 'md';
     }
 
     public function mount(WorkoutSerie $serie, Cargo $item)
@@ -26,6 +26,13 @@ class CargoCalculation extends ModalComponent
         $this->massimale = $item->massimale;
         $this->percentuale = $item->percentuale;
         $this->effettivo = $item->effettivo;
+    }
+
+    public function updated($field)
+    {
+        if ($this->$field === '') {
+            $this->$field = 0;
+        }
     }
 
     public function increment($what)
@@ -41,12 +48,26 @@ class CargoCalculation extends ModalComponent
         $this->$what--;
     }
 
+    public function calculateMassimale()
+    {
+        $this->massimale = ($this->percentuale * 100) / $this->effettivo;
+    }
+
+    public function calculatePercentuale()
+    {
+        $this->percentuale = $this->massimale * $this->effettivo;
+    }
+
+    public function calculateEffettivo()
+    {
+        $this->effettivo = ($this->percentuale * 100) / $this->massimale;
+    }
+
 
     public function save()
     {
-        $carico = $this->massimale * $this->percentuale / 100;
         $this->item->update([
-            'quantity' => $carico,
+            'quantity' => $this->effettivo,
             'massimale' => $this->massimale,
             'percentuale' => $this->percentuale,
             'effettivo' => $this->effettivo
