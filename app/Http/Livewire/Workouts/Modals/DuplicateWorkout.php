@@ -58,7 +58,7 @@ class DuplicateWorkout extends ModalComponent
             'name' => $this->name,
             'athlete_id' => $this->assign ? $this->athlete_id ?? $this->workout->athlete_id : null,
             'start_date' => $this->assign ? $this->start_date ?? $this->workout->start_date : null,
-            'goal_id' => $this->assign ? $this->goal_id ?? $this->workout->goal_id : null
+            'goal_id' => $this->goal_id ?? $this->workout->goal_id
         ]);
         $newWorkout->save();
         $this->workout->workout_weeks()->each(function ($week) use ($newWorkout) {
