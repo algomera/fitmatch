@@ -38,6 +38,14 @@ class DuplicateWorkout extends ModalComponent
         $this->name = $workout->name;
     }
 
+    public function updatedAssign($value)
+    {
+        if ($value === false) {
+            $this->reset('athlete_id', 'start_date', 'goal_id');
+            $this->resetValidation();
+        }
+    }
+
     public function duplicate()
     {
         if ($this->assign) {
@@ -48,9 +56,9 @@ class DuplicateWorkout extends ModalComponent
 
         $newWorkout = $this->workout->replicate()->fill([
             'name' => $this->name,
-            'athlete_id' => $this->athlete_id ?? $this->workout->athlete_id,
-            'start_date' => $this->start_date ?? $this->workout->start_date,
-            'goal_id' => $this->goal_id ?? $this->workout->goal_id
+            'athlete_id' => $this->assign ? $this->athlete_id ?? $this->workout->athlete_id : null,
+            'start_date' => $this->assign ? $this->start_date ?? $this->workout->start_date : null,
+            'goal_id' => $this->assign ? $this->goal_id ?? $this->workout->goal_id : null
         ]);
         $newWorkout->save();
         $this->workout->workout_weeks()->each(function ($week) use ($newWorkout) {
