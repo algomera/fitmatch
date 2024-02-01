@@ -50,17 +50,22 @@ class CargoCalculation extends ModalComponent
 
     public function calculateMassimale()
     {
-        $this->massimale = ($this->percentuale * 100) / $this->effettivo;
+        $this->massimale = round(($this->percentuale * 100) / $this->effettivo, 2);
     }
 
     public function calculatePercentuale()
     {
-        $this->percentuale = $this->massimale * $this->effettivo;
+        $this->percentuale = round($this->massimale * $this->effettivo, 2);
     }
 
     public function calculateEffettivo()
     {
-        $this->effettivo = ($this->percentuale * 100) / $this->massimale;
+        $this->effettivo = round(($this->percentuale * 100) / $this->massimale, 2);
+    }
+
+    public function resetAll()
+    {
+        $this->reset('massimale', 'percentuale', 'effettivo');
     }
 
 

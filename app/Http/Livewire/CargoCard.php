@@ -28,7 +28,7 @@ class CargoCard extends Component
     public function setFreestyle()
     {
         $this->item->update([
-            'quantity' => 0,
+            'quantity' => $this->item->quantity ?? 0,
             'freestyle' => !$this->item->freestyle,
             'max' => false
         ]);
@@ -37,7 +37,7 @@ class CargoCard extends Component
     public function setMax()
     {
         $this->item->update([
-            'quantity' => 0,
+            'quantity' => $this->item->quantity ?? 0,
             'freestyle' => false,
             'max' => !$this->item->max
         ]);

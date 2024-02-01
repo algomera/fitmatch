@@ -1,6 +1,9 @@
 <div class="select-none bg-fit-lighter-gray p-4 md:p-12">
     <div class="flex flex-col items-center space-y-6 text-center">
-        <h2>Calcolo del carico</h2>
+        <div>
+            <h2>Calcolo del carico</h2>
+            <p wire:click="resetAll" class="text-sm text-fit-magenta hover:underline">Reset</p>
+        </div>
         <div class="w-full space-y-4">
             <div class="flex items-center justify-between">
                 <div class="flex items-center space-x-2">
