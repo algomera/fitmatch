@@ -85,7 +85,7 @@
                                 <p class="text-lg font-fit-bold text-fit-dark-gray">Sesso</p>
                             </div>
                             <div class="p-2">
-                                <p class="text-lg font-semibold">Maschio</p>
+                                <p class="text-lg font-semibold">{{ $athlete->informations->gender === 'male' ? 'Maschio' : 'Femmina' }}</p>
                             </div>
                         </div>
                         <div class="bg-white col-span-1">

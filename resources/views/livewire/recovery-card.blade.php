@@ -29,6 +29,7 @@
                     wire:click="delete"
                     class="h-4 w-4 hover:text-fit-magenta hover:cursor-pointer"></x-heroicon-o-trash>
                 <x-heroicon-o-square-2-stack
+                    wire:click="duplicate"
                     class="h-4 w-4 hover:text-fit-magenta hover:cursor-pointer"></x-heroicon-o-square-2-stack>
             </div>
         </div>
