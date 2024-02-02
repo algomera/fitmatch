@@ -12,7 +12,7 @@
                         class="bg-gray-200 grid items-center p-1.5 rounded-md hover:bg-yellow-200 hover:text-orange-500 hover:cursor-pointer">
                         <x-heroicon-o-sparkles class="w-4 h-4"></x-heroicon-o-sparkles>
                     </div>
-                    <span>Massimale</span>
+                    <p>Massimale <span class="text-xs font-bold">(Kg)</span></p>
                 </div>
                 <div class="flex items-center space-x-2">
                     <div wire:click="decrement('massimale')"
@@ -35,7 +35,7 @@
                         class="bg-gray-200 grid items-center p-1.5 rounded-md hover:bg-yellow-200 hover:text-orange-500 hover:cursor-pointer">
                         <x-heroicon-o-sparkles class="w-4 h-4"></x-heroicon-o-sparkles>
                     </div>
-                    <span>Percentuale</span>
+                    <p>Percentuale <span class="text-xs font-bold">(%)</span></p>
                 </div>
                 <div class="flex items-center space-x-2">
                     <div wire:click="decrement('percentuale')"
@@ -58,7 +58,7 @@
                         class="bg-gray-200 grid items-center p-1.5 rounded-md hover:bg-yellow-200 hover:text-orange-500 hover:cursor-pointer">
                         <x-heroicon-o-sparkles class="w-4 h-4"></x-heroicon-o-sparkles>
                     </div>
-                    <span>Effettivo</span>
+                    <p>Effettivo <span class="text-xs font-bold">(Kg)</span></p>
                 </div>
                 <div class="flex items-center space-x-2">
                     <div wire:click="decrement('effettivo')"

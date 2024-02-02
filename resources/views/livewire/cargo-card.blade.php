@@ -12,7 +12,7 @@
             @elseif($item->max)
                 <h4 class="text-2xl font-fit-bold truncate">MAX</h4>
             @else
-                <h4 class="text-2xl font-fit-bold truncate">{{ $item->quantity }}</h4>
+                <h4 class="text-2xl font-fit-bold truncate">{{ $item->quantity }} Kg</h4>
             @endif
             <div class="flex items-center space-x-2">
                 <div

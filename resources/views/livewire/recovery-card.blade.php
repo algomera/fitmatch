@@ -9,11 +9,11 @@
         <div class="flex w-full items-center justify-between flex-1 p-4">
             <h4 class="text-2xl font-fit-bold truncate">{{ $item->quantity->format('i:s') }}</h4>
             <div x-data class="flex items-center space-x-2">
-                <div x-on:click="$wire.decrement(10)"
+                <div x-on:click="$wire.decrement(5)"
                      class="flex items-center justify-center h-6 w-6 border border-fit-dark-gray rounded-full {{ $item->quantity->format('i:s') <= '00:00' ? 'opacity-50 cursor-not-allowed' : 'hover:cursor-pointer' }}">
                     <x-heroicon-o-minus class="h-4 w-4 text-fit-dark-gray"></x-heroicon-o-minus>
                 </div>
-                <div x-on:click="$wire.increment(10)"
+                <div x-on:click="$wire.increment(5)"
                      class="flex items-center justify-center h-6 w-6 border border-fit-dark-gray rounded-full hover:cursor-pointer">
                     <x-heroicon-o-plus class="h-4 w-4 text-fit-dark-gray"></x-heroicon-o-plus>
                 </div>
