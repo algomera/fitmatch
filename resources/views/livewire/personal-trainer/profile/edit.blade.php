@@ -6,7 +6,7 @@
                 <span wire:click="$set('currentTab', '{{ $k }}')"
                       class="{{ $currentTab === $k ? 'bg-fit-magenta text-white' : 'text-fit-dark-gray cursor-pointer hover:text-fit-magenta' }} flex items-center justify-between rounded-full px-5 py-1 text-sm font-fit-medium">
                     <span>{{ $tab }}</span>
-                    @if($k === 'account' && !auth()->user()->stripe_account_id)
+                    @if($k === 'account' && !auth()->user()->stripe_secret)
                         <x-heroicon-o-exclamation-circle
                             class="{{ $currentTab === $k ? 'text-white' : 'text-red-600' }} w-5 h-5"></x-heroicon-o-exclamation-circle>
                     @endif
@@ -328,20 +328,33 @@
                         <h3 class="text-2xl font-semibold leading-7 text-gray-900">Stripe</h3>
                     </div>
                     <div class="mt-6">
-                        @if(!auth()->user()->stripe_account_id)
-                            <x-primary-button
-                                href="https://connect.stripe.com/oauth/authorize?response_type=code&client_id={{env('STRIPE_CLIENT_ID')}}&scope=read_write">
-                                Accedi con Stripe
-                            </x-primary-button>
-                        @else
-                            <div class="flex items-center space-x-5">
-                                <span
-                                    class="bg-gray-200 ring-1 ring-gray-300 px-4 py-1 rounded-md
-                                     text-sm font-semibold font-mono">{{ auth()->user()->stripe_account_id }}</span>
-                                <span wire:click="stripeLogout"
-                                      class="text-xs font-semibold text-red-500 cursor-pointer">Esci</span>
+                        <div class="space-y-6">
+                            <x-input wire:model.defer="stripe_secret" id="stripe_secret" type="text"
+                                     name="stripe_secret" label="Chiave Privata"
+                                     hint="Assicurati che la chiave inserita sia scritta correttamente."
+                                     required/>
+                            <div class="flex items-center gap-4">
+                                <x-primary-button
+                                    wire:click="saveStripeSecret"
+                                    class="w-full max-w-xs justify-center py-3">
+                                    Salva
+                                </x-primary-button>
                             </div>
-                        @endif
+                        </div>
+                        {{--                        @if(!auth()->user()->stripe_account_id)--}}
+                        {{--                            <x-primary-button--}}
+                        {{--                                href="https://connect.stripe.com/oauth/authorize?response_type=code&client_id={{env('STRIPE_CLIENT_ID')}}&scope=read_write">--}}
+                        {{--                                Accedi con Stripe--}}
+                        {{--                            </x-primary-button>--}}
+                        {{--                        @else--}}
+                        {{--                            <div class="flex items-center space-x-5">--}}
+                        {{--                                <span--}}
+                        {{--                                    class="bg-gray-200 ring-1 ring-gray-300 px-4 py-1 rounded-md--}}
+                        {{--                                     text-sm font-semibold font-mono">{{ auth()->user()->stripe_account_id }}</span>--}}
+                        {{--                                <span wire:click="stripeLogout"--}}
+                        {{--                                      class="text-xs font-semibold text-red-500 cursor-pointer">Esci</span>--}}
+                        {{--                            </div>--}}
+                        {{--                        @endif--}}
                     </div>
 
                     <div class="px-4 sm:px-0 mt-6">
