@@ -151,6 +151,14 @@ class AppointmentController extends Controller
      */
     public function destroy(Appointment $appointment)
     {
-        //
+        try {
+            // Your code to delete the appointment goes here
+            $message = $appointment->message;
+            $message->delete();
+            $appointment->delete();
+            return response()->json(['message' => 'Appointment deleted successfully'], 200);
+        } catch (\Exception $e) {
+            return response()->json(['error' => 'Failed to delete appointment: ' . $e->getMessage()], 500);
+        }
     }
 }

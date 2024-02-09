@@ -27,9 +27,7 @@ class ApiAuthController extends Controller
         $current_user = User::find($id);
 
         if ($current_user->getRoleAttribute()->name == 'personal-trainer') {
-            $chat_users = $current_user->athletes()
-                ->wherePivot('accepted', 1)
-                ->get();
+            $chat_users = $current_user->athletes()->get();
         } else {
             $chat_users = $current_user->personal_trainers()
                 ->wherePivot('accepted', 1)

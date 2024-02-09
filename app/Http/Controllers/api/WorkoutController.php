@@ -23,7 +23,7 @@ class WorkoutController extends Controller
 
             if ($user_role == 'personal-trainer') {
                 $workouts = $current_user->personal_trainer_workouts()
-                    ->load(['athlete', 'goal']);
+                    ->with(['athlete', 'goal'])->get();
             } else {
                 $workouts = $current_user->athlete_workouts()
                     ->with(['personal_trainer', 'goal'])

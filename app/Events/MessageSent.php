@@ -17,12 +17,14 @@ class MessageSent implements ShouldBroadcast
     use Dispatchable, InteractsWithSockets, SerializesModels;
 
     public $message;
+    public $type;
     public $senderId;
     public $receiverId;
 
     public function __construct(Message $message)
     {
         $this->message = $message->message;
+        $this->type = $message->type;
         $this->senderId = $message->sender_id;
         $this->receiverId = $message->receiver_id;
     }
@@ -40,10 +42,12 @@ class MessageSent implements ShouldBroadcast
 
     public function broadcastWith()
     {
+        Log::info($this->message);
         return [
             'message' => $this->message,
             'sender_id' => $this->senderId,
-            'receiver_id' => $this->receiverId
+            'receiver_id' => $this->receiverId,
+            'type' => $this->type
         ];
     }
 }
