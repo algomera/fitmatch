@@ -23,7 +23,7 @@
                     <tbody class="divide-y divide-gray-200">
                     @foreach($requests as $request)
                         <tr wire:key="{{ $request->id }}">
-                            <td class="whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium text-gray-900 sm:pl-0">
+                            <td class="whitespace-nowrap py-4 pl-4 pr-3 text-sm font-fit-medium text-gray-900 sm:pl-0">
                                 <div class="flex items-center space-x-0 md:space-x-4">
                                     <div class="hidden md:block">
                                         @if($request->avatar())
@@ -56,9 +56,9 @@
                                     }
                                 @endphp
                                 <span
-                                    class="{{ $badgeClasses }} inline-flex items-center rounded-full px-2 py-1 text-xs text-white font-medium">{{ config('fitmatch.profile_statuses.' . $request->status) }}</span>
+                                    class="{{ $badgeClasses }} inline-flex items-center rounded-full px-2 py-1 text-xs text-white font-fit-medium">{{ config('fitmatch.profile_statuses.' . $request->status) }}</span>
                             </td>
-                            <td class="relative whitespace-nowrap py-4 pl-3 pr-4 text-right text-sm font-medium sm:pr-0">
+                            <td class="relative whitespace-nowrap py-4 pl-3 pr-4 text-right text-sm font-fit-medium sm:pr-0">
                                 <a href="{{ route('admin.personal-trainer.show', ['user' => $request->id]) }}"
                                    class="text-indigo-600 hover:text-indigo-900">Vedi profilo</a>
                             </td>

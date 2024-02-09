@@ -2,7 +2,7 @@
      style="border-bottom-color: {{ $color }}"
 >
     <div class="w-full flex items-center justify-between bg-fit-lighter-gray p-4">
-        <span class="text-xs font-bold text-fit-magenta">{{ $intensity }}</span>
+        <span class="text-xs font-fit-bold text-fit-magenta">{{ $intensity }}</span>
         <div class="flex space-x-2">
             <x-heroicon-o-play-circle
                 wire:click="$emit('openModal', 'components.lightbox', {{ json_encode(['type' => 'video', 'src' => $item->link]) }})"
@@ -32,6 +32,7 @@
                     wire:click="delete"
                     class="h-4 w-4 hover:text-fit-magenta hover:cursor-pointer"></x-heroicon-o-trash>
                 <x-heroicon-o-square-2-stack
+                    wire:click="duplicate"
                     class="h-4 w-4 hover:text-fit-magenta hover:cursor-pointer"></x-heroicon-o-square-2-stack>
             </div>
         </div>

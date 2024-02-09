@@ -30,11 +30,11 @@
 @endif
 
 @if($href)
-    <a href="{{ $href }}" {{ $attributes->merge(['class' => $classes . 'text-sm inline-flex items-center px-5 py-1.5 font-bold focus:outline-none focus:ring-2 focus:ring-offset-2 transition ease-in-out duration-150 disabled:opacity-50 disabled:cursor-not-allowed']) }}>
+    <a href="{{ $href }}" {{ $attributes->merge(['class' => $classes . 'text-sm inline-flex items-center px-5 py-1.5 font-fit-bold focus:outline-none focus:ring-2 focus:ring-offset-2 transition ease-in-out duration-150 disabled:opacity-50 disabled:cursor-not-allowed']) }}>
         {{ $slot }}
     </a>
 @else
-    <button {{ $attributes->merge(['type' => 'submit', 'class' => $classes . 'text-sm inline-flex items-center px-5 py-1.5 font-bold focus:outline-none focus:ring-2 focus:ring-offset-2 transition ease-in-out duration-150 disabled:opacity-50 disabled:cursor-not-allowed']) }}>
+    <button {{ $attributes->merge(['type' => 'submit', 'class' => $classes . 'text-sm inline-flex items-center px-5 py-1.5 font-fit-bold focus:outline-none focus:ring-2 focus:ring-offset-2 transition ease-in-out duration-150 disabled:opacity-50 disabled:cursor-not-allowed']) }}>
         {{ $slot }}
     </button>
 @endif

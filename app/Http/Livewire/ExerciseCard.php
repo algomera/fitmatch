@@ -34,6 +34,14 @@ class ExerciseCard extends Component
         ]);
     }
 
+    public function duplicate()
+    {
+        $original = $this->serie->items()->find($this->row);
+        $duplicated = $original->replicate();
+        $duplicated->save();
+        $this->emit('item-added', $duplicated->item_id);
+    }
+
     public function render()
     {
         return view('livewire.exercise-card');

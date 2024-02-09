@@ -18,7 +18,7 @@
                         @if(!isset($tab['children']))
                             wire:click.stop="$set('selectedTab', '{{ $k }}')"
                         @endif
-                        class="{{ $selectedTab === $k ? 'text-fit-magenta' : 'text-fit-dark-gray' }} {{ !isset($tab['children']) ? 'hover:text-fit-magenta cursor-pointer' : '' }} group flex flex-col items-start rounded-md px-3 py-2 text-lg font-medium">
+                        class="{{ $selectedTab === $k ? 'text-fit-magenta' : 'text-fit-dark-gray' }} {{ !isset($tab['children']) ? 'hover:text-fit-magenta cursor-pointer' : '' }} group flex flex-col items-start rounded-md px-3 py-2 text-lg font-fit-medium">
                         <span class="truncate">{{ $tab['label'] }}</span>
                         @isset($tab['children'])
                             <ul class="ml-3 space-y-1 text-sm">

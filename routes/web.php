@@ -61,11 +61,14 @@ Route::middleware(['auth'])->group(function () {
             Route::get('/personal-trainer/{user}', [
                 \App\Http\Livewire\PersonalTrainer\Show::class, '__invoke'
             ])->name('personal-trainer.show');
+            Route::get('/exercises', [
+                \App\Http\Livewire\PersonalTrainer\Exercises\Index::class, '__invoke'
+            ])->name('exercises');
         });
         // Personal Trainer
         Route::middleware([
             'role:personal-trainer',
-            // 'subscriber'
+            'subscriber'
         ])->prefix('personal-trainer')->name('personal-trainer.')->group(function () {
             Route::get('/dashboard', [
                 \App\Http\Livewire\PersonalTrainer\Dashboard::class, '__invoke'
@@ -121,4 +124,4 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
-require __DIR__ . '/auth.php';
+require __DIR__.'/auth.php';

@@ -23,7 +23,7 @@
     </style>
     @livewireStyles
 </head>
-<body class="font-sans antialiased">
+<body class="font-fit-sans antialiased">
 <div>
     <!-- Page Content -->
     <main>

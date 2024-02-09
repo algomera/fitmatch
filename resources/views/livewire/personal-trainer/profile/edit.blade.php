@@ -4,9 +4,9 @@
         <nav class="flex gap-x-3 gap-y-3 whitespace-nowrap lg:flex-col">
             @foreach($tabs as $k => $tab)
                 <span wire:click="$set('currentTab', '{{ $k }}')"
-                      class="{{ $currentTab === $k ? 'bg-fit-magenta text-white' : 'text-fit-dark-gray cursor-pointer hover:text-fit-magenta' }} flex items-center justify-between rounded-full px-5 py-1 text-sm font-medium">
+                      class="{{ $currentTab === $k ? 'bg-fit-magenta text-white' : 'text-fit-dark-gray cursor-pointer hover:text-fit-magenta' }} flex items-center justify-between rounded-full px-5 py-1 text-sm font-fit-medium">
                     <span>{{ $tab }}</span>
-                    @if($k === 'account' && !auth()->user()->stripe_account_id)
+                    @if($k === 'account' && !auth()->user()->stripe_secret)
                         <x-heroicon-o-exclamation-circle
                             class="{{ $currentTab === $k ? 'text-white' : 'text-red-600' }} w-5 h-5"></x-heroicon-o-exclamation-circle>
                     @endif
@@ -38,15 +38,17 @@
                     </div>
                 </div>
                 <div>
-                    <h3 class="text-xl uppercase font-extrabold">{{ auth()->user()->informations->first_name }}</h3>
-                    <h3 class="text-xl uppercase font-extrabold">{{ auth()->user()->informations->last_name }}</h3>
+                    <h3 class="text-xl uppercase font-fit-extrabold">{{ auth()->user()->informations->first_name }}</h3>
+                    <h3 class="text-xl uppercase font-fit-extrabold">{{ auth()->user()->informations->last_name }}</h3>
                     <h5 class="mt-5 text-sm">Iscritto dal {{ auth()->user()->created_at->format('d/m/Y') }}</h5>
-                    <h6 class="text-fit-magenta font-semibold text-sm mt-2 space-x-1">
+                    @if(auth()->user()->subscriptions()->first())
+                        <h6 class="text-fit-magenta font-semibold text-sm mt-2 space-x-1">
                         <span
-                            class="inline-flex items-center rounded-md bg-fit-magenta/20 px-2 py-1 text-xs font-medium text-fit-magenta ring-1 ring-inset ring-fit-magenta/5">{{ config('fitmatch.plans.'.auth()->user()->subscriptions()->first()->stripe_price) }}</span>
-                        <a href="{{ route('personal-trainer.billing') }}"
-                           class="text-xs text-fit-dark-gray hover:text-fit-magenta hover:underline hover:cursor-pointer">Modifica</a>
-                    </h6>
+                            class="inline-flex items-center rounded-md bg-fit-magenta/20 px-2 py-1 text-xs font-fit-medium text-fit-magenta ring-1 ring-inset ring-fit-magenta/5">{{ config('fitmatch.plans.'.auth()->user()->subscriptions()->first()->stripe_price) }}</span>
+                            <a href="{{ route('personal-trainer.billing') }}"
+                               class="text-xs text-fit-dark-gray hover:text-fit-magenta hover:underline hover:cursor-pointer">Modifica</a>
+                        </h6>
+                    @endif
                 </div>
             </div>
             <div>
@@ -58,23 +60,23 @@
                         <div class="mt-6">
                             <dl class="grid grid-cols-1 gap-6 sm:grid-cols-2">
                                 <div class="border-t border-gray-100 sm:col-span-1 sm:px-0">
-                                    <dt class="text-sm font-medium leading-6 text-gray-900">Nome</dt>
+                                    <dt class="text-sm font-fit-medium leading-6 text-gray-900">Nome</dt>
                                     <dd class="mt-1 text-sm leading-6 text-gray-700 sm:mt-2">{{ auth()->user()->informations->first_name }}</dd>
                                 </div>
                                 <div class="border-t border-gray-100 sm:col-span-1 sm:px-0">
-                                    <dt class="text-sm font-medium leading-6 text-gray-900">Cognome</dt>
+                                    <dt class="text-sm font-fit-medium leading-6 text-gray-900">Cognome</dt>
                                     <dd class="mt-1 text-sm leading-6 text-gray-700 sm:mt-2">{{ auth()->user()->informations->last_name }}</dd>
                                 </div>
                                 <div class="border-t border-gray-100 sm:col-span-1 sm:px-0">
-                                    <dt class="text-sm font-medium leading-6 text-gray-900">Data di nascita</dt>
+                                    <dt class="text-sm font-fit-medium leading-6 text-gray-900">Data di nascita</dt>
                                     <dd class="mt-1 text-sm leading-6 text-gray-700 sm:mt-2">{{ auth()->user()->informations->dob->format('d/m/Y') }}</dd>
                                 </div>
                                 <div class="border-t border-gray-100 sm:col-span-1 sm:px-0">
-                                    <dt class="text-sm font-medium leading-6 text-gray-900">Telefono</dt>
+                                    <dt class="text-sm font-fit-medium leading-6 text-gray-900">Telefono</dt>
                                     <dd class="mt-1 text-sm leading-6 text-gray-700 sm:mt-2">{{ auth()->user()->informations->phone }}</dd>
                                 </div>
                                 <div class="border-t border-gray-100 sm:col-span-2 sm:px-0">
-                                    <dt class="text-sm font-medium leading-6 text-gray-900">Biografia</dt>
+                                    <dt class="text-sm font-fit-medium leading-6 text-gray-900">Biografia</dt>
                                     <dd class="mt-1 text-sm leading-6 text-gray-700 sm:mt-2">{{ auth()->user()->informations->bio }}</dd>
                                 </div>
                             </dl>
@@ -89,22 +91,22 @@
                         <div class="mt-6">
                             <dl class="grid grid-cols-1 gap-6 sm:grid-cols-2">
                                 <div class="border-t border-gray-100 sm:col-span-1 sm:px-0">
-                                    <dt class="text-sm font-medium leading-6 text-gray-900">Nome azienda</dt>
+                                    <dt class="text-sm font-fit-medium leading-6 text-gray-900">Nome azienda</dt>
                                     <dd class="mt-1 text-sm leading-6 text-gray-700 sm:mt-2">{{ auth()->user()->informations->company_name }}</dd>
                                 </div>
                                 <div class="border-t border-gray-100 sm:col-span-2 sm:px-0">
-                                    <dt class="text-sm font-medium leading-6 text-gray-900">Indirizzo</dt>
+                                    <dt class="text-sm font-fit-medium leading-6 text-gray-900">Indirizzo</dt>
                                     <dd class="mt-1 text-sm leading-6 text-gray-700 sm:mt-2">
                                         {{ auth()->user()->informations->company_address }}
                                         , {{ auth()->user()->informations->company_civic }}
                                         - {{ auth()->user()->informations->company_zip_code }} {{ auth()->user()->informations->company_city }}</dd>
                                 </div>
                                 <div class="border-t border-gray-100 sm:col-span-1 sm:px-0">
-                                    <dt class="text-sm font-medium leading-6 text-gray-900">P.IVA</dt>
+                                    <dt class="text-sm font-fit-medium leading-6 text-gray-900">P.IVA</dt>
                                     <dd class="mt-1 text-sm leading-6 text-gray-700 sm:mt-2">{{ auth()->user()->informations->company_vat_number ?? '-' }}</dd>
                                 </div>
                                 <div class="border-t border-gray-100 sm:col-span-1 sm:px-0">
-                                    <dt class="text-sm font-medium leading-6 text-gray-900">Codice Fiscale</dt>
+                                    <dt class="text-sm font-fit-medium leading-6 text-gray-900">Codice Fiscale</dt>
                                     <dd class="mt-1 text-sm leading-6 text-gray-700 sm:mt-2">{{ auth()->user()->informations->company_fiscal_code ?? '-' }}</dd>
                                 </div>
                             </dl>
@@ -119,7 +121,7 @@
                         @foreach($job_experiences as $job_experience)
                             <div class="not-prose py-5" wire:key="{{$job_experience->id}}">
                                 <div class="flex items-center justify-between">
-                                    <h3 class="text-fit-black text-xl font-bold">{{ $job_experience->title }}</h3>
+                                    <h3 class="text-fit-black text-xl font-fit-bold">{{ $job_experience->title }}</h3>
                                     <div class="flex items-center space-x-4">
                                         <svg
                                             wire:click="$emit('openModal', 'onboarding.step8.modals.edit-job', {{ json_encode(['job' => $job_experience->id]) }})"
@@ -132,7 +134,7 @@
                                     </div>
                                 </div>
                                 <div class="mt-2">
-                                    <p class="font-bold text-fit-magenta">{{ $job_experience->company }}
+                                    <p class="font-fit-bold text-fit-magenta">{{ $job_experience->company }}
                                         - {{ $job_experience->city }}</p>
                                     <p class="text-fit-black capitalize">{{ \Carbon\Carbon::parse($job_experience->start_date)->monthName }} {{ $job_experience->start_date->format('Y') }}
                                         - {{ \Carbon\Carbon::parse($job_experience->end_date)->monthName }} {{ $job_experience->end_date->format('Y') }}</p>
@@ -158,7 +160,7 @@
                         @foreach($specializations as $specialization)
                             <div class="not-prose py-5">
                                 <div class="flex items-center justify-between">
-                                    <h3 class="text-xl font-bold">{{ $specialization->title }}</h3>
+                                    <h3 class="text-xl font-fit-bold">{{ $specialization->title }}</h3>
                                     <div class="flex items-center space-x-4">
                                         <svg
                                             wire:click="$emit('openModal', 'onboarding.step9.modals.edit-specialization', {{ json_encode(['specialization' => $specialization->id]) }})"
@@ -171,7 +173,7 @@
                                     </div>
                                 </div>
                                 <div class="mt-2">
-                                    <p class="font-bold text-fit-magenta">{{ $specialization->school }}
+                                    <p class="font-fit-bold text-fit-magenta">{{ $specialization->school }}
                                         - {{ $specialization->city }}</p>
                                     <p class="capitalize">{{ \Carbon\Carbon::parse($specialization->start_date)->monthName }} {{ $specialization->start_date->format('Y') }}
                                         - {{ \Carbon\Carbon::parse($specialization->end_date)->monthName }} {{ $specialization->end_date->format('Y') }}</p>
@@ -203,7 +205,7 @@
                                 <div class="flex items-center justify-between">
                                     <h3 class="text-2xl font-semibold leading-7 text-gray-900 my-0">Foto</h3>
                                     <label for="photos"
-                                           class="bg-fit-purple-blue border border-transparent text-white hover:bg-fit-purple-blue/90 focus:bg-gray-700 active:bg-gray-900 focus:ring-indigo-500 rounded-md text-sm inline-flex items-center px-5 py-1.5 font-bold focus:outline-none focus:ring-2 focus:ring-offset-2 transition ease-in-out duration-150 disabled:opacity-50 disabled:cursor-not-allowed">
+                                           class="bg-fit-purple-blue border border-transparent text-white hover:bg-fit-purple-blue/90 focus:bg-gray-700 active:bg-gray-900 focus:ring-indigo-500 rounded-md text-sm inline-flex items-center px-5 py-1.5 font-fit-bold focus:outline-none focus:ring-2 focus:ring-offset-2 transition ease-in-out duration-150 disabled:opacity-50 disabled:cursor-not-allowed">
                                         <input type="file" id="photos" multiple accept="image/*" wire:model="photos"
                                                class="sr-only">
                                         <x-heroicon-o-plus class="h-4 w-4"></x-heroicon-o-plus>
@@ -212,7 +214,7 @@
                                 <div x-cloak x-show="isUploading"
                                      class="w-full bg-gray-200 rounded-full dark:bg-gray-700">
                                     <div
-                                        class="bg-blue-600 text-xs font-medium text-blue-100 text-center p-0.5 leading-none rounded-full"
+                                        class="bg-blue-600 text-xs font-fit-medium text-blue-100 text-center p-0.5 leading-none rounded-full"
                                         :style="`width: ${progress}%`">
                                         <span x-text="`${progress}`"></span>
                                     </div>
@@ -254,7 +256,7 @@
                                 <div class="flex items-center justify-between">
                                     <h3 class="text-2xl font-semibold leading-7 text-gray-900 my-0">Video</h3>
                                     <label for="videos"
-                                           class="bg-fit-purple-blue border border-transparent text-white hover:bg-fit-purple-blue/90 focus:bg-gray-700 active:bg-gray-900 focus:ring-indigo-500 rounded-md text-sm inline-flex items-center px-5 py-1.5 font-bold focus:outline-none focus:ring-2 focus:ring-offset-2 transition ease-in-out duration-150 disabled:opacity-50 disabled:cursor-not-allowed">
+                                           class="bg-fit-purple-blue border border-transparent text-white hover:bg-fit-purple-blue/90 focus:bg-gray-700 active:bg-gray-900 focus:ring-indigo-500 rounded-md text-sm inline-flex items-center px-5 py-1.5 font-fit-bold focus:outline-none focus:ring-2 focus:ring-offset-2 transition ease-in-out duration-150 disabled:opacity-50 disabled:cursor-not-allowed">
                                         <input type="file" id="videos" multiple accept="video/*" wire:model="videos"
                                                class="sr-only">
                                         <x-heroicon-o-plus class="h-4 w-4"></x-heroicon-o-plus>
@@ -263,7 +265,7 @@
                                 <div x-cloak x-show="isUploading"
                                      class="w-full bg-gray-200 rounded-full dark:bg-gray-700">
                                     <div
-                                        class="bg-blue-600 text-xs font-medium text-blue-100 text-center p-0.5 leading-none rounded-full"
+                                        class="bg-blue-600 text-xs font-fit-medium text-blue-100 text-center p-0.5 leading-none rounded-full"
                                         :style="`width: ${progress}%`">
                                         <span x-text="`${progress}`"></span>
                                     </div>
@@ -304,7 +306,7 @@
                             @foreach($categories as $category)
                                 <div
                                     wire:click="toggleCategory({{ $category->id }})"
-                                    class="{{ in_array($category->id, $selectedCategories) ? 'bg-fit-magenta ring-fit-magenta text-white font-bold' : 'text-fit-purple-blue ring-fit-purple-blue' }} flex items-center justify-center rounded-full px-2 py-2 text-sm ring-2 ring-inset cursor-pointer">
+                                    class="{{ in_array($category->id, $selectedCategories) ? 'bg-fit-magenta ring-fit-magenta text-white font-fit-bold' : 'text-fit-purple-blue ring-fit-purple-blue' }} flex items-center justify-center rounded-full px-2 py-2 text-sm ring-2 ring-inset cursor-pointer">
                                     {{ $category->title }}
                                 </div>
                             @endforeach
@@ -326,27 +328,40 @@
                         <h3 class="text-2xl font-semibold leading-7 text-gray-900">Stripe</h3>
                     </div>
                     <div class="mt-6">
-                        @if(!auth()->user()->stripe_account_id)
-                            <x-primary-button
-                                href="https://connect.stripe.com/oauth/authorize?response_type=code&client_id={{env('STRIPE_CLIENT_ID')}}&scope=read_write">
-                                Accedi con Stripe
-                            </x-primary-button>
-                        @else
-                            <div class="flex items-center space-x-5">
-                                <span
-                                    class="bg-gray-200 ring-1 ring-gray-300 px-4 py-1 rounded-md
-                                     text-sm font-semibold font-mono">{{ auth()->user()->stripe_account_id }}</span>
-                                <span wire:click="stripeLogout"
-                                      class="text-xs font-semibold text-red-500 cursor-pointer">Esci</span>
+                        <div class="space-y-6">
+                            <x-input wire:model.defer="stripe_secret" id="stripe_secret" type="text"
+                                     name="stripe_secret" label="Chiave Privata"
+                                     hint="Assicurati che la chiave inserita sia scritta correttamente."
+                                     required/>
+                            <div class="flex items-center gap-4">
+                                <x-primary-button
+                                    wire:click="saveStripeSecret"
+                                    class="w-full max-w-xs justify-center py-3">
+                                    Salva
+                                </x-primary-button>
                             </div>
-                        @endif
+                        </div>
+                        {{--                        @if(!auth()->user()->stripe_account_id)--}}
+                        {{--                            <x-primary-button--}}
+                        {{--                                href="https://connect.stripe.com/oauth/authorize?response_type=code&client_id={{env('STRIPE_CLIENT_ID')}}&scope=read_write">--}}
+                        {{--                                Accedi con Stripe--}}
+                        {{--                            </x-primary-button>--}}
+                        {{--                        @else--}}
+                        {{--                            <div class="flex items-center space-x-5">--}}
+                        {{--                                <span--}}
+                        {{--                                    class="bg-gray-200 ring-1 ring-gray-300 px-4 py-1 rounded-md--}}
+                        {{--                                     text-sm font-semibold font-mono">{{ auth()->user()->stripe_account_id }}</span>--}}
+                        {{--                                <span wire:click="stripeLogout"--}}
+                        {{--                                      class="text-xs font-semibold text-red-500 cursor-pointer">Esci</span>--}}
+                        {{--                            </div>--}}
+                        {{--                        @endif--}}
                     </div>
 
                     <div class="px-4 sm:px-0 mt-6">
                         <h3 class="text-2xl font-semibold leading-7 text-gray-900">Account</h3>
                     </div>
                     <div class="mt-6">
-                        <h2 class="text-lg font-medium text-gray-900">
+                        <h2 class="text-lg font-fit-medium text-gray-900">
                             Aggiorna password
                         </h2>
 

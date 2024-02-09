@@ -11,7 +11,7 @@
     @vite(['resources/css/app.css', 'resources/js/app.js'])
     @livewireStyles
 </head>
-<body class="font-sans antialiased">
+<body class="font-fit-sans antialiased">
 <div class="min-h-screen bg-fit-lighter-gray">
     <!-- Page Content -->
     <main class="min-h-screen grid place-items-center">

@@ -36,6 +36,7 @@ class User extends Authenticatable implements MustVerifyEmail
     protected $casts = [
         'email_verified_at' => 'datetime',
         'password' => 'hashed',
+        'stripe_secret' => 'encrypted',
     ];
 
     public function avatar()
@@ -43,7 +44,7 @@ class User extends Authenticatable implements MustVerifyEmail
         if (!$this->informations->profile_image) {
             return '';
         }
-        return asset('storage/' . $this->informations->profile_image);
+        return asset('storage/'.$this->informations->profile_image);
     }
 
     public function getAgeAttribute()

@@ -14,7 +14,7 @@
             <p class="mt-4 text-fit-dark-gray text-center">Lorem ipsum dolor sit amet, consectetur adipisicing elit.
                 Asperiores aspernatur consectetur cum,
                 doloribus ducimus earum est facere.</p>
-            <p class="mt-6 flex justify-center items-baseline text-4xl font-bold tracking-tight text-fit-magenta">
+            <p class="mt-6 flex justify-center items-baseline text-4xl font-fit-bold tracking-tight text-fit-magenta">
                 €10.00/mese
             </p>
             <p class="mt-2 flex justify-center items-baseline text-sm tracking-tight text-fit-dark-gray">
@@ -32,7 +32,7 @@
             <p class="mt-4 text-fit-dark-gray text-center">Lorem ipsum dolor sit amet, consectetur adipisicing elit.
                 Asperiores aspernatur consectetur cum,
                 doloribus ducimus earum est facere.</p>
-            <p class="mt-6 flex justify-center items-baseline text-4xl font-bold tracking-tight text-fit-magenta">
+            <p class="mt-6 flex justify-center items-baseline text-4xl font-fit-bold tracking-tight text-fit-magenta">
                 €50.00/anno
             </p>
             <p class="mt-2 flex justify-center items-baseline text-sm tracking-tight text-fit-dark-gray">

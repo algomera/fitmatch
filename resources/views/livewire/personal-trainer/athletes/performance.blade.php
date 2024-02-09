@@ -40,7 +40,7 @@
                                     <div class="sticky left-0 z-[99] flex py-4 min-h-[10rem] px-4 bg-fit-lighter-gray">
                                         <div class="relative flex flex-col items-end px-2 w-8">
                                 <span
-                                    class="text-xl font-bold"
+                                    class="text-xl font-fit-bold"
                                     style="color: {{config('fitmatch.workout.colors.'. $loop->index % count(config('fitmatch.workout.colors')))}}">{{ str_pad($loop->iteration, 2, "0", STR_PAD_LEFT) }}</span>
                                             <span
                                                 class="absolute inset-y-0 right-0 flex-1 w-[3px]"
@@ -111,7 +111,7 @@
                                         class="sticky left-0 z-[99] flex py-4 min-h-[10rem] px-4 bg-fit-lighter-gray">
                                         <div class="relative flex flex-col items-end px-2 w-8">
                                 <span
-                                    class="text-xl font-bold"
+                                    class="text-xl font-fit-bold"
                                     style="color: {{config('fitmatch.workout.colors.'. $loop->index % count(config('fitmatch.workout.colors')))}}">{{ str_pad($loop->iteration, 2, "0", STR_PAD_LEFT) }}</span>
                                             <span
                                                 class="absolute inset-y-0 right-0 flex-1 w-[3px]"
@@ -177,7 +177,7 @@
                                         class="sticky left-0 z-[99] flex py-4 min-h-[10rem] px-4 bg-fit-lighter-gray">
                                         <div class="relative flex flex-col items-end px-2 w-8">
                                 <span
-                                    class="text-xl font-bold"
+                                    class="text-xl font-fit-bold"
                                     style="color: {{config('fitmatch.workout.colors.'. $loop->index % count(config('fitmatch.workout.colors')))}}">{{ str_pad($loop->iteration, 2, "0", STR_PAD_LEFT) }}</span>
                                             <span
                                                 class="absolute inset-y-0 right-0 flex-1 w-[3px]"

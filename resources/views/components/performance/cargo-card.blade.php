@@ -7,7 +7,7 @@
         class="flex flex-col w-full h-full items-start justify-center bg-white space-y-1.5">
         <div
             class="flex w-full items-center justify-center p-4 border-b">
-            <h4 class="text-2xl text-center font-bold truncate">
+            <h4 class="text-2xl text-center font-fit-bold truncate">
                 Carico</h4>
         </div>
         <div

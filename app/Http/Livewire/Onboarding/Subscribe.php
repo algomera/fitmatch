@@ -19,7 +19,7 @@ class Subscribe extends Component
             ->newSubscription('default', $plan)
             ->checkout([
                 'success_url' => route('subscription-ok'),
-                'cancel_url' => route('subscription-failed'),
+                'cancel_url' => route('subscribe'),
             ]);
     }
 

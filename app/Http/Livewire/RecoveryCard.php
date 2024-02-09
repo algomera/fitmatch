@@ -44,6 +44,18 @@ class RecoveryCard extends Component
         $this->emitTo('personal-trainer.workouts.show', 'item-deleted');
     }
 
+    public function duplicate()
+    {
+        $original = $this->serie->items()->find($this->row);
+        $original_item = $original->item_type::find($original->item_id);
+        $duplicated_item = $original_item->replicate();
+        $duplicated_item->save();
+        $duplicated = $original->replicate();
+        $duplicated->item_id = $duplicated_item->id;
+        $duplicated->save();
+        $this->emit('item-added', $duplicated->item_id);
+    }
+
     public function render()
     {
         return view('livewire.recovery-card');

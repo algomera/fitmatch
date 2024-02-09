@@ -5,7 +5,7 @@
 >
     <div class="w-full h-full items-center justify-center bg-white">
         <div class="flex flex-col justify-center h-full p-4">
-            <span class="text-xs font-bold text-fit-magenta mb-2">{{ $intensity?->name }}</span>
+            <span class="text-xs font-fit-bold text-fit-magenta mb-2">{{ $intensity?->name }}</span>
             <p class="text-xs text-fit-black">
                 {{ $item->area->name }}/{{ $item->zone->name }}
             </p>

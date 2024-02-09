@@ -59,7 +59,7 @@ $this->dispatchBrowserEvent('open-notification', [
                     </template>
                 </div>
                 <div class="ml-3 w-0 flex-1 pt-0.5">
-                    <p class="text-sm font-medium text-gray-900" x-text="data.title"></p>
+                    <p class="text-sm font-fit-medium text-gray-900" x-text="data.title"></p>
                     <template x-if="data.subtitle">
                         <p class="mt-1 text-sm text-gray-500" x-html="data.subtitle"></p>
                     </template>
@@ -67,11 +67,11 @@ $this->dispatchBrowserEvent('open-notification', [
                         <div class="mt-2">
                             <template x-if="data.actions.primary">
                                 <a :href="data.actions.primary.url" :target="data.actions.primary.target"
-                                   class="text-sm font-medium text-brand-purple bg-white rounded-md hover:text-brand-purple-light focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-brand-purple"
+                                   class="text-sm font-fit-medium text-brand-purple bg-white rounded-md hover:text-brand-purple-light focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-brand-purple"
                                    x-text="data.actions.primary.label"></a>
                             </template>
                             <button x-on:click="open = false"
-                                    class="ml-6 text-sm font-medium text-gray-400 bg-white rounded-md hover:text-gray-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
+                                    class="ml-6 text-sm font-fit-medium text-gray-400 bg-white rounded-md hover:text-gray-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
                                 {{ __('Chiudi') }}
                             </button>
                         </div>

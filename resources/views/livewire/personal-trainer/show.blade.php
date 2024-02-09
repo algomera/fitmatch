@@ -18,7 +18,7 @@
                     break;
                 }
             @endphp
-            <p class="{{ $badgeClasses }} inline-flex items-center rounded-full px-2 py-1 text-xs text-white font-medium">{{ config('fitmatch.profile_statuses.' . $user->status) }}</p>
+            <p class="{{ $badgeClasses }} inline-flex items-center rounded-full px-2 py-1 text-xs text-white font-fit-medium">{{ config('fitmatch.profile_statuses.' . $user->status) }}</p>
         </div>
         <div class="mt-3 flex sm:ml-4 sm:mt-0 space-x-4">
             <x-primary-button color="ghost">Contatta</x-primary-button>
@@ -38,7 +38,7 @@
             <nav class="flex space-x-4" aria-label="Tabs">
                 @foreach($tabs as $k => $tab)
                     <span wire:click="$set('currentTab', '{{ $k }}')"
-                          class="{{ $currentTab === $k ? 'bg-fit-magenta text-white' : 'text-fit-dark-gray cursor-pointer hover:text-fit-magenta' }} rounded-full px-5 py-1 text-xs font-medium">{{ $tab }}</span>
+                          class="{{ $currentTab === $k ? 'bg-fit-magenta text-white' : 'text-fit-dark-gray cursor-pointer hover:text-fit-magenta' }} rounded-full px-5 py-1 text-xs font-fit-medium">{{ $tab }}</span>
                 @endforeach
             </nav>
         </div>
