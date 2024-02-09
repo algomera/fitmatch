@@ -9,6 +9,8 @@ use Illuminate\Support\Str;
 use Illuminate\Validation\Rules\Password;
 use Livewire\Component;
 use Livewire\WithFileUploads;
+use Stripe\Exception\ApiErrorException;
+use Stripe\Exception\AuthenticationException;
 
 class Edit extends Component
 {
@@ -150,14 +152,28 @@ class Edit extends Component
             'stripe_secret' => 'required|string|alpha_dash',
         ]);
 
-        auth()->user()->update([
-            'stripe_secret' => $this->stripe_secret,
-        ]);
+        try {
+            \Stripe\Stripe::setApiKey($this->stripe_secret);
+            $transactions = \Stripe\BalanceTransaction::all(['limit' => 10]);
 
-        $this->dispatchBrowserEvent('open-notification', [
-            'title' => __('Chiave Stripe salvata con successo'),
-            'type' => 'success',
-        ]);
+            auth()->user()->update([
+                'stripe_secret' => $this->stripe_secret,
+            ]);
+            $this->dispatchBrowserEvent('open-notification', [
+                'title' => __('Chiave Stripe salvata con successo'),
+                'type' => 'success',
+            ]);
+        } catch (AuthenticationException $e) {
+            $this->dispatchBrowserEvent('open-notification', [
+                'title' => __('Errore: La chiave segreta non è corretta.'),
+                'type' => 'error',
+            ]);
+        } catch (ApiErrorException $e) {
+            $this->dispatchBrowserEvent('open-notification', [
+                'title' => __('Errore API: "'.$e->getError()->message."'"),
+                'type' => 'error',
+            ]);
+        }
     }
 
     public function render()
