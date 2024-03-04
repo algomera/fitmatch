@@ -9,17 +9,27 @@
 
     <!-- Scripts -->
     @vite(['resources/css/app.css', 'resources/js/app.js'])
+    <style>
+        @page {
+            size: 210mm 297mm;
+            margin: 3mm;
+        }
+
+        * {
+            -webkit-print-color-adjust: exact !important; /* Chrome, Safari 6 – 15.3, Edge */
+            color-adjust: exact !important; /* Firefox 48 – 96 */
+            print-color-adjust: exact !important; /* Firefox 97+, Safari 15.4+ */
+        }
+    </style>
     @livewireStyles
 </head>
 <body class="font-fit-sans antialiased">
-<div class="min-h-screen bg-fit-lighter-gray">
+<div>
     <!-- Page Content -->
-    <main class="min-h-screen grid place-items-center">
+    <main>
         {{ $slot }}
     </main>
 </div>
-<x-notification/>
-@livewire('livewire-ui-modal')
 @livewireScripts
 </body>
 </html>

@@ -7,6 +7,7 @@ use App\Models\Anamnesi;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Log;
 
 class AnamnesiController extends Controller
 {
@@ -51,13 +52,12 @@ class AnamnesiController extends Controller
             }
 
             DB::commit();
+            return response()->json(['message' => 'Request created successfully', 'exists' => $existingRecord], 200);
         } catch (\Exception $e) {
             DB::rollback();
-
-            return response()->json(['error' => $e->getMessage()], 500);
+            Log::error($e->getMessage());
+            return response()->json(['error' => $e->getMessage(), 'anamensi' => $anamnesi], 500);
         }
-
-        return response()->json(['message' => 'Request created successfully', 'exists' => $existingRecord], 200);
     }
 
     public function acceptRequest(Request $request)

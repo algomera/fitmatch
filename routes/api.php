@@ -1,6 +1,7 @@
 <?php
 
 use App\Events\ChangeUserStatus;
+use App\Http\Controllers\AgoraController;
 use App\Http\Controllers\api\AnamnesiController;
 use App\Http\Controllers\api\ApiAuthController;
 use App\Http\Controllers\api\AppointmentController;
@@ -8,12 +9,14 @@ use App\Http\Controllers\api\EmailController;
 use App\Http\Controllers\Api\UserController;
 use App\Http\Controllers\api\WorkoutController;
 use App\Http\Controllers\MessageController;
+use App\Http\Controllers\StripeController;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Log;
 use Pusher\Pusher;
+use Stripe\StripeClient;
 
 /*
 |--------------------------------------------------------------------------
@@ -32,6 +35,11 @@ Route::post('/login', [ApiAuthController::class, 'login']);
 Route::post('/send-email', [EmailController::class, 'sendEmail']);
 // Routes protected by 'auth:sanctum' middleware
 Route::group(['middleware' => 'auth:sanctum'], function () {
+    //services
+    Route::get('/agora/token', [AgoraController::class, 'generateToken']);
+    Route::post('/stripe-transfer', [StripeController::class, 'transfer']);
+    Route::get('/getStripeKey', [StripeController::class, 'getKey']);
+
     // User data retrieval
     Route::get('/getData/{id}', [ApiAuthController::class, 'getData']);
 
@@ -80,8 +88,6 @@ Route::group(['middleware' => 'auth:sanctum'], function () {
             ['cluster' => env('PUSHER_APP_CLUSTER')]
         );
 
-
-
         if ($user) {
             // Generate the authorization data including the 'user_id'
             $channelData = json_encode(['user_id' => $user->id]); // Convert to JSON
@@ -102,16 +108,27 @@ Route::group(['middleware' => 'auth:sanctum'], function () {
         }
     });
     Route::post('/update-status', function (Request $request) {
-        // Validate request, authenticate user, etc.
 
-        $id = $request->input('id');
-        $status = $request->input('status');
+        try {
+            $validatedData = $request->validate([
+                'id' => 'required|integer|exists:users,id',
+                'status' => 'required',
+            ]);
 
-        // Trigger the event
-        event(new ChangeUserStatus($id, $status));
-        $user = User::find($id);
-        $user->update(['is_online' => 1]);
-        return response()->json(['message' => 'Status updated']);
+            $id = $validatedData['id'];
+            $status = $validatedData['status'];
+
+            $user = User::find($id);
+            $user->update(['is_online' => $status]);
+
+
+            event(new ChangeUserStatus($id, $status));
+
+            return response()->json(['message' => 'Status updated']);
+        } catch (\Exception $e) {
+
+            return response()->json(['message' => 'Server Error'], 500);
+        }
     });
     // Messages
     Route::post('/messages', [MessageController::class, 'sendMessage']);

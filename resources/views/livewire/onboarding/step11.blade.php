@@ -8,7 +8,7 @@
                 @foreach($categories as $category)
                     <div
                         wire:click="toggleCategory({{ $category->id }})"
-                        class="{{ in_array($category->id, $selectedCategories) ? 'bg-fit-magenta ring-fit-magenta text-white font-bold' : 'text-fit-purple-blue ring-fit-purple-blue' }} flex items-center justify-center rounded-full px-2 py-2 text-sm ring-2 ring-inset cursor-pointer">
+                        class="{{ in_array($category->id, $selectedCategories) ? 'bg-fit-magenta ring-fit-magenta text-white font-fit-bold' : 'text-fit-purple-blue ring-fit-purple-blue' }} flex items-center justify-center rounded-full px-2 py-2 text-sm ring-2 ring-inset cursor-pointer">
                         {{ $category->title }}
                     </div>
                 @endforeach

@@ -6,7 +6,7 @@
     <div class="mt-6 border-t border-gray-100">
         <dl class="divide-y divide-gray-100">
             <div class="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0">
-                <dt class="text-sm font-medium leading-6 text-gray-900">Quale attività sportiva stai praticando
+                <dt class="text-sm font-fit-medium leading-6 text-gray-900">Quale attività sportiva stai praticando
                     attualmente?
                 </dt>
                 <dd class="mt-1 text-sm leading-6 text-gray-700 sm:col-span-2 sm:mt-0">
@@ -14,7 +14,7 @@
                 </dd>
             </div>
             <div class="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0">
-                <dt class="text-sm font-medium leading-6 text-gray-900">Quale attività sportiva hai praticato in
+                <dt class="text-sm font-fit-medium leading-6 text-gray-900">Quale attività sportiva hai praticato in
                     passato?
                 </dt>
                 <dd class="mt-1 text-sm leading-6 text-gray-700 sm:col-span-2 sm:mt-0">
@@ -22,26 +22,28 @@
                 </dd>
             </div>
             <div class="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0">
-                <dt class="text-sm font-medium leading-6 text-gray-900">Da quanti anni ti alleni?</dt>
+                <dt class="text-sm font-fit-medium leading-6 text-gray-900">Da quanti anni ti alleni?</dt>
                 <dd class="mt-1 text-sm leading-6 text-gray-700 sm:col-span-2 sm:mt-0">
                     {{ $athlete->anamnesi->years_of_training ?: '-' }} anni
                 </dd>
             </div>
             <div class="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0">
-                <dt class="text-sm font-medium leading-6 text-gray-900">Quante volte ti alleni a settimana?</dt>
+                <dt class="text-sm font-fit-medium leading-6 text-gray-900">Quante volte ti alleni a settimana?</dt>
                 <dd class="mt-1 text-sm leading-6 text-gray-700 sm:col-span-2 sm:mt-0">
                     {{ $athlete->anamnesi->training_per_week ?: '-' }} volte
                 </dd>
             </div>
             <div class="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0">
-                <dt class="text-sm font-medium leading-6 text-gray-900">Quanto tempo hai a disposizione per allenarti?
+                <dt class="text-sm font-fit-medium leading-6 text-gray-900">Quanto tempo hai a disposizione per
+                    allenarti?
                 </dt>
                 <dd class="mt-1 text-sm leading-6 text-gray-700 sm:col-span-2 sm:mt-0">
                     {{ $athlete->anamnesi->time_available_for_training ?: '-' }} ore
                 </dd>
             </div>
             <div class="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0">
-                <dt class="text-sm font-medium leading-6 text-gray-900">Sei disposto/a ad aumentare la durata del tuo
+                <dt class="text-sm font-fit-medium leading-6 text-gray-900">Sei disposto/a ad aumentare la durata del
+                    tuo
                     allenamento per raggiungere i tuoi obbiettivi?
                 </dt>
                 <dd class="mt-1 text-sm leading-6 text-gray-700 sm:col-span-2 sm:mt-0">
@@ -49,7 +51,7 @@
                 </dd>
             </div>
             <div class="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0">
-                <dt class="text-sm font-medium leading-6 text-gray-900">Sei disposto/a ad aumentare la frequenza
+                <dt class="text-sm font-fit-medium leading-6 text-gray-900">Sei disposto/a ad aumentare la frequenza
                     settimanale per raggiungere i tuoi obbiettivi?
                 </dt>
                 <dd class="mt-1 text-sm leading-6 text-gray-700 sm:col-span-2 sm:mt-0">
@@ -57,7 +59,7 @@
                 </dd>
             </div>
             <div class="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0">
-                <dt class="text-sm font-medium leading-6 text-gray-900">Hai dolori articolari o infiammazioni?
+                <dt class="text-sm font-fit-medium leading-6 text-gray-900">Hai dolori articolari o infiammazioni?
                 </dt>
                 <dd class="mt-1 text-sm leading-6 text-gray-700 sm:col-span-2 sm:mt-0">
                     {{ $athlete->anamnesi->articular_pain ? 'Si' : 'No' }}
@@ -65,7 +67,7 @@
             </div>
             @if($athlete->anamnesi->articular_pain)
                 <div class="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0">
-                    <dt class="text-sm font-medium leading-6 text-gray-900">Di che tipo?
+                    <dt class="text-sm font-fit-medium leading-6 text-gray-900">Di che tipo?
                     </dt>
                     <dd class="mt-1 text-sm leading-6 text-gray-700 sm:col-span-2 sm:mt-0">
                         {{ $athlete->anamnesi->articular_pain_yes_which ?: '-' }}

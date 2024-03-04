@@ -1,6 +1,6 @@
 <form wire:submit.prevent="save" class="bg-fit-lighter-gray p-4 md:p-12">
     <div class="space-y-6">
-        <h1 class="text-3xl font-bold text-fit-black">Posizione lavorativa</h1>
+        <h1 class="text-3xl font-fit-bold text-fit-black">Posizione lavorativa</h1>
         <div class="grid grid-cols-1 gap-5 sm:grid-cols-6">
             <div class="col-span-6 sm:col-span-6">
                 <x-input wire:model="job.title" id="title" type="text" name="job.title" label="Titolo" required

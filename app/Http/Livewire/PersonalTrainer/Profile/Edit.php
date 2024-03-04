@@ -9,6 +9,8 @@ use Illuminate\Support\Str;
 use Illuminate\Validation\Rules\Password;
 use Livewire\Component;
 use Livewire\WithFileUploads;
+use Stripe\Exception\ApiErrorException;
+use Stripe\Exception\AuthenticationException;
 
 class Edit extends Component
 {
@@ -28,8 +30,9 @@ class Edit extends Component
     public $profile_image;
     public $photos = [];
     public $videos = [];
-
     public $current_password, $password, $password_confirmation;
+    public $stripe_secret = null;
+    protected $queryString = 'currentTab';
     protected $listeners = [
         'job-experience-created' => '$refresh',
         'job-experience-updated' => '$refresh',
@@ -39,12 +42,23 @@ class Edit extends Component
 
     public function mount()
     {
-
-
         foreach (auth()->user()->categories as $category) {
             $this->selectedCategories[] = $category->id;
         }
+        $this->stripe_secret = auth()->user()->stripe_secret;
     }
+
+    //    public function stripeLogout()
+    //    {
+    //        Stripe::setApiKey(env('STRIPE_SECRET'));
+    //        OAuth::deauthorize([
+    //            'client_id' => env('STRIPE_CLIENT_ID'),
+    //            'stripe_user_id' => auth()->user()->stripe_account_id,
+    //        ]);
+    //        auth()->user()->update([
+    //            'stripe_account_id' => null
+    //        ]);
+    //    }
 
     public function updatedProfileImage()
     {
@@ -115,7 +129,10 @@ class Edit extends Component
 
     public function updatePassword()
     {
-        $this->validate();
+        $this->validate([
+            'current_password' => ['required', 'current_password'],
+            'password' => ['required', Password::defaults(), 'confirmed'],
+        ]);
 
         auth()->user()->update([
             'password' => Hash::make($this->password),
@@ -129,6 +146,36 @@ class Edit extends Component
         $this->reset(['current_password', 'password', 'password_confirmation']);
     }
 
+    public function saveStripeSecret()
+    {
+        $this->validate([
+            'stripe_secret' => 'required|string|alpha_dash',
+        ]);
+
+        try {
+            \Stripe\Stripe::setApiKey($this->stripe_secret);
+            $transactions = \Stripe\BalanceTransaction::all(['limit' => 10]);
+
+            auth()->user()->update([
+                'stripe_secret' => $this->stripe_secret,
+            ]);
+            $this->dispatchBrowserEvent('open-notification', [
+                'title' => __('Chiave Stripe salvata con successo'),
+                'type' => 'success',
+            ]);
+        } catch (AuthenticationException $e) {
+            $this->dispatchBrowserEvent('open-notification', [
+                'title' => __('Errore: La chiave segreta non è corretta.'),
+                'type' => 'error',
+            ]);
+        } catch (ApiErrorException $e) {
+            $this->dispatchBrowserEvent('open-notification', [
+                'title' => __('Errore API: "'.$e->getError()->message."'"),
+                'type' => 'error',
+            ]);
+        }
+    }
+
     public function render()
     {
         return view('livewire.personal-trainer.profile.edit', [
@@ -138,13 +185,5 @@ class Edit extends Component
             'user_photos' => auth()->user()->medias()->where('type', 'image')->get(),
             'user_videos' => auth()->user()->medias()->where('type', 'video')->get(),
         ]);
-    }
-
-    protected function rules()
-    {
-        return [
-            'current_password' => ['required', 'current_password'],
-            'password' => ['required', Password::defaults(), 'confirmed'],
-        ];
     }
 }

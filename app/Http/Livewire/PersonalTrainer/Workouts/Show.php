@@ -350,7 +350,8 @@ class Show extends Component
                         $serie->items()->create([
                             'workout_id' => $serie->workout->id,
                             'item_id' => $exercise->item_id,
-                            'item_type' => Exercise::class
+                            'item_type' => Exercise::class,
+                            'intensity_id' => $exercise->intensity_id
                         ]);
                         break;
                 }
@@ -408,7 +409,8 @@ class Show extends Component
                     $newSerie->items()->create([
                         'workout_id' => $newSerie->workout->id,
                         'item_id' => $exercise->item_id,
-                        'item_type' => Exercise::class
+                        'item_type' => Exercise::class,
+                        'intensity_id' => $exercise->intensity_id
                     ]);
                     break;
             }

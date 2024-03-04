@@ -7,7 +7,7 @@
         @else
             <div class="h-6"></div>
         @endif
-        <p class="text-lg font-bold text-fit-black mt-1">{{ $workout->name }}</p>
+        <p class="text-lg font-fit-bold text-fit-black mt-1">{{ $workout->name }}</p>
         @if($workout->athlete)
             <span class="text-xs font-semibold text-gray-500">{{ $workout->athlete->full_name }}</span>
         @else
@@ -19,6 +19,7 @@
     </div>
     <div class="p-4 flex items-center justify-between">
         <x-heroicon-o-arrow-up-on-square
+            wire:click.prevent="$emit('openModal', 'workouts.modals.share', {{ json_encode(['workout' => $workout->id]) }})"
             class="w-5 h-5 hover:cursor-pointer hover:text-fit-magenta"></x-heroicon-o-arrow-up-on-square>
         <div class="flex space-x-4">
             <x-heroicon-o-trash

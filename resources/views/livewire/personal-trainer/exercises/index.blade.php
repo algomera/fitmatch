@@ -1,14 +1,14 @@
 <div>
     <div class="mx-auto max-w-7xl px-2">
         <div class="grid grid-cols-4 gap-2">
-            <div class="col-span-1 p-4 space-y-5">
+            <div class="col-span-4 md:col-span-1 p-4 space-y-5">
                 <div class="flex items-center justify-between">
                     <h3>Filtri</h3>
                     @if($typology || $zone || $area)
                         <span wire:click="resetFilters" class="cursor-pointer text-sm text-fit-magenta">Reset</span>
                     @endif
                 </div>
-                <div class="space-y-6">
+                <div class="flex space-x-4 md:flex-col md:space-x-0 md:space-y-6">
                     <x-select wire:model="typology" name="typology" id="typology" label="Tipologia">
                         <option value="">Seleziona</option>
                         @foreach($typologies as $t)
@@ -40,7 +40,7 @@
                     @endif
                 </div>
             </div>
-            <div class="col-span-3 h-[calc(100vh-6.7rem)] overflow-y-scroll divide-y pt-4 pb-14 px-5">
+            <div class="col-span-4 md:col-span-3 h-[calc(100vh-6.7rem)] overflow-y-scroll divide-y pt-4 pb-14 px-5">
                 @forelse($exercises as $exercise)
                     <livewire:personal-trainer.exercises.exercise-item
                         :wire:key="$exercise->id"

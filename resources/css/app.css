@@ -45,15 +45,15 @@
     }
 
     h1 {
-        @apply font-black text-3xl
+        @apply font-fit-black text-3xl
     }
 
     h2 {
-        @apply font-extrabold text-2xl
+        @apply font-fit-extrabold text-2xl
     }
 
     h3 {
-        @apply font-bold text-xl text-fit-black
+        @apply font-fit-bold text-xl text-fit-black
     }
 
     /* Chrome, Safari, Edge, Opera */

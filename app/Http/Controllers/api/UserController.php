@@ -9,6 +9,7 @@ use DateTimeZone;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 
 class UserController extends Controller
@@ -67,19 +68,26 @@ class UserController extends Controller
 
             // Get the incoming date of birth string
             $dob = $request->input('dob');
-            // Replace '/' with '-' to convert "dd/MM/yyyy" to "dd-MM-yyyy" format
-            $dob = str_replace('/', '-', $dob);
-            // Parse the date string
-            $parsedDate = date_create_from_format('d-m-Y', $dob, new DateTimeZone('UTC'));
-            $formattedDob = $parsedDate->format('U');
 
-            $request['dob'] = $formattedDob;
+            // Replace '/' with '-' to convert "dd/mm/yyyy" to "dd-mm-yyyy" format
+            $dob = str_replace('/', '-', $dob);
+
+            // Parse the date string using 'd-m-Y' format
+            $parsedDate = date_create_from_format('d-m-Y', $dob, new DateTimeZone('UTC'));
+
+            // Check if parsing was successful
+            if ($parsedDate === false) {
+                throw new \Exception('Invalid date format. Expected: dd/mm/yyyy');
+            }
+
+            // Convert the parsed date to the 'YYYY-MM-DD' format
+            $formattedDob = $parsedDate->format('Y-m-d');
 
             $userInfo->update([
                 'first_name' => $request['first_name'],
                 'last_name' => $request['last_name'],
                 'gender' => $request['gender'],
-                'dob' => $request['dob'],
+                'dob' => $formattedDob, // Use 'YYYY-MM-DD' format
                 'phone' => $request['phone']
             ]);
 
@@ -92,6 +100,7 @@ class UserController extends Controller
             return response()->json(['error' => $e->getMessage()], 500);
         }
     }
+
 
     public function acceptContactRequest(Request $request)
     {
@@ -120,8 +129,8 @@ class UserController extends Controller
     public function denyContactRequest(Request $request)
     {
         try {
-            $personalTrainerId = $request->input('personal_trainer_id');
-            $athleteId = $request->input('athlete_id');
+            $personalTrainerId = $request['personal_trainer_id'];
+            $athleteId = $request['athlete_id'];
 
             // Find the user relationship and detach it to remove the pivot record
             User::find($personalTrainerId)->athletes()->detach($athleteId);
@@ -138,24 +147,32 @@ class UserController extends Controller
         try {
             $userId = $request->input('user_id');
             $file = $request->file('profile_image');
-            $userInfo = UserInformations::where('user_id', $userId);
+            $userInfo = UserInformations::where('user_id', $userId)->first(); // Retrieve user information
+
             if (!$file) {
                 return response()->json(['error' => 'Profile image not provided'], 400);
             }
 
-            $filePath = '/public/user/' . $userId . '/profile_image/';
+            // Delete the previous profile image if it exists
+            if ($userInfo->profile_image) {
+                Storage::delete('/public' . $userInfo->profile_image);
+            }
 
+            $filePath = '/public/user/' . $userId . '/profile_image/';
             $fileName = Str::uuid() . '.webp';
+
+            // Store the new profile image
             $file->storeAs($filePath, $fileName);
             $withoutPublic = str_replace('/public', '', $filePath);
-            $userInfo->update(['profile_image' => $withoutPublic . $fileName]);
 
+            $userInfo->update(['profile_image' => $withoutPublic . $fileName]);
 
             return response()->json(['message' => 'Profile picture uploaded successfully', 'path' => $filePath, 'file_name' => $fileName], 200);
         } catch (\Exception $e) {
             return response()->json(['error' => 'Something went wrong: ' . $e], 500);
         }
     }
+
 
     public function destroy($id)
     {

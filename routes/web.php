@@ -3,6 +3,7 @@
 use App\Http\Controllers\ProfileController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use Stripe\Stripe;
 
 /*
 |--------------------------------------------------------------------------
@@ -60,11 +61,14 @@ Route::middleware(['auth'])->group(function () {
             Route::get('/personal-trainer/{user}', [
                 \App\Http\Livewire\PersonalTrainer\Show::class, '__invoke'
             ])->name('personal-trainer.show');
+            Route::get('/exercises', [
+                \App\Http\Livewire\PersonalTrainer\Exercises\Index::class, '__invoke'
+            ])->name('exercises');
         });
         // Personal Trainer
         Route::middleware([
             'role:personal-trainer',
-            // 'subscriber'
+            'subscriber'
         ])->prefix('personal-trainer')->name('personal-trainer.')->group(function () {
             Route::get('/dashboard', [
                 \App\Http\Livewire\PersonalTrainer\Dashboard::class, '__invoke'
@@ -81,12 +85,31 @@ Route::middleware(['auth'])->group(function () {
             Route::get('/workouts/{workout}', [
                 \App\Http\Livewire\PersonalTrainer\Workouts\Show::class, '__invoke'
             ])->name('workout');
+            Route::get('/workouts/{workout}/pdf', [
+                \App\Http\Livewire\Workouts\Pdf::class, '__invoke'
+            ])->name('workout.pdf');
             Route::get('/exercises', [
                 \App\Http\Livewire\PersonalTrainer\Exercises\Index::class, '__invoke'
             ])->name('exercises');
             Route::get('/profile', [
                 \App\Http\Livewire\PersonalTrainer\Profile\Edit::class, '__invoke'
             ])->name('profile');
+
+            Route::get('/oauth/confirm', function (Request $request) {
+                $token = $request->get('code');
+
+                Stripe::setApiKey(env('STRIPE_SECRET'));
+                $response = \Stripe\OAuth::token([
+                    'grant_type' => 'authorization_code',
+                    'code' => $token,
+                ]);
+
+                auth()->user()->update([
+                    'stripe_account_id' => $response->stripe_user_id
+                ]);
+
+                return redirect()->route('personal-trainer.profile', ['currentTab' => 'account']);
+            });
 
             Route::get('/billing', function (Request $request) {
                 return $request->user()->redirectToBillingPortal(route('personal-trainer.dashboard'));
@@ -101,4 +124,4 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
-require __DIR__ . '/auth.php';
+require __DIR__.'/auth.php';

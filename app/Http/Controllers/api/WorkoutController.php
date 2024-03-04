@@ -23,7 +23,7 @@ class WorkoutController extends Controller
 
             if ($user_role == 'personal-trainer') {
                 $workouts = $current_user->personal_trainer_workouts()
-                    ->load(['athlete', 'goal']);
+                    ->with(['athlete', 'goal'])->get();
             } else {
                 $workouts = $current_user->athlete_workouts()
                     ->with(['personal_trainer', 'goal'])
@@ -40,8 +40,6 @@ class WorkoutController extends Controller
     {
         $workoutModel = Workout::find($id);
         $workout_weeks = $workoutModel->workout_weeks;
-
-
         $workout = [];
         foreach ($workout_weeks as $week) {
             $week_label = str_pad($week->week, 2, "0", STR_PAD_LEFT);

@@ -15,7 +15,7 @@
     @vite(['resources/css/app.css', 'resources/js/app.js'])
     @livewireStyles
 </head>
-<body class="font-sans text-gray-900 antialiased h-full">
+<body class="font-fit-sans text-gray-900 antialiased h-full">
 <div class="bg-fit-lighter-gray h-full">
     <div class="h-full grid lg:grid-cols-2">
         <div class="flex items-center justify-center">

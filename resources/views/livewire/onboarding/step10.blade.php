@@ -20,7 +20,7 @@
                         <div class="flex items-center justify-between">
                             <h3 class="text-2xl font-semibold leading-7 text-gray-900 my-0">Foto</h3>
                             <label for="photos"
-                                   class="bg-fit-purple-blue border border-transparent text-white hover:bg-fit-purple-blue/90 focus:bg-gray-700 active:bg-gray-900 focus:ring-indigo-500 rounded-md text-sm inline-flex items-center px-5 py-1.5 font-bold focus:outline-none focus:ring-2 focus:ring-offset-2 transition ease-in-out duration-150 disabled:opacity-50 disabled:cursor-not-allowed">
+                                   class="bg-fit-purple-blue border border-transparent text-white hover:bg-fit-purple-blue/90 focus:bg-gray-700 active:bg-gray-900 focus:ring-indigo-500 rounded-md text-sm inline-flex items-center px-5 py-1.5 font-fit-bold focus:outline-none focus:ring-2 focus:ring-offset-2 transition ease-in-out duration-150 disabled:opacity-50 disabled:cursor-not-allowed">
                                 <input type="file" id="photos" multiple accept="image/*" wire:model="photos"
                                        class="sr-only">
                                 <x-heroicon-o-plus class="h-4 w-4"></x-heroicon-o-plus>
@@ -29,7 +29,7 @@
                         <div x-cloak x-show="isUploading"
                              class="w-full bg-gray-200 rounded-full dark:bg-gray-700">
                             <div
-                                class="bg-blue-600 text-xs font-medium text-blue-100 text-center p-0.5 leading-none rounded-full"
+                                class="bg-blue-600 text-xs font-fit-medium text-blue-100 text-center p-0.5 leading-none rounded-full"
                                 :style="`width: ${progress}%`">
                                 <span x-text="`${progress}`"></span>
                             </div>
@@ -71,7 +71,7 @@
                         <div class="flex items-center justify-between">
                             <h3 class="text-2xl font-semibold leading-7 text-gray-900 my-0">Video</h3>
                             <label for="videos"
-                                   class="bg-fit-purple-blue border border-transparent text-white hover:bg-fit-purple-blue/90 focus:bg-gray-700 active:bg-gray-900 focus:ring-indigo-500 rounded-md text-sm inline-flex items-center px-5 py-1.5 font-bold focus:outline-none focus:ring-2 focus:ring-offset-2 transition ease-in-out duration-150 disabled:opacity-50 disabled:cursor-not-allowed">
+                                   class="bg-fit-purple-blue border border-transparent text-white hover:bg-fit-purple-blue/90 focus:bg-gray-700 active:bg-gray-900 focus:ring-indigo-500 rounded-md text-sm inline-flex items-center px-5 py-1.5 font-fit-bold focus:outline-none focus:ring-2 focus:ring-offset-2 transition ease-in-out duration-150 disabled:opacity-50 disabled:cursor-not-allowed">
                                 <input type="file" id="videos" multiple accept="video/*" wire:model="videos"
                                        class="sr-only">
                                 <x-heroicon-o-plus class="h-4 w-4"></x-heroicon-o-plus>
@@ -80,7 +80,7 @@
                         <div x-cloak x-show="isUploading"
                              class="w-full bg-gray-200 rounded-full dark:bg-gray-700">
                             <div
-                                class="bg-blue-600 text-xs font-medium text-blue-100 text-center p-0.5 leading-none rounded-full"
+                                class="bg-blue-600 text-xs font-fit-medium text-blue-100 text-center p-0.5 leading-none rounded-full"
                                 :style="`width: ${progress}%`">
                                 <span x-text="`${progress}`"></span>
                             </div>

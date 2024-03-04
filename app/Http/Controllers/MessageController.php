@@ -47,40 +47,37 @@ class MessageController extends Controller
         return response()->json($messages);
     }
 
-    public function getLatestMessages($id)
+    public function getLatestMessages($userId)
     {
-
-        $subQuery = Message::select(DB::raw('
-        LEAST(sender_id, receiver_id) as user_one,
-        GREATEST(sender_id, receiver_id) as user_two,
-        MAX(id) as last_message_id
-    '))
-            ->where('sender_id', $id)
-            ->orWhere('receiver_id', $id)
+        // Subquery to find the latest message ID for each conversation
+        $latestMessageSubQuery = Message::selectRaw('
+            MAX(id) as last_message_id,
+            LEAST(sender_id, receiver_id) as user_one,
+            GREATEST(sender_id, receiver_id) as user_two
+        ')
+            ->where('sender_id', $userId)
+            ->orWhere('receiver_id', $userId)
             ->groupBy('user_one', 'user_two');
 
-        // Subquery for counting unseen messages
-        $unseenCountSubQuery = Message::select('receiver_id', DB::raw('COUNT(*) as unseen_count'))
-            ->where('receiver_id', $id)
-            ->where('is_seen', 0)
-            ->groupBy('receiver_id');
+        // Main query to get the latest messages details
+        $latestMessages = DB::table('messages as m')
+            ->joinSub($latestMessageSubQuery, 'latest', function ($join) {
+                $join->on('m.id', '=', 'latest.last_message_id');
+            })
+            ->leftJoin('users as sender', 'm.sender_id', '=', 'sender.id')
+            ->leftJoin('users as receiver', 'm.receiver_id', '=', 'receiver.id')
+            ->select([
+                'm.id',
+                'm.sender_id',
+                'm.receiver_id',
+                'm.message',
+                'm.type',
+                'm.created_at',
+                'm.is_seen',
 
-        // Main query to get the message details and unseen count
-        $latestMessages = DB::table('messages')
-            ->joinSub($subQuery, 'latest_messages', function ($join) {
-                $join->on('messages.id', '=', 'latest_messages.last_message_id');
-            })
-            ->leftJoinSub($unseenCountSubQuery, 'unseen_counts', function ($join) use ($id) {
-                $join->on('messages.sender_id', '=', 'unseen_counts.receiver_id')
-                    ->orOn('messages.receiver_id', '=', 'unseen_counts.receiver_id');
-            })
-            ->get([
-                'messages.sender_id',
-                'messages.receiver_id',
-                'messages.message',
-                'messages.type',
-                'unseen_counts.unseen_count'
-            ]);
+            ])
+            ->orderBy('m.created_at', 'desc')
+            ->get();
 
         return $latestMessages;
     }
