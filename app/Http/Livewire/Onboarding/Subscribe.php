@@ -13,8 +13,17 @@ class Subscribe extends Component
         }
     }
 
-    public function checkout($plan)
+    public function checkout($subscription)
     {
+        switch ($subscription) {
+            default:
+            case 'month':
+                $plan = env('STRIPE_MONTH_SUBSCRIPTION');
+                break;
+            case 'year':
+                $plan = env('STRIPE_YEAR_SUBSCRIPTION');
+                break;
+        }
         return auth()->user()
             ->newSubscription('default', $plan)
             ->checkout([

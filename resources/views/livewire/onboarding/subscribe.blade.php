@@ -20,7 +20,7 @@
             <p class="mt-2 flex justify-center items-baseline text-sm tracking-tight text-fit-dark-gray">
                 €120.00/anno
             </p>
-            <x-primary-button wire:click="checkout('price_1OVA0PHh1WgVtzWEyyoz0gj8')" class="justify-center mt-10">
+            <x-primary-button wire:click="checkout('month')" class="justify-center mt-10">
                 Iscriviti
             </x-primary-button>
         </div>
@@ -38,7 +38,7 @@
             <p class="mt-2 flex justify-center items-baseline text-sm tracking-tight text-fit-dark-gray">
                 €4.16/mese
             </p>
-            <x-primary-button wire:click="checkout('price_1OVA0sHh1WgVtzWEZjYMJbyI')" class="justify-center mt-10">
+            <x-primary-button wire:click="checkout('year')" class="justify-center mt-10">
                 Iscriviti
             </x-primary-button>
         </div>
