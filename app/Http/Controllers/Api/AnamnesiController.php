@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\api;
+namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 use App\Models\Anamnesi;
@@ -77,6 +77,48 @@ class AnamnesiController extends Controller
     }
 
     /**
+     * Update the specified resource in storage.
+     */
+    public function update(Request $request, string $id)
+    {
+        try {
+            DB::beginTransaction();
+
+            $schedaAnamnesi = Anamnesi::find($id);
+
+            if (!$schedaAnamnesi) {
+                return response()->json(['message' => 'Scheda anamnesi non trovata'], 404);
+            }
+
+            // Check if smoke_stopped_since has been provided in the request
+            if ($request->has('smoke_stopped_since')) {
+                $numberOfDays = $request->input('smoke_stopped_since');
+                $currentDate = now();
+                $newDate = $currentDate->clone()->startOfDay()->subDays($numberOfDays);
+
+                // Check if the new date is different from the current value in the database
+                if (!$newDate->eq($schedaAnamnesi->smoke_stopped_since)) {
+                    $request->merge(['smoke_stopped_since' => $newDate]);
+                } else {
+                    // Remove the smoke_stopped_since field from the request if it hasn't changed
+                    $request->offsetUnset('smoke_stopped_since');
+                }
+            }
+
+            $schedaAnamnesi->fill($request->all());
+            $schedaAnamnesi->save();
+            DB::commit();
+
+            return response()->json([
+                'message' => 'Scheda anamnesi aggiornata correttamente', 'anamnesi' => $schedaAnamnesi
+            ], 200);
+        } catch (\Exception $e) {
+            DB::rollBack();
+            return response()->json(['message' => 'Errore aggiornamento anamnesi', 'error' => $e->getMessage()], 500);
+        }
+    }
+
+    /**
      * Store a newly created resource in storage.
      */
     public function store(Request $request)
@@ -97,7 +139,9 @@ class AnamnesiController extends Controller
             $schedaAnamnesi->save();
             DB::commit();
 
-            return response()->json(['message' => 'Scheda anamnesi creata correttamente', 'anamnesi' => $schedaAnamnesi], 201);
+            return response()->json([
+                'message' => 'Scheda anamnesi creata correttamente', 'anamnesi' => $schedaAnamnesi
+            ], 201);
         } catch (\Exception $e) {
             DB::rollBack();
             return response()->json(['message' => 'Error creating anamnesi', 'error' => $e->getMessage()], 500);
@@ -179,48 +223,6 @@ class AnamnesiController extends Controller
     {
         //
     }
-
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, string $id)
-    {
-        try {
-            DB::beginTransaction();
-
-            $schedaAnamnesi = Anamnesi::find($id);
-
-            if (!$schedaAnamnesi) {
-                return response()->json(['message' => 'Scheda anamnesi non trovata'], 404);
-            }
-
-            // Check if smoke_stopped_since has been provided in the request
-            if ($request->has('smoke_stopped_since')) {
-                $numberOfDays = $request->input('smoke_stopped_since');
-                $currentDate = now();
-                $newDate = $currentDate->clone()->startOfDay()->subDays($numberOfDays);
-
-                // Check if the new date is different from the current value in the database
-                if (!$newDate->eq($schedaAnamnesi->smoke_stopped_since)) {
-                    $request->merge(['smoke_stopped_since' => $newDate]);
-                } else {
-                    // Remove the smoke_stopped_since field from the request if it hasn't changed
-                    $request->offsetUnset('smoke_stopped_since');
-                }
-            }
-
-            $schedaAnamnesi->fill($request->all());
-            $schedaAnamnesi->save();
-            DB::commit();
-
-            return response()->json(['message' => 'Scheda anamnesi aggiornata correttamente', 'anamnesi' => $schedaAnamnesi], 200);
-        } catch (\Exception $e) {
-            DB::rollBack();
-            return response()->json(['message' => 'Errore aggiornamento anamnesi', 'error' => $e->getMessage()], 500);
-        }
-    }
-
-
 
     /**
      * Remove the specified resource from storage.

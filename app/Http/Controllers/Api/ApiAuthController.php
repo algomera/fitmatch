@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\api;
+namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 use App\Models\Category;
@@ -47,7 +47,10 @@ class ApiAuthController extends Controller
             ->get();
 
 
-        return response()->json(['categories' => $categories, 'personal_trainers' => $pts, 'chat_users' => $chat_users, 'notifications' => $notifications]);
+        return response()->json([
+            'categories' => $categories, 'personal_trainers' => $pts, 'chat_users' => $chat_users,
+            'notifications' => $notifications
+        ]);
     }
 
 
@@ -71,7 +74,10 @@ class ApiAuthController extends Controller
 
         if ($user != [] && Hash::check($request->password, $user->password)) {
             $token = User::find($userID)->createToken('token')->plainTextToken;
-            $response = ['token' => $token, 'user' => $user, 'user_type' => $user->getRoleAttribute()->name, 'message' => 'Login effettuato con successo'];
+            $response = [
+                'token' => $token, 'user' => $user, 'user_type' => $user->getRoleAttribute()->name,
+                'message' => 'Login effettuato con successo'
+            ];
             return response()->json($response, 200);
         }
     }

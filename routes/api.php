@@ -2,21 +2,19 @@
 
 use App\Events\ChangeUserStatus;
 use App\Http\Controllers\AgoraController;
-use App\Http\Controllers\api\AnamnesiController;
-use App\Http\Controllers\api\ApiAuthController;
-use App\Http\Controllers\api\AppointmentController;
-use App\Http\Controllers\api\EmailController;
+use App\Http\Controllers\Api\AnamnesiController;
+use App\Http\Controllers\Api\ApiAuthController;
+use App\Http\Controllers\Api\AppointmentController;
+use App\Http\Controllers\Api\EmailController;
 use App\Http\Controllers\Api\UserController;
-use App\Http\Controllers\api\WorkoutController;
+use App\Http\Controllers\Api\WorkoutController;
 use App\Http\Controllers\MessageController;
 use App\Http\Controllers\StripeController;
 use App\Models\User;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Route;
 use Pusher\Pusher;
-use Stripe\StripeClient;
 
 /*
 |--------------------------------------------------------------------------

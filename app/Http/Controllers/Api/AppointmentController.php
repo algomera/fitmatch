@@ -1,9 +1,8 @@
 <?php
 
-namespace App\Http\Controllers\api;
+namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
-
 use App\Models\Appointment;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -46,6 +45,14 @@ class AppointmentController extends Controller
         }
     }
 
+    /**
+     * Update the specified resource in storage.
+     */
+    public function update(Request $request, Appointment $appointment)
+    {
+        //
+    }
+
     public function denyAppointment(Request $request)
     {
         try {
@@ -63,12 +70,9 @@ class AppointmentController extends Controller
 
             return response()->json(['message' => 'Appuntamento Rifiutato'], 200);
         } catch (\Exception $e) {
-            return response()->json(['message' => 'An error occurred: ' . $e], 500);
+            return response()->json(['message' => 'An error occurred: '.$e], 500);
         }
     }
-
-
-
 
     /**
      * Show the form for creating a new resource.
@@ -113,7 +117,9 @@ class AppointmentController extends Controller
 
             DB::commit();
 
-            return response()->json(['message' => 'Appointment created successfully', 'appointment' => $appointment], 201);
+            return response()->json([
+                'message' => 'Appointment created successfully', 'appointment' => $appointment
+            ], 201);
         } catch (\Exception $e) {
 
             DB::rollBack();
@@ -139,14 +145,6 @@ class AppointmentController extends Controller
     }
 
     /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, Appointment $appointment)
-    {
-        //
-    }
-
-    /**
      * Remove the specified resource from storage.
      */
     public function destroy(Appointment $appointment)
@@ -158,7 +156,7 @@ class AppointmentController extends Controller
             $appointment->delete();
             return response()->json(['message' => 'Appointment deleted successfully'], 200);
         } catch (\Exception $e) {
-            return response()->json(['error' => 'Failed to delete appointment: ' . $e->getMessage()], 500);
+            return response()->json(['error' => 'Failed to delete appointment: '.$e->getMessage()], 500);
         }
     }
 }

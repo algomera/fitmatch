@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\api;
+namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 use App\Models\Cargo;
@@ -8,7 +8,6 @@ use App\Models\Recovery;
 use App\Models\Repetition;
 use App\Models\User;
 use App\Models\Workout;
-use DateTime;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
@@ -46,7 +45,7 @@ class WorkoutController extends Controller
             // $workout[$week_label] = [];
             foreach ($week->workout_days as $day) {
                 $workout[$week_label][$day->day] = [];
-                $workout[$week_label][$day->day] = ['label' => config('fitmatch.days.' . $day->day)];
+                $workout[$week_label][$day->day] = ['label' => config('fitmatch.days.'.$day->day)];
                 $i = 1;
                 foreach ($day->workout_sets as $set) {
                     $iteration = str_pad($i, 2, "0", STR_PAD_LEFT);

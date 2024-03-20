@@ -1,11 +1,11 @@
 <?php
 
-namespace App\Http\Controllers\api;
+namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
-use Illuminate\Support\Facades\Mail;
 use App\Mail\SendEmail;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Validator;
 
 class EmailController extends Controller
@@ -22,7 +22,7 @@ class EmailController extends Controller
 
         $userEmail = $request->email;
 
-        $emailContent = request()->getSchemeAndHttpHost() . '/login';
+        $emailContent = request()->getSchemeAndHttpHost().'/login';
         Mail::to($userEmail)->send(new SendEmail($emailContent));
 
         return response()->json(['message' => 'Email sent successfully'], 200);
