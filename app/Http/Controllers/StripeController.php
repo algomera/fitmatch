@@ -10,37 +10,37 @@ use Stripe\StripeClient;
 
 class StripeController extends Controller
 {
-    public function transfer(Request $request)
-    {
-        try {
-            $stripe = new StripeClient(env('STRIPE_SECRET'));
+    // public function transfer(Request $request)
+    // {
+    //     try {
+    //         $stripe = new StripeClient(env('STRIPE_SECRET'));
 
-            Log::info(intval($request['amount']));
-            Log::info(User::find($request['user_id'])->stripe_account_id);
-            Log::info($request['appointment_id']);
+    //         Log::info(intval($request['amount']));
+    //         Log::info(User::find($request['user_id'])->stripe_account_id);
+    //         Log::info($request['appointment_id']);
 
 
-            $transfer =  $stripe->transfers->create([
-                'amount' => intval($request['amount']),
-                'currency' => 'eur',
-                'destination' => User::find($request['user_id'])->stripe_account_id,
-                'transfer_group' => 'APPOINTMENT_' . $request['appointment_id'],
-            ]);
-            Log::info($transfer);
-            return response()->json('sucsess', 200);
-        } catch (Exception $e) {
-            Log::error($e);
-            return response()->json($e->getMessage(), 500);
-        }
-    }
+    //         $transfer =  $stripe->transfers->create([
+    //             'amount' => intval($request['amount']),
+    //             'currency' => 'eur',
+    //             'destination' => User::find($request['user_id'])->stripe_account_id,
+    //             'transfer_group' => 'APPOINTMENT_' . $request['appointment_id'],
+    //         ]);
+    //         Log::info($transfer);
+    //         return response()->json('sucsess', 200);
+    //     } catch (Exception $e) {
+    //         Log::error($e);
+    //         return response()->json($e->getMessage(), 500);
+    //     }
+    // }
 
-    public function getKey()
-    {
-        try {
-            $key = env('STRIPE_KEY');
-            return response()->json(['key' => $key], 200);
-        } catch (Exception $e) {
-            return response()->json(['error' => 'Qualcosa è andato storto'], 500);
-        }
-    }
+    // public function getKey()
+    // {
+    //     try {
+    //         $key = env('STRIPE_KEY');
+    //         return response()->json(['key' => $key], 200);
+    //     } catch (Exception $e) {
+    //         return response()->json(['error' => 'Qualcosa è andato storto'], 500);
+    //     }
+    // }
 }

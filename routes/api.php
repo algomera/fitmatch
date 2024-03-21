@@ -10,6 +10,7 @@ use App\Http\Controllers\Api\UserController;
 use App\Http\Controllers\Api\WorkoutController;
 use App\Http\Controllers\MessageController;
 use App\Http\Controllers\StripeController;
+use App\Http\Controllers\TwilioTokenController;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -33,8 +34,10 @@ Route::post('/login', [ApiAuthController::class, 'login']);
 Route::post('/send-email', [EmailController::class, 'sendEmail']);
 // Routes protected by 'auth:sanctum' middleware
 Route::group(['middleware' => 'auth:sanctum'], function () {
+    Route::post('/send-invite-email', [EmailController::class, 'sendInviteEmail']);
     //services
     Route::get('/agora/token', [AgoraController::class, 'generateToken']);
+    Route::post('/token', [TwilioTokenController::class, 'generateToken']);
     Route::post('/stripe-transfer', [StripeController::class, 'transfer']);
     Route::get('/getStripeKey', [StripeController::class, 'getKey']);
 
@@ -132,4 +135,5 @@ Route::group(['middleware' => 'auth:sanctum'], function () {
     Route::post('/messages', [MessageController::class, 'sendMessage']);
     Route::get('/getLatestMessages/{id}', [MessageController::class, 'getLatestMessages']);
     Route::get('/messages/{user1}/{user2}/{page}', [MessageController::class, 'fetchMessages']);
+    Route::get('/getPusherKey', [MessageController::class, 'getPusherKey']);
 });

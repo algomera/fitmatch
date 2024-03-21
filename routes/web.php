@@ -68,7 +68,7 @@ Route::middleware(['auth'])->group(function () {
         // Personal Trainer
         Route::middleware([
             'role:personal-trainer',
-            'subscriber'
+            // 'subscriber'
         ])->prefix('personal-trainer')->name('personal-trainer.')->group(function () {
             Route::get('/dashboard', [
                 \App\Http\Livewire\PersonalTrainer\Dashboard::class, '__invoke'
@@ -124,4 +124,4 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
-require __DIR__.'/auth.php';
+require __DIR__ . '/auth.php';

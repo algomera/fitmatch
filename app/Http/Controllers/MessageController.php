@@ -81,4 +81,9 @@ class MessageController extends Controller
 
         return $latestMessages;
     }
+    public function getPusherKey()
+    {
+        $key = env('PUSHER_APP_KEY');
+        return response()->json(['key' => $key]);
+    }
 }
