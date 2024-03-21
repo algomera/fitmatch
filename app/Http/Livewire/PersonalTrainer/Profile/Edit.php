@@ -31,6 +31,7 @@ class Edit extends Component
     public $photos = [];
     public $videos = [];
     public $current_password, $password, $password_confirmation;
+    public $stripe_public = null;
     public $stripe_secret = null;
     protected $queryString = 'currentTab';
     protected $listeners = [
@@ -45,6 +46,7 @@ class Edit extends Component
         foreach (auth()->user()->categories as $category) {
             $this->selectedCategories[] = $category->id;
         }
+        $this->stripe_public = auth()->user()->stripe_public;
         $this->stripe_secret = auth()->user()->stripe_secret;
     }
 
@@ -149,6 +151,7 @@ class Edit extends Component
     public function saveStripeSecret()
     {
         $this->validate([
+            'stripe_public' => 'required|string|alpha_dash',
             'stripe_secret' => 'required|string|alpha_dash',
         ]);
 
@@ -157,10 +160,11 @@ class Edit extends Component
             $transactions = \Stripe\BalanceTransaction::all(['limit' => 10]);
 
             auth()->user()->update([
+                'stripe_public' => $this->stripe_public,
                 'stripe_secret' => $this->stripe_secret,
             ]);
             $this->dispatchBrowserEvent('open-notification', [
-                'title' => __('Chiave Stripe salvata con successo'),
+                'title' => __('Chiavi Stripe salvate con successo'),
                 'type' => 'success',
             ]);
         } catch (AuthenticationException $e) {

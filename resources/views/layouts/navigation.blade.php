@@ -73,7 +73,7 @@
                                     @else
                                         <x-heroicon-o-user-circle class="h-8 w-8"></x-heroicon-o-user-circle>
                                     @endif
-                                    @if(auth()->user()->role->name === 'personal-trainer' && !auth()->user()->stripe_secret)
+                                    @if(auth()->user()->role->name === 'personal-trainer' && (!auth()->user()->stripe_secret || !auth()->user()->stripe_public))
                                         <div class="absolute rounded-full bg-white -top-0.5 -right-0.5">
                                             <x-heroicon-o-exclamation-circle
                                                 class="text-red-600 w-4 h-4"></x-heroicon-o-exclamation-circle>

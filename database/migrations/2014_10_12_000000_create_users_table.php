@@ -19,6 +19,7 @@ return new class extends Migration {
             $table->integer('onboarding_current_step')->default(1);
             $table->enum('status', array_keys(config('fitmatch.profile_statuses')))->nullable()->default('pending');
             //            $table->text('stripe_account_id')->nullable();
+            $table->longText('stripe_public')->nullable();
             $table->longText('stripe_secret')->nullable();
             $table->boolean('is_online')->default(0);
             $table->timestamps();

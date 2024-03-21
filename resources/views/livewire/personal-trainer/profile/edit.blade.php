@@ -6,7 +6,7 @@
                 <span wire:click="$set('currentTab', '{{ $k }}')"
                       class="{{ $currentTab === $k ? 'bg-fit-magenta text-white' : 'text-fit-dark-gray cursor-pointer hover:text-fit-magenta' }} flex items-center justify-between rounded-full px-5 py-1 text-sm font-fit-medium">
                     <span>{{ $tab }}</span>
-                    @if($k === 'account' && !auth()->user()->stripe_secret)
+                    @if($k === 'account' && (!auth()->user()->stripe_secret || !auth()->user()->stripe_public))
                         <x-heroicon-o-exclamation-circle
                             class="{{ $currentTab === $k ? 'text-white' : 'text-red-600' }} w-5 h-5"></x-heroicon-o-exclamation-circle>
                     @endif
@@ -329,6 +329,10 @@
                     </div>
                     <div class="mt-6">
                         <div class="space-y-6">
+                            <x-input wire:model.defer="stripe_public" id="stripe_public" type="text"
+                                     name="stripe_public" label="Chiave Pubblica"
+                                     hint="Assicurati che la chiave inserita sia scritta correttamente."
+                                     required/>
                             <x-input wire:model.defer="stripe_secret" id="stripe_secret" type="text"
                                      name="stripe_secret" label="Chiave Privata"
                                      hint="Assicurati che la chiave inserita sia scritta correttamente."
