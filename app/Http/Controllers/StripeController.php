@@ -34,13 +34,13 @@ class StripeController extends Controller
     //     }
     // }
 
-    // public function getKey()
-    // {
-    //     try {
-    //         $key = env('STRIPE_KEY');
-    //         return response()->json(['key' => $key], 200);
-    //     } catch (Exception $e) {
-    //         return response()->json(['error' => 'Qualcosa è andato storto'], 500);
-    //     }
-    // }
+    public function getKey()
+    {
+        try {
+            $key = env('STRIPE_KEY');
+            return response()->json(['key' => $key], 200);
+        } catch (Exception $e) {
+            return response()->json(['error' => 'Qualcosa è andato storto'], 500);
+        }
+    }
 }

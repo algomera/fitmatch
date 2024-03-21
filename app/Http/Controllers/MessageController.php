@@ -11,17 +11,24 @@ class MessageController extends Controller
 {
     public function sendMessage(Request $request)
     {
-        $message = new Message();
-        $message->sender_id = $request->sender_id;
-        $message->receiver_id = $request->receiver_id;
-        $message->message = $request->message;
-        $message->type = $request->type;
-        $message->appointment_id = $request->appointment_id;
-        $message->save();
-        broadcast(new MessageSent($message));
+        try {
+            $message = new Message();
+            $message->sender_id = $request->sender_id;
+            $message->receiver_id = $request->receiver_id;
+            $message->message = $request->message;
+            $message->type = $request->type;
+            $message->appointment_id = $request->appointment_id;
+            $message->stripe_secret = $request->stripe_secret == 'null' ? null : $request->stripe_secret;
+            $message->save();
+            broadcast(new MessageSent($message));
 
-        return response()->json($message, 201);
+            return response()->json($message, 201);
+        } catch (\Exception $e) {
+            // Handle the exception
+            return response()->json(['error' => $e], 500);
+        }
     }
+
 
     public function fetchMessages($user1, $user2, $page = 1)
     {

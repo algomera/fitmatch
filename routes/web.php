@@ -68,7 +68,7 @@ Route::middleware(['auth'])->group(function () {
         // Personal Trainer
         Route::middleware([
             'role:personal-trainer',
-            // 'subscriber'
+            'subscriber'
         ])->prefix('personal-trainer')->name('personal-trainer.')->group(function () {
             Route::get('/dashboard', [
                 \App\Http\Livewire\PersonalTrainer\Dashboard::class, '__invoke'
