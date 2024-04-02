@@ -6,6 +6,7 @@ use App\Http\Controllers\Api\AnamnesiController;
 use App\Http\Controllers\Api\ApiAuthController;
 use App\Http\Controllers\Api\AppointmentController;
 use App\Http\Controllers\Api\EmailController;
+use App\Http\Controllers\Api\PersonalTrainerTimeController;
 use App\Http\Controllers\Api\UserController;
 use App\Http\Controllers\Api\WorkoutController;
 use App\Http\Controllers\MessageController;
@@ -51,6 +52,12 @@ Route::group(['middleware' => 'auth:sanctum'], function () {
     Route::put('/confirmAppointment', [AppointmentController::class, 'confirmAppointment']);
     Route::get('/get-appointments/{id}/{isAthlete}', [AppointmentController::class, 'getAppointments']);
     Route::put('/denyAppointment', [AppointmentController::class, 'denyAppointment']);
+
+    //pt times
+    Route::post('/sendTimes', [PersonalTrainerTimeController::class, 'sendTimes']);
+    Route::post('/generateAvailabilities', [PersonalTrainerTimeController::class, 'generateAvailabilities']);
+    Route::post('/updateAvailabilities', [PersonalTrainerTimeController::class, 'updateAvailabilities']);
+    Route::put('/assignAvl', [PersonalTrainerTimeController::class, 'assignAvl']);
 
     // Anamnesi
     Route::apiResources(['/scheda-anamnesi' => AnamnesiController::class]);

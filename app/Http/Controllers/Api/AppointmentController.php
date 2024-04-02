@@ -18,13 +18,15 @@ class AppointmentController extends Controller
     {
         // dd($id);
         if ($isAthlete == 'true') {
-            $appointments = Appointment::with('personalTrainer')->where('athlete_id', $id)->get();
+            $appointments = Appointment::with('personalTrainer.personalTrainerAvl')->where('athlete_id', $id)->get();
             return response()->json(['appointments' => $appointments]);
         } else {
             $appointments = Appointment::with('athlete')->where('personal_trainer_id', $id)->get();
             $user = User::find($id);
             $athletes = $user->athletes;
-            return response()->json(['appointments' => $appointments, 'athletes' => $athletes]);
+            $times = $user->personalTrainerTimes;
+            $avl = $user->personalTrainerAvl;
+            return response()->json(['appointments' => $appointments, 'athletes' => $athletes, 'times' => $times, 'avl' => $avl]);
         }
     }
 
@@ -70,7 +72,7 @@ class AppointmentController extends Controller
 
             return response()->json(['message' => 'Appuntamento Rifiutato'], 200);
         } catch (\Exception $e) {
-            return response()->json(['message' => 'An error occurred: '.$e], 500);
+            return response()->json(['message' => 'An error occurred: ' . $e], 500);
         }
     }
 
@@ -150,13 +152,12 @@ class AppointmentController extends Controller
     public function destroy(Appointment $appointment)
     {
         try {
-            // Your code to delete the appointment goes here
             $message = $appointment->message;
             $message->delete();
             $appointment->delete();
             return response()->json(['message' => 'Appointment deleted successfully'], 200);
         } catch (\Exception $e) {
-            return response()->json(['error' => 'Failed to delete appointment: '.$e->getMessage()], 500);
+            return response()->json(['error' => 'Failed to delete appointment: ' . $e->getMessage()], 500);
         }
     }
 }

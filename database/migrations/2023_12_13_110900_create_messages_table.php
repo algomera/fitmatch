@@ -20,6 +20,7 @@ return new class extends Migration
             $table->enum('type', ['text', 'appointment', 'richiesta_anamnesi'])->default('text');
             $table->text('message');
             $table->boolean('is_seen')->default(false);
+            $table->string('stripe_secret')->nullable();
             $table->timestamps();
         });
     }

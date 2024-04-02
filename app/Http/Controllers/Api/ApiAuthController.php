@@ -21,7 +21,7 @@ class ApiAuthController extends Controller
 
         // Loop through the $pts collection to load the relations for each user
         foreach ($pts as $pt) {
-            $pt->load(['job_experiences', 'medias', 'athletes', 'categories']);
+            $pt->load(['job_experiences', 'medias', 'athletes', 'categories', 'personalTrainerTimes']);
         }
 
         $current_user = User::find($id);

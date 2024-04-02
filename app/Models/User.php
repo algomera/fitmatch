@@ -45,7 +45,7 @@ class User extends Authenticatable implements MustVerifyEmail
         if (!$this->informations->profile_image) {
             return '';
         }
-        return asset('storage/'.$this->informations->profile_image);
+        return asset('storage/' . $this->informations->profile_image);
     }
 
     public function getAgeAttribute()
@@ -150,5 +150,15 @@ class User extends Authenticatable implements MustVerifyEmail
     public function receivedMessages()
     {
         return $this->hasMany(Message::class, 'receiver_id');
+    }
+
+    public function personalTrainerTimes()
+    {
+        return $this->hasMany(PersonalTrainerTime::class, 'personal_trainer_id');
+    }
+
+    public function personalTrainerAvl()
+    {
+        return $this->hasMany(Availabilities::class, 'personal_trainer_id');
     }
 }
