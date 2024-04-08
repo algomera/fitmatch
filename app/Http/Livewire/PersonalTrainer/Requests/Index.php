@@ -15,7 +15,7 @@ class Index extends Component
         return view('livewire.personal-trainer.requests.index', [
             'requests' => User::whereNotIn('id', User::role([
                 'admin', 'athlete'
-            ])->get()->pluck('id')->toArray())->paginate(25)
+            ])->get()->pluck('id')->toArray())->whereNull('status')->paginate(25)
         ]);
     }
 }

@@ -14,7 +14,7 @@
                     <x-nav-link :href="route('admin.requests')" :active="request()->routeIs('admin.requests*')">
                         {{ __('Richieste') }}
                     </x-nav-link>
-                    <x-nav-link href="#" :active="request()->routeIs('admin.subscribers*')">
+                    <x-nav-link href="{{ route('admin.members') }}" :active="request()->routeIs('admin.members*')">
                         {{ __('Lista iscritti') }}
                     </x-nav-link>
                     <x-nav-link href="{{ route('admin.exercises') }}" :active="request()->routeIs('admin.exercises*')">
@@ -119,7 +119,8 @@
             <x-responsive-nav-link href="{{ route('admin.requests') }}" :active="request()->routeIs('admin.requests*')">
                 {{ __('Richieste') }}
             </x-responsive-nav-link>
-            <x-responsive-nav-link href="#" :active="request()->routeIs('admin.subscribers*')">
+            <x-responsive-nav-link href="{{ route('admin.members') }}"
+                                   :active="request()->routeIs('admin.members*')">
                 {{ __('Lista iscritti') }}
             </x-responsive-nav-link>
             <x-responsive-nav-link href="{{ route('admin.exercises') }}"

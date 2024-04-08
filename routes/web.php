@@ -58,6 +58,9 @@ Route::middleware(['auth'])->group(function () {
             Route::get('/requests', [
                 \App\Http\Livewire\PersonalTrainer\Requests\Index::class, '__invoke'
             ])->name('requests');
+            Route::get('/members', [
+                \App\Http\Livewire\PersonalTrainer\Members\Index::class, '__invoke'
+            ])->name('members');
             Route::get('/personal-trainer/{user}', [
                 \App\Http\Livewire\PersonalTrainer\Show::class, '__invoke'
             ])->name('personal-trainer.show');
@@ -124,4 +127,4 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
-require __DIR__ . '/auth.php';
+require __DIR__.'/auth.php';

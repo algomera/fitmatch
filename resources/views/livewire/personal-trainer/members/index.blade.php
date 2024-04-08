@@ -1,10 +1,28 @@
 <x-slot name="header">
-    <h2>{{ __('Lista richieste') }}</h2>
+    <h2>{{ __('Lista iscritti') }}</h2>
 </x-slot>
 
 <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-    @if($requests->count())
-        <div class="mt-8 flow-root">
+    {{-- filtri --}}
+    <div class="flex items-center space-x-4">
+        <div class="w-full max-w-lg">
+            <x-input wire:model.debounce="search" type="text" label="Cerca" placeholder="Cerca.."/>
+        </div>
+        <x-select wire:model="role" label="Ruolo">
+            <option value="">Seleziona</option>
+            @foreach(\Spatie\Permission\Models\Role::whereNot('name', 'admin')->get() as $role)
+                <option value="{{ $role->name }}">{{ $role->label }}</option>
+            @endforeach
+        </x-select>
+        <x-select wire:model="status" label="Stato">
+            <option value="">Seleziona</option>
+            @foreach(config('fitmatch.profile_statuses') as $k => $status)
+                <option value="{{ $k }}">{{ $status }}</option>
+            @endforeach
+        </x-select>
+    </div>
+    <div class="mt-8 flow-root">
+        @if($members->count())
             <div class="-mx-4 -my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
                 <div class="inline-block min-w-full py-2 align-middle sm:px-6 lg:px-8">
                     <table class="min-w-full divide-y divide-gray-300">
@@ -23,26 +41,26 @@
                         </tr>
                         </thead>
                         <tbody class="divide-y divide-gray-200">
-                        @foreach($requests as $request)
-                            <tr wire:key="{{ $request->id }}">
+                        @foreach($members as $member)
+                            <tr wire:key="{{ $member->id }}">
                                 <td class="whitespace-nowrap py-4 pl-4 pr-3 text-sm font-fit-medium text-gray-900 sm:pl-0">
                                     <div class="flex items-center space-x-0 md:space-x-4">
                                         <div class="hidden md:block">
-                                            @if($request->avatar())
+                                            @if($member->avatar())
                                                 <img class="h-8 w-8 rounded-full"
-                                                     src="{{ $request->avatar() }}" alt="">
+                                                     src="{{ $member->avatar() }}" alt="">
                                             @else
                                                 <x-heroicon-o-user-circle class="h-8 w-8"></x-heroicon-o-user-circle>
                                             @endif
                                         </div>
-                                        <span>{{ $request->full_name }}</span>
+                                        <span>{{ $member->full_name }}</span>
                                     </div>
                                 </td>
-                                <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500">{{ $request->created_at->format('d/m/Y') }}</td>
-                                <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500">{{ $request->role->label }}</td>
+                                <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500">{{ $member->created_at->format('d/m/Y') }}</td>
+                                <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500">{{ $member->role->label }}</td>
                                 <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500">
                                     @php
-                                        switch ($request->status) {
+                                        switch ($member->status) {
                                             case 'pending':
                                             $badgeClasses = 'bg-fit-magenta';
                                             break;
@@ -57,13 +75,19 @@
                                             break;
                                         }
                                     @endphp
-                                    <span
-                                        class="{{ $badgeClasses }} inline-flex items-center rounded-full px-2 py-1 text-xs text-white font-fit-medium">{{ config('fitmatch.profile_statuses.' . $request->status) }}</span>
+                                    @if($member->status)
+                                        <span
+                                            class="{{ $badgeClasses }} inline-flex items-center rounded-full px-2 py-1 text-xs text-white font-fit-medium">{{ config('fitmatch.profile_statuses.' . $member->status) }}</span>
+                                    @else
+                                        -
+                                    @endif
                                 </td>
-                                <td class="relative whitespace-nowrap py-4 pl-3 pr-4 text-right text-sm font-fit-medium sm:pr-0">
-                                    <a href="{{ route('admin.personal-trainer.show', ['user' => $request->id]) }}"
-                                       class="text-indigo-600 hover:text-indigo-900">Vedi profilo</a>
-                                </td>
+                                @if($member->role->name === 'personal-trainer')
+                                    <td class="relative whitespace-nowrap py-4 pl-3 pr-4 text-right text-sm font-fit-medium sm:pr-0">
+                                        <a href="{{ route('admin.personal-trainer.show', ['user' => $member->id]) }}"
+                                           class="text-indigo-600 hover:text-indigo-900">Vedi profilo</a>
+                                    </td>
+                                @endif
                             </tr>
                         @endforeach
                         </tbody>
@@ -71,10 +95,10 @@
                 </div>
             </div>
             <div class="my-5">
-                {{ $requests->links() }}
+                {{ $members->links() }}
             </div>
-        </div>
-    @else
-        <p>Nessuna richiesta presente</p>
-    @endif
+        @else
+            <p>Nessun risultato trovato</p>
+        @endif
+    </div>
 </div>
