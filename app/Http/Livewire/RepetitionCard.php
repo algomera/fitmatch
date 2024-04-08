@@ -27,6 +27,10 @@ class RepetitionCard extends Component
 
     public function updatedItemQuantity()
     {
+        if ($this->item->quantity === '') {
+            $this->item->quantity = 0;
+        }
+
         $this->item->update([
             'quantity' => $this->item->quantity
         ]);
